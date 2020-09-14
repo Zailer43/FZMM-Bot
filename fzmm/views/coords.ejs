@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <html>
+
+    <head>
+      <meta charset="UTF-8">
+      <title>FraZaMaMe Bot</title>
+      <%- include partials/head -%>
+      <style>
+        body {
+          background-color: #2e2e2e;
+        }
+    
+        .button {
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+    
+        .mandar {
+          background-color: #1C8C49;
+        }
+    
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #333;
+        }
+    
+        li {
+          float: left;
+        }
+    
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+    
+        .active {
+          background-color: #4557BA;
+        }
+    
+        li a:hover:not(.active) {
+          background-color: #111;
+        }
+      
+        textarea {
+          resize: none;
+        }
+      </style>
+    </head>
+
+  <body class="container">
+    
+    <%- include partials/navigatemenu -%>
+
+    <% if(coordenadas.length) { %>
+      <% coordenadas.forEach(function(coordenadas){ %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <%= coordenadas.lugar %>
+          <div class="pull-right">
+            <%= coordenadas.fecha %>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= coordenadas.x %> <%= coordenadas.y %> <%= coordenadas.z %>
+        </div>
+        <div class="panel-body">
+          <%= coordenadas.server %>
+        </div>
+      </div>
+      <% }) %>
+    <% } else { %>
+    <p>No existen coordenadas</p>
+    <% } %>
+  </body>
+
+</html>
