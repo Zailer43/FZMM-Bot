@@ -7,10 +7,6 @@ const Item = require("prismarine-item")('1.16.1');
 const fs = require("fs");
 const fzmm = require('./../fzmm');
 
-const coordsdirectorio = 'C:\\fzmm\\datos\\coords.json';
-const json_coords = fs.readFileSync(coordsdirectorio, 'utf-8');
-let coordenada = JSON.parse(json_coords);
-
 function uuid() {
   var uuid = "", i, random;
   for (i = 0; i < 32; i++) {
@@ -79,6 +75,11 @@ function inject(bot, prefixlongi, admin, prefix, repetir, mirar, saltar, seguir)
   )
   bot.on('guardarcoord', function (username, x, y, z, lugar) {
     if (username != admin) return;
+    const coordsdirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\coords.json';
+    const json_coords = fs.readFileSync(coordsdirectorio, 'utf-8');
+
+    let coordenada = JSON.parse(json_coords);
+
     const d = new Date()
     const fecha = d.getHours().toString() + 'hs ' + d.getDate().toString() + '/' + (d.getMonth() + 1).toString() + '/' + d.getFullYear().toString();
     const server = bot.host;
@@ -93,8 +94,7 @@ function inject(bot, prefixlongi, admin, prefix, repetir, mirar, saltar, seguir)
     };
     
     coordenada.push(newCoord);
-    const json_coords = JSON.stringify(coordenada, null, 2);
-    fs.writeFileSync(coordsdirectorio, json_coords, 'utf-8');
+    fs.writeFileSync(coordsdirectorio, JSON.stringify(coordenada, null, 2), 'utf-8');
 
     bot.chat('Se guardaron correctamente las coords')
     console.log('Se guardaron correctamente las coords');

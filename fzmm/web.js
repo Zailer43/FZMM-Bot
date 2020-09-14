@@ -11,13 +11,13 @@ function inject(bot) {
 
   const fs = require("fs");
   const mineflayer = require('mineflayer');
-  const encontradodirectorio = 'C:\\fzmm\\datos\\encontrado.json';
+  const encontradodirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\encontrado.json';
 
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'ejs');
 
   app.get('/', function (req, res) {
-    const consolahtml = fs.readFileSync('C:\\fzmm\\consola.html', { encoding: 'utf8', flag: 'r' });;
+    const consolahtml = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\consola.html', { encoding: 'utf8', flag: 'r' });;
     res.send(consolahtml);
   });
 
@@ -28,7 +28,7 @@ function inject(bot) {
   });
 
   app.get('/buscar', function (req, res) {
-    const buscarhtml = fs.readFileSync('C:\\fzmm\\buscar.html', { encoding: 'utf8', flag: 'r' });;
+    const buscarhtml = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\buscar.html', { encoding: 'utf8', flag: 'r' });;
     res.send(buscarhtml);
   });
 
@@ -54,7 +54,7 @@ function inject(bot) {
   });
 
   app.get('/coords', (req, res) => {
-    const json_coords = fs.readFileSync('C:\\fzmm\\datos\\coords.json', 'utf-8');
+    const json_coords = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\coords.json', 'utf-8');
     const coordenadas = JSON.parse(json_coords);
     app.locals.coordenadas = coordenadas;
     res.render('coords');

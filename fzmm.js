@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
 const vec3 = require('vec3');
 const config = require('./fzmm/datos/config.json');
-const credenciales = require('./fzmm/datos/credenciales.json');
+const credenciales = require('C:\\bot\\credenciales.json');
 const mensajes = require('./fzmm/datos/'+config.lang+'.json').fzmm;
 
 const mcData = require('minecraft-data')(config.version);

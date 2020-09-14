@@ -3,7 +3,7 @@ module.exports = inject;
 const fzmm = require('./../fzmm.js');
 const fs = require("fs");
 
-const deudasdirectorio = 'C:\\fzmm\\\datos\\deudas.json';
+const deudasdirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\\datos\\deudas.json';
 const json_deudas = fs.readFileSync(deudasdirectorio, 'utf-8');
 let deudas = JSON.parse(json_deudas);
 
