@@ -13,8 +13,8 @@ function inject(bot) {
   const mineflayer = require('mineflayer');
   const encontradodirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\encontrado.json';
 
-  app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'ejs');
+  app.set('views',path.join(__dirname,'view'))
+  app.set('view engine','hbs')
 
   app.get('/', function (req, res) {
     const consolahtml = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\consola.html', { encoding: 'utf8', flag: 'r' });;
@@ -54,10 +54,11 @@ function inject(bot) {
   });
 
   app.get('/coords', (req, res) => {
-    const json_coords = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\coords.json', 'utf-8');
+    const json_coords = fs.readFileSync(path.join(__dirname,'datos/coords.json'), 'utf-8');
     const coordenadas = JSON.parse(json_coords);
-    app.locals.coordenadas = coordenadas;
-    res.render('coords');
+    var data = {};
+    data.coords = coordenadas;
+    res.render('coords', data)
   });
 
 

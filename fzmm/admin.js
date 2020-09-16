@@ -153,7 +153,7 @@ function inject(bot, prefixlongi, admin, prefix, repetir, mirar, saltar, seguir)
             const defaultmove = new Movements(bot, mcData);
             bot.pathfinder.setMovements(defaultmove);
             bot.pathfinder.setGoal(new GoalFollow(target, 2), true);
-          } else {
+          } else  if (!seguirestado) {
             bot.pathfinder.setGoal(null)
           }
           break;

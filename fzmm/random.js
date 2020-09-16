@@ -1,22 +1,22 @@
 module.exports = inject;
 
-function inject(bot, config) {
+function inject(bot, lang, prefix) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
-    if (message.startsWith(config.prefix)) {
+    if (message.startsWith(prefix)) {
       switch (message) {
-        case (config.prefix + 'calavera'):
-          bot.chat('En tu proximo wither tienes ' + Math.floor((Math.random() * 20) + 1) + '% de probabilidades de obtener calavera');
+        case (prefix + 'calavera'):
+          bot.chat(lang.whiter + Math.floor((Math.random() * 20) + 1) + lang.whiter2);
           break;
-        case (config.prefix + 'perdoname diosito'):
+        case (prefix + 'perdoname diosito'):
           perdonado = (Math.floor(Math.random() * 2));
-          if (perdonado) bot.chat('teperd0no');
-          if (!perdonado) bot.chat('pecador, no eres perdonado');
+          if (perdonado) bot.chat(lang.perdonado)
+          else if (!perdonado) bot.chat(lang.noperdono);
           break;
-        case (config.prefix + 'caraocruz'):
+        case (prefix + 'caraocruz'):
           caraocruz = (Math.floor(Math.random() * 2));
-          if (caraocruz) bot.chat('cara');
-          if (!caraocruz) bot.chat('cruz');
+          if (caraocruz) bot.chat(lang.cara)
+          else if (!caraocruz) bot.chat(lang.cruz);
           break;
       }
     }

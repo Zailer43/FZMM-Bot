@@ -8,7 +8,7 @@ const json_deudas = fs.readFileSync(deudasdirectorio, 'utf-8');
 let deudas = JSON.parse(json_deudas);
 
 function inject(bot, prefixlongi, prefix, admin) {
-    const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'eldoritos', 'antondv', 'pakitoh']
+    const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh']
     bot.on('chat2', function (username, message) {
         if (message.startsWith(prefix + 'tp ')) {
             const nick = message.slice(prefixlongi + 3).toLowerCase();
@@ -81,7 +81,7 @@ function inject(bot, prefixlongi, prefix, admin) {
                 return 3;
             case 'dirtopi':
                 return 4;
-            case 'eldoritos':
+            case 'fzaidm':
                 return 5;
             case 'antondv':
                 return 6;

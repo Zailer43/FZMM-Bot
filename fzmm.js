@@ -1,15 +1,15 @@
 const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
 const vec3 = require('vec3');
+const colors = require('colors');
+const axios = require('axios').default;
+
 const config = require('./fzmm/datos/config.json');
 const credenciales = require('C:\\bot\\credenciales.json');
-const mensajes = require('./fzmm/datos/'+config.lang+'.json').fzmm;
+const lang = require('./fzmm/lang/'+config.lang+'.json').fzmm;
 
 const mcData = require('minecraft-data')(config.version);
-const colors = require('colors');
-
 const { on } = require('process');
-const axios = require('axios').default;
 
 const ip = process.argv[2];
 // mf.a68agaming.net explosivo116.aternos.me kaboom.pw 64.42.182.186 projectkingdoom.mc.gg
@@ -88,13 +88,13 @@ bot.on('chat2', function (username, message) {
         const z = parseInt(cmd[3], 10);
         switch (dimension) {
           case 'overworld':
-            bot.chat(mensajes.coords.overworld + (x / 8) + ' ' + (z / 8));
+            bot.chat(lang.coords.overworld + (x / 8) + ' ' + (z / 8));
             break;
           case 'nether':
-            bot.chat(mensajes.coords.nether + (x * 8) + ' ' + (z * 8));
+            bot.chat(lang.coords.nether + (x * 8) + ' ' + (z * 8));
             break;
           case 'end':
-            bot.chat(mensajes.coords.end);
+            bot.chat(lang.coords.end);
             break;
         }
       }
@@ -118,17 +118,17 @@ bot.on('chat2', function (username, message) {
           case 'red':
           case 'white':
           case 'yellow':
-            bot.chat(mensajes.color.executeif + username + mensajes.color.executeteam + username + mensajes.color.subfixteam + mensajes.color.executerun + 'leave ' + username);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'leave ' + username);
             sleep(450);
-            bot.chat(mensajes.color.executeif + username + mensajes.color.executeteam + username + mensajes.color.subfixteam + mensajes.color.executerun +  'add ' + username + mensajes.color.subfixteam);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun +  'add ' + username + lang.color.subfixteam);
             sleep(450);
-            bot.chat(mensajes.color.executeif + username + mensajes.color.executeteam + username + mensajes.color.subfixteam + mensajes.color.executerun +   'join ' + username + mensajes.color.subfixteam + username);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun +   'join ' + username + lang.color.subfixteam + username);
             sleep(450);
-            bot.chat('/team modify ' + username + mensajes.color.subfixteam + ' color ' + elegircolor[1]);
-            bot.chat(mensajes.color.nuevocolor)
+            bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + elegircolor[1]);
+            bot.chat(lang.color.nuevocolor)
             break;
           default:
-            bot.chat(mensajes.color.desconocido + config.prefix + mensajes.color.desconocido2);
+            bot.chat(lang.color.desconocido + config.prefix + lang.color.desconocido2);
             break;
 
         }
@@ -139,17 +139,17 @@ bot.on('chat2', function (username, message) {
 );
 function pingms(username) {
   let pingms = bot.players[username].ping;
-  bot.chat(mensajes.tuping + pingms + ' ms');
+  bot.chat(lang.tuping + pingms + ' ms');
   console.log('El ping de ' + username + ' es ' + pingms);
 }
 
 function pingsv(ip) {
   axios.get('https://api.mcsrvstat.us/2/' + ip)
     .then(serverdatos => {
-      console.log(mensajes.pingserver.motd + serverdatos.data.motd.clean);
-      bot.chat(mensajes.pingserver.motd + serverdatos.data.motd.clean);
-      console.log(mensajes.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
-      bot.chat(mensajes.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
+      console.log(lang.pingserver.motd + serverdatos.data.motd.clean);
+      bot.chat(lang.pingserver.motd + serverdatos.data.motd.clean);
+      console.log(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
+      bot.chat(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
     })
     .catch(error => {
       console.log(error);
@@ -160,50 +160,50 @@ function obtenertps() {
   switch (tps) {
     case 0:
     case 1:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.terrible + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.terrible + lang.tps.subfixestado);
       break;
     case 2:
     case 3:
     case 4:
     case 5:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.injugable + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.injugable + lang.tps.subfixestado);
       break;
     case 6:
     case 7:
     case 8:
     case 9:
     case 10:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.muylageado + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.muylageado + lang.tps.subfixestado);
       break;
     case 11:
     case 12:
     case 13:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.lageado + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.lageado + lang.tps.subfixestado);
       break;
     case 14:
     case 15:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.lag + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.lag + lang.tps.subfixestado);
       break;
     case 16:
     case 17:
     case 18:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.unpocolag + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.unpocolag + lang.tps.subfixestado);
       break;
     case 19:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.casisinlag + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.casisinlag + lang.tps.subfixestado);
       break;
     case 20:
-      bot.chat(mensajes.tps.actual + tps + mensajes.tps.prefixestado + mensajes.tps.perfecto + mensajes.tps.subfixestado);
+      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.perfecto + lang.tps.subfixestado);
       break;
   }
-  console.log(mensajes.tps.actual + tps)
+  console.log(lang.tps.actual + tps)
 }
 
 function obteneruuidynicks(nick) {
   axios.get('https://api.mojang.com/users/profiles/minecraft/' + nick)
     .then(function (uuid) {
-      console.log(mensajes.uuid.es + uuid.data.name + mensajes.uuid.es2 + uuid.data.id);
-      bot.chat(mensajes.uuid.es + uuid.data.name + mensajes.uuid.es2 + uuid.data.id);
+      console.log(lang.uuid.es + uuid.data.name + lang.uuid.es2 + uuid.data.id);
+      bot.chat(lang.uuid.es + uuid.data.name + lang.uuid.es2 + uuid.data.id);
       axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
         .then(function (historial) {
           var longinicks = Object.keys(historial.data).length;
@@ -213,8 +213,8 @@ function obteneruuidynicks(nick) {
             if (i != (longinicks - 1))
               historialdenicks = historialdenicks + ', ';
           }
-          console.log(mensajes.uuid.nicks + historialdenicks);
-          bot.chat(mensajes.uuid.nicks + historialdenicks);
+          console.log(lang.uuid.nicks + historialdenicks);
+          bot.chat(lang.uuid.nicks + historialdenicks);
         })
         .catch(error => {
           console.log(error);
@@ -232,14 +232,14 @@ function goToSleep () {
   if (bed) {
     bot.sleep(bed, (err) => {
       if (err) {
-        bot.chat(mensajes.mimir.error + err.message)
+        bot.chat(lang.mimir.error + err.message)
       } else {
-        bot.chat(mensajes.mimir.zzz)
-        console.log(mensajes.mimir.zzz)
+        bot.chat(lang.mimir.zzz)
+        console.log(lang.mimir.zzz)
       }
     })
   } else {
-    bot.chat(mensajes.mimir.nocamas)
+    bot.chat(lang.mimir.nocamas)
   }
 }
 /*function split(str, sep, n) {
@@ -252,18 +252,18 @@ function goToSleep () {
 }*/
 
 bot.on('connect', function () {
-  console.info((mensajes.conectado).green);
+  console.info((lang.conectado).green);
   //console.log(mcData.blocksByName.tnt)
 });
 //log de kick
 bot.on('kicked', (reason) => {
-  console.log(mensajes.kick + reason.red)
+  console.log(lang.kick + reason.red)
 })
 
 bot.on('join', function (player) {
   if (player.username === bot.username) return;
   if (config.saludar) {
-    bot.chat(mensajes.hi)
+    bot.chat(lang.hi)
   }
   console.log('+ '.green + player + ' entró al servidor')
 })
@@ -286,15 +286,15 @@ bot.on('death', () => {
 exports.sleep = sleep;
 exports.ip = ip;
 
-const texto = require('./fzmm/texto.js')(bot, config.prefix, prefixlongi);
+const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/'+config.lang+'.json').texto, config.prefix, prefixlongi);
 const admin = require('./fzmm/admin.js')(bot, prefixlongi, config.admin, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
-const random = require('./fzmm/random.js')(bot, config.prefix);
+const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/'+config.lang+'.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
 if (config.administrartp) { const tp = require('./fzmm/tp.js')(bot, prefixlongi, config.prefix, config.admin); }
 if (config.web) { const web = require('./fzmm/web.js')(bot); }
 
 setInterval(() => {
   if (config.antiafk) {
-    bot.chat(mensajes.antiafk)
+    bot.chat(lang.antiafk)
   }
 }, 180000)
