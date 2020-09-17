@@ -6,10 +6,12 @@ const axios = require('axios').default;
 
 const config = require('./fzmm/datos/config.json');
 const credenciales = require('C:\\bot\\credenciales.json');
-const lang = require('./fzmm/lang/'+config.lang+'.json').fzmm;
+const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
 const mcData = require('minecraft-data')(config.version);
-const { on } = require('process');
+const {
+  on
+} = require('process');
 
 const ip = process.argv[2];
 // mf.a68agaming.net explosivo116.aternos.me kaboom.pw 64.42.182.186 projectkingdoom.mc.gg
@@ -49,16 +51,16 @@ bot.on('chat2', function (username, message) {
   if (username === bot.username) return;
   console.log(username + ': ' + message);
 
-/*if (message.startsWith('@')) {
-    if (message.includes(' ')) {
-      const tag = split(message, / /g, 1);
-      console.log('Tag a ' + tag[0].slice(1));
-      bot.chat('/playsound entity.player.levelup master ' + tag[0].slice(1) + ' ~ ~ ~');
-    } else {
-      console.log('Tag a ' + message.slice(1));
-      bot.chat('/playsound entity.player.levelup master ' + message.slice(1) + ' ~ ~ ~');
-    }
-  }*/
+  /*if (message.startsWith('@')) {
+      if (message.includes(' ')) {
+        const tag = split(message, / /g, 1);
+        console.log('Tag a ' + tag[0].slice(1));
+        bot.chat('/playsound entity.player.levelup master ' + tag[0].slice(1) + ' ~ ~ ~');
+      } else {
+        console.log('Tag a ' + message.slice(1));
+        bot.chat('/playsound entity.player.levelup master ' + message.slice(1) + ' ~ ~ ~');
+      }
+    }*/
   if (message.toLowerCase().startsWith(config.prefix)) {
     switch (message.toLowerCase()) {
       case (config.prefix + 'ping'):
@@ -120,9 +122,9 @@ bot.on('chat2', function (username, message) {
           case 'yellow':
             bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'leave ' + username);
             sleep(450);
-            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun +  'add ' + username + lang.color.subfixteam);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'add ' + username + lang.color.subfixteam);
             sleep(450);
-            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun +   'join ' + username + lang.color.subfixteam + username);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + username);
             sleep(450);
             bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + elegircolor[1]);
             bot.chat(lang.color.nuevocolor)
@@ -135,8 +137,8 @@ bot.on('chat2', function (username, message) {
       }
     }
   }
-}
-);
+});
+
 function pingms(username) {
   let pingms = bot.players[username].ping;
   bot.chat(lang.tuping + pingms + ' ms');
@@ -155,6 +157,7 @@ function pingsv(ip) {
       console.log(error);
     });
 }
+
 function obtenertps() {
   let tps = bot.getTps();
   switch (tps) {
@@ -225,7 +228,7 @@ function obteneruuidynicks(nick) {
     });
 }
 
-function goToSleep () {
+function goToSleep() {
   const bed = bot.findBlock({
     matching: block => bot.isABed(block)
   })
@@ -276,22 +279,30 @@ bot.on('leave', function (player) {
 //sleep
 function sleep(ms) {
   var r = Date.now() + ms;
-  while (Date.now() < r) { }
+  while (Date.now() < r) {}
 }
 
 bot.on('death', () => {
-  bot.chat('/tp @r[name=!'+bot.username+']');
- });
+  bot.chat('/tp @r[name=!' + bot.username + ']');
+});
 
 exports.sleep = sleep;
 exports.ip = ip;
-
-const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/'+config.lang+'.json').texto, config.prefix, prefixlongi);
-const admin = require('./fzmm/admin.js')(bot, prefixlongi, config.admin, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
-const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/'+config.lang+'.json').random, config.prefix);
+/*
+bot.on('message', function (message) {
+  console.log(message)
+})
+*/
+const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, prefixlongi);
+const admin = require('./fzmm/admin.js')(bot, prefixlongi, config.admin, config.serverpassword, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
+const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
-if (config.administrartp) { const tp = require('./fzmm/tp.js')(bot, prefixlongi, config.prefix, config.admin); }
-if (config.web) { const web = require('./fzmm/web.js')(bot); }
+if (config.administrartp) {
+  const tp = require('./fzmm/tp.js')(bot, prefixlongi, config.prefix, config.admin);
+}
+if (config.web) {
+  const web = require('./fzmm/web.js')(bot);
+}
 
 setInterval(() => {
   if (config.antiafk) {

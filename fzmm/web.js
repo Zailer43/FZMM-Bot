@@ -11,13 +11,15 @@ function inject(bot) {
 
   const fs = require("fs");
   const mineflayer = require('mineflayer');
-  const encontradodirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\encontrado.json';
+  const encontradodirectorio = path.join(__dirname,'datos/encontrado.json');
 
   app.set('views',path.join(__dirname,'view'))
   app.set('view engine','hbs')
 
+  app.use(express.static(__dirname + '/public'));
+
   app.get('/', function (req, res) {
-    const consolahtml = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\consola.html', { encoding: 'utf8', flag: 'r' });;
+    const consolahtml = fs.readFileSync(path.join(__dirname,'view/consola.html'), { encoding: 'utf8', flag: 'r' });;
     res.send(consolahtml);
   });
 
@@ -28,7 +30,7 @@ function inject(bot) {
   });
 
   app.get('/buscar', function (req, res) {
-    const buscarhtml = fs.readFileSync('C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\buscar.html', { encoding: 'utf8', flag: 'r' });;
+    const buscarhtml = fs.readFileSync(path.join(__dirname,'view/buscar.html'), { encoding: 'utf8', flag: 'r' });;
     res.send(buscarhtml);
   });
 

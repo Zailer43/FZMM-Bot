@@ -20,7 +20,7 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, prefixlongi, admin, prefix, repetir, mirar, saltar, seguir) {
+function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, saltar, seguir) {
 
   const mcData = require('minecraft-data')(bot.version);
 
@@ -126,11 +126,11 @@ function inject(bot, prefixlongi, admin, prefix, repetir, mirar, saltar, seguir)
     if (message.startsWith(prefix)) {
       switch (message) {
         case (prefix + 'login'):
-          bot.chat('/login ' + config.serverpassword);
+          bot.chat('/login ' + password);
           console.log('Logeado exitosamente');
           break;
         case (prefix + 'register'):
-          bot.chat('/register ' + config.serverpassword + config.serverpassword);
+          bot.chat('/register ' + password + ' ' +  password);
           console.log('Registrado exitosamente');
           break;
         case (prefix + 'tpa'):
