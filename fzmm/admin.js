@@ -20,14 +20,14 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, saltar, seguir) {
+function inject(bot, lang, prefixlongi, admin, password, prefix, repetir, mirar, saltar, seguir) {
 
   const mcData = require('minecraft-data')(bot.version);
 
-  var repetirestado = repetir;
-  var mirarestado = mirar;
-  var saltoestado = saltar;
-  var seguirestado = seguir;
+  let repetirestado = repetir;
+  let mirarestado = mirar;
+  let saltoestado = saltar;
+  let seguirestado = seguir;
   let target;
   bot.loadPlugin(pathfinder);
   bot.on('chat2', function (username, message) {
@@ -36,46 +36,47 @@ function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, salta
       switch (message) {
         case (prefix + 'tp'):
           bot.chat('/tp ' + admin);
-          console.log('Tepeado a ' + admin);
+          console.log(lang.tepeado + admin);
           break;
         case (prefix + 'gmc'):
-          bot.chat('/gamemode creative');
-          console.log('Gamemode creativo');
+          bot.chat( lang.gamemode + lang.gmc);
+          console.log(lang.gamemode + lang.gmc);
           break;
         case (prefix + 'gms'):
-          bot.chat('/gamemode survival');
-          console.log('Gamemode survival');
+          bot.chat(lang.gamemode + lang.gms);
+          console.log(lang.gamemode + lang.gms);
           break;
         case (prefix + 'gmsp'):
-          bot.chat('/gamemode spectator');
-          console.log('Gamemode spectator');
+          bot.chat(lang.gamemode + lang.gmsp);
+          console.log(lang.gamemode + lang.gmsp);
           break;
         case (prefix + 'heal'):
           bot.chat('/heal');
           break;
         case (prefix + 'repetir'):
           repetirestado = !repetirestado;
-          console.log('Repetir: ' + repetirestado);
+          console.log(lang.repetir + repetirestado);
           break;
         case (prefix + 'mirar'):
           mirarestado = !mirarestado;
-          console.log('Mirar: ' + mirarestado);
+          console.log(lang.mirar + mirarestado);
           break;
         case (prefix + 'saltar'):
           saltoestado = !saltoestado;
           bot.setControlState('jump', saltoestado);
-          console.log('Saltar: ' + saltoestado)
+          console.log(lang.saltar + saltoestado)
           break;
-        case (prefix + 'realnuke'):
+        case (prefix + 'nukereal'):
           bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
-          console.log('Kaboom real');
+          console.log(lang.nukereal);
       }
     }
   }
   )
   bot.on('guardarcoord', function (username, x, y, z, lugar) {
     if (username != admin) return;
-    const coordsdirectorio = 'C:\\Users\\minec\\Documents\\GitHub\\FZMM-Bot\\fzmm\\datos\\coords.json';
+    const path = require('path');
+    const coordsdirectorio = path.join(__dirname,'datos/coords.json');
     const json_coords = fs.readFileSync(coordsdirectorio, 'utf-8');
 
     let coordenada = JSON.parse(json_coords);
@@ -96,8 +97,8 @@ function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, salta
     coordenada.push(newCoord);
     fs.writeFileSync(coordsdirectorio, JSON.stringify(coordenada, null, 2), 'utf-8');
 
-    bot.chat('Se guardaron correctamente las coords')
-    console.log('Se guardaron correctamente las coords');
+    bot.chat(lang.guardarcoords)
+    console.log(lang.guardarcoords);
   })
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
@@ -121,17 +122,15 @@ function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, salta
 
   bot.on('whisper', function (username, message, rawMessage) {
     if (username === bot.username) return;
-    console.log(username + ' susurró: ' + message);
+    console.log(username + lang.tell + message);
     if (username != admin) return;
     if (message.startsWith(prefix)) {
       switch (message) {
         case (prefix + 'login'):
           bot.chat('/login ' + password);
-          console.log('Logeado exitosamente');
           break;
         case (prefix + 'register'):
           bot.chat('/register ' + password + ' ' +  password);
-          console.log('Registrado exitosamente');
           break;
         case (prefix + 'tpa'):
           bot.chat('/tpa ' + username);
@@ -139,7 +138,6 @@ function inject(bot, prefixlongi, admin, password, prefix, repetir, mirar, salta
           break;
         case (prefix + 'tpaccept'):
           bot.chat('/tpaccept');
-          console.log('Tpa aceptado');
           break;
         case (prefix + 'ven'):
           target = bot.players[admin] ? bot.players[admin].entity : null;

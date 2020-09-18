@@ -124,7 +124,7 @@ bot.on('chat2', function (username, message) {
             sleep(450);
             bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'add ' + username + lang.color.subfixteam);
             sleep(450);
-            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + username);
+            bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + ' ' + username);
             sleep(450);
             bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + elegircolor[1]);
             bot.chat(lang.color.nuevocolor)
@@ -134,6 +134,50 @@ bot.on('chat2', function (username, message) {
             break;
 
         }
+      }
+    } else if (message.toLowerCase().startsWith(config.prefix + 'stack ')) {
+      // fz!stack 64 ?? -> Son ?? stacks y sobra ??
+      const stacks = message.split(' ');
+      if (stacks.length === 3) {
+        if (parseInt(stacks[2]) > 250000) {
+          bot.chat(lang.conversor.error + lang.conversor.muygrande);
+          return;
+        } else if (parseInt(stacks[2]) < 0) {
+          bot.chat(lang.conversor.error + lang.conversor.negativo);
+          return;
+        }
+        switch (parseInt(stacks[1])) {
+          case 64:
+          case 16:
+            bot.chat(lang.conversor.son + Math.trunc(parseInt(stacks[2]) / parseInt(stacks[1])) + lang.conversor.stack1 + parseInt(stacks[1]) + lang.conversor.stack2 + parseInt(stacks[2]) % parseInt(stacks[1]))
+            break;
+          default:
+            bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxisstack);
+        }
+      } else {
+        bot.chat(lang.conversor.error + lang.conversor.falta);
+      }
+    } else if (message.toLowerCase().startsWith(config.prefix + 'cantidad ')) {
+      // fz!cantidad 64 ?? ?? -> Son ?? Items
+      const cantidad = message.split(' ');
+      if (cantidad.length === 4) {
+        if (parseInt(cantidad[2]) > 25000 || parseInt(cantidad[3]) > 64) {
+          bot.chat(lang.conversor.error + lang.conversor.muygrande);
+          return;
+        } else if (parseInt(cantidad[2]) < 0 || parseInt(cantidad[3]) < 0) {
+          bot.chat(lang.conversor.error + lang.conversor.negativo);
+          return;
+        }
+        switch (parseInt(cantidad[1])) {
+          case 64:
+          case 16:
+            bot.chat(lang.conversor.son + ((parseInt(cantidad[2]) * parseInt(cantidad[1])) + parseInt(cantidad[3])) + lang.conversor.cantidad1);
+            break;
+          default:
+            bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxiscantidad);
+        }
+      } else {
+        bot.chat(lang.conversor.error + lang.conversor.falta + lang.conversor.falta2);
       }
     }
   }
@@ -294,11 +338,11 @@ bot.on('message', function (message) {
 })
 */
 const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, prefixlongi);
-const admin = require('./fzmm/admin.js')(bot, prefixlongi, config.admin, config.serverpassword, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
+const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, prefixlongi, config.admin, config.serverpassword, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
 const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
 if (config.administrartp) {
-  const tp = require('./fzmm/tp.js')(bot, prefixlongi, config.prefix, config.admin);
+  const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, prefixlongi, config.prefix, config.admin);
 }
 if (config.web) {
   const web = require('./fzmm/web.js')(bot);

@@ -42,6 +42,15 @@ function inject(bot, lang, prefix, prefixlongi) {
           fzmm.sleep(150);
           bot.chat('*' + prefix + 'color <color> - *' + prefix + 'simbolos');
           break;
+        case (prefix + 'help conversor'):
+          bot.chat(lang.help.stacksinfo);
+          fzmm.sleep(150);
+          bot.chat(prefix + 'stack [64 / 16] <cantidad>');
+          fzmm.sleep(300);
+          bot.chat(lang.help.cantidadinfo);
+          fzmm.sleep(150);
+          bot.chat(prefix + 'cantidad [64 / 16] <stacks> <sobra>');
+          break;
         case (prefix + 'bot'):
           bot.chat(lang.bot)
           break;
