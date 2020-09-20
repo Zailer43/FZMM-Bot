@@ -1,7 +1,7 @@
 {
-	"lang": "mensajes",
+	"lang": "es",
 	"usarport":false,
-	"port":"61215",
+	"port":61073,
 	"version":"1.16.1",
 	"longitudchat":"256",
 	"chunkrender":"normal",
@@ -11,10 +11,11 @@
 	"premium":false,
 	"administrartp":true,
 	"antiafk":true,
-	"web":true,
 	"repetir":false,
 	"mirar":true,
 	"saltar":true,
 	"seguir":false,
-	"saludar":true
+	"shift": false,
+	"saludar":true,
+	"web":true
 }

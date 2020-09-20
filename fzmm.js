@@ -345,7 +345,7 @@ if (config.administrartp) {
   const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, prefixlongi, config.prefix, config.admin);
 }
 if (config.web) {
-  const web = require('./fzmm/web.js')(bot);
+  const web = require('./fzmm/web.js')(bot, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
 }
 
 setInterval(() => {

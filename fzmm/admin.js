@@ -53,14 +53,6 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, repetir, mirar,
         case (prefix + 'heal'):
           bot.chat('/heal');
           break;
-        case (prefix + 'repetir'):
-          repetirestado = !repetirestado;
-          console.log(lang.repetir + repetirestado);
-          break;
-        case (prefix + 'mirar'):
-          mirarestado = !mirarestado;
-          console.log(lang.mirar + mirarestado);
-          break;
         case (prefix + 'saltar'):
           saltoestado = !saltoestado;
           bot.setControlState('jump', saltoestado);
@@ -100,24 +92,7 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, repetir, mirar,
     bot.chat(lang.guardarcoords)
     console.log(lang.guardarcoords);
   })
-  bot.on('chat2', function (username, message) {
-    if (username === bot.username) return;
-    else if (repetirestado == true) bot.chat(message)
-  }
-  )
-
-
-  function mirarJugadorCercano() {
-    if (mirarestado) {
-      const playerFilter = (entity) => entity.type === 'player';
-      const playerEntity = bot.nearestEntity(playerFilter);
-      if (!playerEntity) return;
-      const pos = playerEntity.position.offset(0, playerEntity.height, 0);
-      bot.lookAt(pos);
-    }
-  }
-
-  bot.on('physicTick', mirarJugadorCercano);
+  
   navigatePlugin(bot);
 
   bot.on('whisper', function (username, message, rawMessage) {
@@ -126,12 +101,6 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, repetir, mirar,
     if (username != admin) return;
     if (message.startsWith(prefix)) {
       switch (message) {
-        case (prefix + 'login'):
-          bot.chat('/login ' + password);
-          break;
-        case (prefix + 'register'):
-          bot.chat('/register ' + password + ' ' +  password);
-          break;
         case (prefix + 'tpa'):
           bot.chat('/tpa ' + username);
           console.log('/tpa ' + username);

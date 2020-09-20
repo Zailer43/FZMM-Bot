@@ -1,26 +1,35 @@
-
 module.exports = inject;
 
-function inject(bot) {
+function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
+  let repetirestado = repetir;
+  let mirarestado = mirar;
+  let saltoestado = saltar;
+  let seguirestado = seguir;
+  let shiftestado = shift;
+
   const express = require('express');
   const path = require('path');
   const bodyParser = require('body-parser');
   const colors = require('colors');
   var app = express();
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 
   const fs = require("fs");
   const mineflayer = require('mineflayer');
-  const encontradodirectorio = path.join(__dirname,'datos/encontrado.json');
+  const encontradodirectorio = path.join(__dirname, 'datos/encontrado.json');
+  let logs = [];
 
-  app.set('views',path.join(__dirname,'view'))
-  app.set('view engine','hbs')
+  app.set('views', path.join(__dirname, 'view'))
+  app.set('view engine', 'hbs')
 
   app.use(express.static(__dirname + '/public'));
 
   app.get('/', function (req, res) {
-    const consolahtml = fs.readFileSync(path.join(__dirname,'view/consola.html'), { encoding: 'utf8', flag: 'r' });;
-    res.send(consolahtml);
+    var data = {};
+    data.logs = logs;
+    res.render('consola', data)
   });
 
   app.post('/', (req, res) => {
@@ -30,7 +39,10 @@ function inject(bot) {
   });
 
   app.get('/buscar', function (req, res) {
-    const buscarhtml = fs.readFileSync(path.join(__dirname,'view/buscar.html'), { encoding: 'utf8', flag: 'r' });;
+    const buscarhtml = fs.readFileSync(path.join(__dirname, 'view/buscar.html'), {
+      encoding: 'utf8',
+      flag: 'r'
+    });;
     res.send(buscarhtml);
   });
 
@@ -40,7 +52,11 @@ function inject(bot) {
 
     if (mcData.blocksByName[searchBlock] === undefined) return;
     const ids = [mcData.blocksByName[searchBlock].id];
-    const encontrado = bot.findBlocks({ matching: ids, maxDistance: 256, count: 128 });
+    const encontrado = bot.findBlocks({
+      matching: ids,
+      maxDistance: 256,
+      count: 128
+    });
 
     const json_encontrado = JSON.stringify(encontrado, null, 2);
     fs.writeFileSync(encontradodirectorio, json_encontrado, 'utf-8');
@@ -56,15 +72,106 @@ function inject(bot) {
   });
 
   app.get('/coords', (req, res) => {
-    const json_coords = fs.readFileSync(path.join(__dirname,'datos/coords.json'), 'utf-8');
+    const json_coords = fs.readFileSync(path.join(__dirname, 'datos/coords.json'), 'utf-8');
     const coordenadas = JSON.parse(json_coords);
     var data = {};
     data.coords = coordenadas;
     res.render('coords', data)
   });
 
+  app.get('/botones/shift', function (req, res) {
+    bot.setControlState('sneak', shiftestado);
+    shiftestado = !shiftestado;
+    res.redirect('/');
+  });
+
+  app.get('/botones/saltar', function (req, res) {
+    bot.setControlState('jump', saltoestado);
+    saltoestado = !saltoestado;
+    res.redirect('/');
+  });
+
+  app.get('/botones/repetir', function (req, res) {
+    repetirestado = !repetirestado;
+    res.redirect('/');
+  });
+
+  app.get('/botones/seguir', function (req, res) {
+    const {
+      pathfinder,
+      Movements
+    } = require('mineflayer-pathfinder');
+    const {
+      GoalNear,
+      GoalBlock,
+      GoalXZ,
+      GoalY,
+      GoalInvert,
+      GoalFollow
+    } = require('mineflayer-pathfinder').goals;
+    const mcData = require('minecraft-data')(bot.version);
+    target = bot.players[admin].entity;
+    seguirestado = !seguirestado
+    if (seguirestado) {
+      const defaultmove = new Movements(bot, mcData);
+      bot.pathfinder.setMovements(defaultmove);
+      bot.pathfinder.setGoal(new GoalFollow(target, 2), true);
+    } else if (!seguirestado) {
+      bot.pathfinder.setGoal(null)
+    }
+    res.redirect('/');
+  });
+
+  app.get('/botones/mirar', function (req, res) {
+    mirarestado = !mirarestado;
+    res.redirect('/');
+  });
+
+  app.get('/botones/login', function (req, res) {
+    bot.chat('/login ' + password);
+    res.redirect('/');
+  });
+
+  app.get('/botones/register', function (req, res) {
+    bot.chat('/register ' + password + ' ' + password);
+    res.redirect('/');
+  });
+
+  app.get('/botones/dropear', function (req, res) {
+    tossNext()
+    res.redirect('/');
+  });
 
   app.listen(3000, function () {
     console.log('Servidor abierto en http://localhost:3000/'.yellow);
   });
+
+  bot.on('message', function (message) {
+    //if (message.includes('Anti-AFK')) return;
+    logs.push(message);
+    if (logs.length > 20) logs.shift();
+  })
+
+  bot.on('chat2', function (username, message) {
+    if (username === bot.username) return;
+    else if (repetirestado == true) bot.chat(message)
+  })
+
+  function mirarJugadorCercano() {
+    if (mirarestado) {
+      const playerFilter = (entity) => entity.type === 'player';
+      const playerEntity = bot.nearestEntity(playerFilter);
+      if (!playerEntity) return;
+      const pos = playerEntity.position.offset(0, playerEntity.height, 0);
+      bot.lookAt(pos);
+    }
+  }
+
+  function tossNext() {
+    if (bot.inventory.items().length === 0) return
+    const item = bot.inventory.items()[0]
+    bot.tossStack(item, tossNext)
+  }
+
+  bot.on('physicTick', mirarJugadorCercano);
 }

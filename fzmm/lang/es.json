@@ -50,7 +50,7 @@
             "error": "Error: ",
             "muygrande": "Cantidad muy grande",
             "negativo": "No entiendo como chucha vas a tener items negativos",
-            "falta": "Faltan argumentos",
+            "falta": "Faltan/sobran argumentos",
             "falta2": "(en el caso de que no sobre nada poner un 0)",
             "sintaxis1": "La sintaxis es ",
             "sintaxisstack": "stack [64 / 16] <cantidad>",

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>FraZaMaMe Bot</title>
+	<link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+
+<body>
+	<ul>
+		<li> <a class="active">Consola</a></li>
+		<li style="float:right"><a href="/buscar">Buscar</a></li>
+		<li style="float:right"><a target="_blank" href="/encontrado">Encontrado</a></li>
+		<li style="float:right"><a href="/coords">Coords</a></li>
+	</ul>
+
+	<form method="POST">
+		<textarea type="text" cols="190" rows="2" maxlength=255 name="texto" placeholder="Mensaje que fraza va a mandar"
+			autofocus></textarea>
+		<button type="submit" class="button mandar">Mandar</button>
+	</form>
+
+	<a href="/botones/shift"> <button class="button toggle">Shift</button> </a>
+	<a href="/botones/saltar"> <button class="button toggle">Saltar</button> </a>
+	<a href="/botones/repetir"> <button class="button toggle">Repetir</button> </a>
+	<a href="/botones/seguir"> <button class="button toggle">Seguir</button> </a>
+	<a href="/botones/mirar"> <button class="button toggle">Mirar</button> </a>
+	<a href="/botones/login"> <button class="button boton">Login</button> </a>
+	<a href="/botones/register"> <button class="button boton">Register</button> </a>
+	<a href="/botones/dropear"> <button class="button boton">Dropear</button> </a>
+
+	{{# each logs}}
+	<p class="logs"> {{this}} </p>
+	{{/each}}
+</body>
+
+</html>
