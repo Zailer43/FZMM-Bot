@@ -1,8 +1,5 @@
 {
     "fzmm": {
-        "conectado": "~~---- <][> Conectado <][> ----~~",
-        "kick": "Fui kickeado por ",
-        "hi": "(^Ｕ^)ノ ~Hi",
         "antiafk": "/tell FraZaMaMe Anti-AFK",
         "coords": {
             "overworld": "Esas coords en el nether son: ",
@@ -59,10 +56,15 @@
             "stack1": " stacks (",
             "stack2": ") y sobran ",
             "cantidad1": " items"
-        }
+        },
+        "itemframe": "Item frame invisible",
+        "entidadescount": "Hay un total de ",
+        "entidadescount2": " entidades cargadas"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
+        "conectado": "~~---- <][> Conectado <][> ----~~",
+        "kick": "Fui kickeado por ",
         "help": {
             "help": "help [text / random / survi / tp / cosmeticos / conversor]",
             "helpinfo": "Si el comando tiene un * significa que requiere /op",
@@ -93,7 +95,7 @@
         "conteoinicio": "preparados...",
         "conteofinal": "ya",
         "simbolosmsg": "Click acá y luego ctrl+v en el chat",
-        "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』",
+        "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』 ⩶ ⫽ ⫻ Ξ",
         "bruh": "bruh",
         "entrar": " entró al servidor",
         "salir": " se fue del servidor",
@@ -101,7 +103,7 @@
             "──▄────▄▄▄▄▄▄▄────▄───",
             "─▀▀▄─▄█████████▄─▄▀▀──",
             "─────██─▀███▀─██──────",
-            "───▄─▀████▀████▀─▄────'",
+            "───▄─▀████▀████▀─▄────",
             "─▀█────██▀█▀██────█▀──"
         ]
     },

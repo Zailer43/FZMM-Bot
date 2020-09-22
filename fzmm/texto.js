@@ -1,10 +1,12 @@
 module.exports = inject;
 
 const fzmm = require('./../fzmm.js');
+const colors = require('colors');
 
-function inject(bot, lang, prefix, prefixlongi) {
+function inject(bot, lang, prefix, saludar, prefixlongi) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
+    console.log(username + ': ' + message);
     if (message.toLowerCase().startsWith(prefix)) {
       switch (message.toLowerCase()) {
         case (prefix + 'test'):
@@ -141,6 +143,28 @@ function inject(bot, lang, prefix, prefixlongi) {
   }
   );
   
+  bot.on('join', function (player) {
+    if (player === bot.username) return;
+    if (saludar) {
+      bot.chat(lang.hi)
+    }
+    console.log('+ '.green + player + ' entró al servidor')
+  })
+  
+  bot.on('leave', function (player) {
+    if (player.username === bot.username) return;
+    console.log('- ' + player + ' se fue del servidor')
+  })
+
+  bot.on('connect', function () {
+    console.info((lang.conectado).green);
+    //console.log(mcData.blocksByName.tnt)
+  });
+  
+  bot.on('kicked', (reason) => {
+    console.log(lang.kick + reason.red)
+  })
+
   function efe(f) {
     bot.chat(f + f + f + f);
     fzmm.sleep(150);

@@ -1,21 +1,20 @@
 const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
 const vec3 = require('vec3');
-const colors = require('colors');
 const axios = require('axios').default;
 
 const config = require('./fzmm/datos/config.json');
 const credenciales = require('C:\\bot\\credenciales.json');
 const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
-const mcData = require('minecraft-data')(config.version);
+/*const mcData = require('minecraft-data')(config.version);
 const {
   on
-} = require('process');
+} = require('process');*/
 
 const ip = process.argv[2];
 // mf.a68agaming.net explosivo116.aternos.me kaboom.pw 64.42.182.186 projectkingdoom.mc.gg
-var nick, contra, puerto;
+let nick, contra, puerto;
 if (config.premium) {
   nick = credenciales.username;
   contra = credenciales.password;
@@ -46,21 +45,8 @@ const prefixlongi = config.prefix.length;
 bot.loadPlugin(tpsPlugin)
 
 //comandos públicos
-var perdonado = false;
 bot.on('chat2', function (username, message) {
   if (username === bot.username) return;
-  console.log(username + ': ' + message);
-
-  /*if (message.startsWith('@')) {
-      if (message.includes(' ')) {
-        const tag = split(message, / /g, 1);
-        console.log('Tag a ' + tag[0].slice(1));
-        bot.chat('/playsound entity.player.levelup master ' + tag[0].slice(1) + ' ~ ~ ~');
-      } else {
-        console.log('Tag a ' + message.slice(1));
-        bot.chat('/playsound entity.player.levelup master ' + message.slice(1) + ' ~ ~ ~');
-      }
-    }*/
   if (message.toLowerCase().startsWith(config.prefix)) {
     switch (message.toLowerCase()) {
       case (config.prefix + 'ping'):
@@ -68,6 +54,7 @@ bot.on('chat2', function (username, message) {
         break;
       case (config.prefix + 'tps'):
         obtenertps();
+        bot.chat('/tellraw ' + bot.username + ' [{"text":"fz!entidadescount "},{"selector":"@e"}]');
         break;
       case (config.prefix + 'uuid'):
         obteneruuidynicks(username);
@@ -179,9 +166,20 @@ bot.on('chat2', function (username, message) {
       } else {
         bot.chat(lang.conversor.error + lang.conversor.falta + lang.conversor.falta2);
       }
+    } else if (message.toLowerCase().startsWith(config.prefix + 'itemframe ')) {
+      const itemframes = message.split(' ');
+      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + itemframes[1]);
+      sleep(300);
+      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
     }
   }
 });
+
+bot.on('entidadescount', function (message) {
+  const entidades = (message.split(', ')).length;
+  bot.chat(lang.entidadescount + entidades + lang.entidadescount2);
+  console.log(lang.entidadescount + entidades + lang.entidadescount2);
+})
 
 function pingms(username) {
   let pingms = bot.players[username].ping;
@@ -298,28 +296,6 @@ function goToSleep() {
   return out;
 }*/
 
-bot.on('connect', function () {
-  console.info((lang.conectado).green);
-  //console.log(mcData.blocksByName.tnt)
-});
-//log de kick
-bot.on('kicked', (reason) => {
-  console.log(lang.kick + reason.red)
-})
-
-bot.on('join', function (player) {
-  if (player.username === bot.username) return;
-  if (config.saludar) {
-    bot.chat(lang.hi)
-  }
-  console.log('+ '.green + player + ' entró al servidor')
-})
-
-bot.on('leave', function (player) {
-  if (player.username === bot.username) return;
-  console.log('- '.red + player + ' se fue del servidor')
-})
-
 //sleep
 function sleep(ms) {
   var r = Date.now() + ms;
@@ -337,7 +313,7 @@ bot.on('message', function (message) {
   console.log(message)
 })
 */
-const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, prefixlongi);
+const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar, prefixlongi);
 const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, prefixlongi, config.admin, config.serverpassword, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
 const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
