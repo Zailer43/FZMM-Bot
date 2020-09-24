@@ -7,11 +7,6 @@ const config = require('./fzmm/datos/config.json');
 const credenciales = require('C:\\bot\\credenciales.json');
 const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
-/*const mcData = require('minecraft-data')(config.version);
-const {
-  on
-} = require('process');*/
-
 const ip = process.argv[2];
 // mf.a68agaming.net explosivo116.aternos.me kaboom.pw 64.42.182.186 projectkingdoom.mc.gg
 let nick, contra, puerto;
@@ -61,6 +56,12 @@ bot.on('chat2', function (username, message) {
         break;
       case (config.prefix + 'mimir'):
         goToSleep();
+        break;
+      case (config.prefix + 'armorstand arms'):
+        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {ShowArms:1b}')
+        break;
+      case (config.prefix + 'armorstand base'):
+        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {NoBasePlate:1b}')
         break;
     }
     if (message.toLowerCase().startsWith(config.prefix + 'server ')) {
@@ -169,7 +170,7 @@ bot.on('chat2', function (username, message) {
     } else if (message.toLowerCase().startsWith(config.prefix + 'itemframe ')) {
       const itemframes = message.split(' ');
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + itemframes[1]);
-      sleep(300);
+      sleep(150);
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
     }
   }

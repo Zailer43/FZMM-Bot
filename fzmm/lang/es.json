@@ -74,7 +74,12 @@
             "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de cuarzo por tp",
             "cosmeticosinfo": "Por el momento los únicos comandos que hay requieren que tenga /op",
             "stacksinfo": "Con esto puedes convertir un número a stacks (puedes elegir entre 16 y 64)",
-            "cantidadinfo": "Y con lo de acá puedes saber el número exacto de items que tienes entre todos tus stacks"
+            "cantidadinfo": "Y con lo de acá puedes saber el número exacto de items que tienes entre todos tus stacks",
+            "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
+            "armorstandinfo": "Con ",
+            "armorstandinfo2": "armorstand arms puedes mostrar los brazos del armor stand, y con ",
+            "armorstandinfo3": "armorstand base le quitas la placa (esto funciona con el armor stand colocado más cercano)",
+            "itemframeinfo": "Debes especificar la cantidad de item frames que tienes en la mano para que esto funcione"
         },
         "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/'",
         "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
@@ -97,8 +102,8 @@
         "simbolosmsg": "Click acá y luego ctrl+v en el chat",
         "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』 ⩶ ⫽ ⫻ Ξ",
         "bruh": "bruh",
-        "entrar": " entró al servidor",
-        "salir": " se fue del servidor",
+        "entrar": " se conectó",
+        "salir": " se fue",
         "r1p": [
             "──▄────▄▄▄▄▄▄▄────▄───",
             "─▀▀▄─▄█████████▄─▄▀▀──",

@@ -22,27 +22,27 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
         case (prefix + 'help text'):
           bot.chat(lang.help.textinfo)
           fzmm.sleep(150);
-          bot.chat(prefix + 'test - ' + prefix + 'nuke - ' + prefix + 'ak-47 - ' + prefix + '?? - ' + prefix + 'shrug - ' + prefix + 'tableflip - ' + prefix + 'tableflipx2 - ' + prefix + 'f <texto>- ' + prefix + 'hi - ' + prefix + 'wtf - ' + prefix + 'wtfgrupal - ' + prefix + 'magic -  ' + prefix + 'calmate - ' + prefix + 'patas - ' + prefix + 'zzz - ' + prefix + 'r1p - ' + prefix + 'conteo - ' + prefix + 'bruh - '+prefix + 'colores');
+          bot.chat(`${prefix}test ${prefix}nuke ${prefix}ak-47${prefix}?? ${prefix}shrug ${prefix}tableflip ${prefix}tableflipx2 ${prefix}f <texto> ${prefix}hi ${prefix}wtf ${prefix}wtfgrupal ${prefix}magic ${prefix}calmate ${prefix}patas ${prefix}zzz ${prefix}r1p ${prefix}conteo ${prefix}bruh ${prefix}colores`);
           break;
         case (prefix + 'help random'):
           bot.chat(lang.help.aleatorioinfo)
           fzmm.sleep(150);
-          bot.chat(prefix + 'calavera - ' + prefix + 'perdoname diosito - ' + prefix + 'caraocruz');
+          bot.chat(`${prefix}calavera ${prefix}perdoname diosito -  ${prefix} caraocruz`);
           break;
         case (prefix + 'help survi'):
           bot.chat(lang.help.surviinfo)
           fzmm.sleep(150);
-          bot.chat(prefix + 'coords [overworld / nether] <x> <z> - ' + prefix + 'ping - ' + prefix + 'tps - ' + prefix + 'uuid <nick>');
+          bot.chat(`${prefix}coords [overworld / nether] <x> <z> -  ${prefix}ping - ${prefix}tps -  ${prefix}uuid <nick> -  ${prefix}itemframe <cantidad> *${prefix}armorstand [brazos / placa]`);
           break;
         case (prefix + 'help tp'):
           bot.chat(lang.help.tpinfo)
           fzmm.sleep(150);
-          bot.chat('*' + prefix + 'tp <nick> - *' + prefix + 'pagartp  - ' + prefix + 'deuda');
+          bot.chat(`*${prefix}tp <nick> - *${prefix}pagartp  - ${prefix}deuda`);
           break;
         case (prefix + 'help cosmeticos'):
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat('*' + prefix + 'color <color> - *' + prefix + 'simbolos');
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos`);
           break;
         case (prefix + 'help conversor'):
           bot.chat(lang.help.stacksinfo);
@@ -52,6 +52,15 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
           bot.chat(lang.help.cantidadinfo);
           fzmm.sleep(150);
           bot.chat(prefix + 'cantidad [64 / 16] <stacks> <sobra>');
+          break;
+        case (prefix + 'itemframe'):
+          bot.chat(lang.help.itemframeinfo);
+          break;
+        case (prefix + 'armorstand'):
+          bot.chat(lang.help.armorstandinfo + prefix + lang.help.armorstandinfo2 + prefix + lang.help.armorstandinfo3);
+          break;
+        case (prefix + 'coords'):
+          bot.chat(lang.help.coordsinfo);
           break;
         case (prefix + 'bot'):
           bot.chat(lang.bot)
@@ -148,7 +157,7 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
     if (saludar) {
       bot.chat(lang.hi)
     }
-    console.log('+ '.green + player + ' entró al servidor')
+    console.log('+ '.green + player + ' se conectó')
   })
   
   bot.on('leave', function (player) {
