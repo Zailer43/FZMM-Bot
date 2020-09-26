@@ -13,23 +13,19 @@
     <li><a href="/">Consola</a></li>
     <li style="float:right"><a href="/buscar">Buscar</a></li>
     <li style="float:right"><a target="_blank" href="/encontrado">Encontrado</a></li>
-    <li style="float:right"><a href="/coords">Coords</a></li>
+    <li style="float:right"><a class="active" href="/coords">Coords</a></li>
   </ul>
   {{# each coords}}
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      {{lugar}}
-      <div class="pull-right">
-        {{fecha}}
+    <a class="coords">
+      <div class="coords-top">
+        <div class="coords-name">{{x}} {{y}} {{z}}</div>
+          <div class="coords-description">{{lugar}}</div>
+        </div>
+        <div class="coords-footer">
+          <div class="coords-ip">{{server}}</div>
+        <div class="coords-fecha">{{fecha}}</div>
       </div>
-    </div>
-    <div class="panel-body">
-      {{x}} {{y}} {{z}}
-    </div>
-    <div class="panel-body">
-      {{server}}
-    </div>
-  </div>
+    </a>
   {{/each}}
 </body>
 

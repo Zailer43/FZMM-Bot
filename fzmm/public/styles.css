@@ -64,3 +64,62 @@ textarea {
     height: 5px;
     width: 1800px;
 }
+
+.coords {
+	display: inline-block;
+	flex-direction: column;
+	background: #335368;
+	color: #fff;
+	border-radius: 2px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	min-width: 250px;
+	word-wrap: break-word;
+	align-items: center
+}
+
+
+.coords-top {
+	display: flex;
+	flex-direction: column;
+	padding: 12px 12px 8px;
+	align-items: center
+}
+
+.coords:hover {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08))
+}
+
+.coords:active {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.16))
+}
+
+.coords-name {
+	font-size: 20px;
+	font-weight: bold
+}
+
+.coords-footer {
+	margin-top: auto;
+	width: 100%;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.16));
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	display: flex;
+	flex-direction: row;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 4px 8px;
+	justify-content: flex-start;
+	align-content: center
+}
+
+.coords-fecha {
+	margin-left: auto
+}
+
+.coords-description {
+	margin-top: 8px;
+	text-align: center;
+	font-size: 14px
+}

@@ -146,7 +146,12 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
       }
       if (message.startsWith(prefix + 'f '))
       {
-        efe(message.slice((prefixlongi + 2)));
+        const f = message.split(' ');
+        if (f[1].length > 8) {
+          bot.chat(lang.errorf);
+          return;
+        }
+        efe(f[1]);
       }
     }
   }

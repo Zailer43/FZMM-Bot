@@ -1,41 +1,5 @@
 [
   {
-    "id": "071d41d9-eb31-4eff-a90a-14767b8fefad",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "desierto de chori",
-    "x": "-1923",
-    "y": "65",
-    "z": "-2075"
-  },
-  {
-    "id": "9e25afc9-0021-4c75-a307-b511a12a248a",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "corales",
-    "x": "3860",
-    "y": "64",
-    "z": "4543"
-  },
-  {
-    "id": "e3610ec0-bf3c-43ff-a698-927af62bbdde",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "fortaleza bioma azul",
-    "x": "291",
-    "y": "64",
-    "z": "700"
-  },
-  {
-    "id": "fe5e5450-3592-49e0-aa06-1c5d91b53c3d",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "fortaleza",
-    "x": "-145",
-    "y": "60",
-    "z": "1444"
-  },
-  {
     "id": "02e1da49-d64a-489e-91ad-adf244363386",
     "fecha": "1/1/1999",
     "server": "explosivo116.aternos.me",
@@ -43,69 +7,6 @@
     "x": "500",
     "y": "64",
     "z": "1026"
-  },
-  {
-    "id": "88e6da0d-caa2-466e-89fb-2539a7cb0fc7",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "desierto",
-    "x": "53",
-    "y": "62",
-    "z": "-1062"
-  },
-  {
-    "id": "78b49e2c-c1f0-4fae-a0f7-7714bdba2933",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "spawner de anda a saber que",
-    "x": "-1414",
-    "y": "47",
-    "z": "746"
-  },
-  {
-    "id": "66e28bc9-4ff5-47d1-bae9-20852c9b510e",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "templo marino",
-    "x": "-2912",
-    "y": "64",
-    "z": "1728"
-  },
-  {
-    "id": "53dd4609-7dbf-4141-869d-8d65e1743f03",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "\"\"\"el lugar perfecto\"\"\" crimson + soul sand",
-    "x": "-1117",
-    "y": "59",
-    "z": "-2403"
-  },
-  {
-    "id": "5c6bbc8e-bbe7-429d-ae7a-d6e7bd55e423",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "jungla",
-    "x": "-1107",
-    "y": "68",
-    "z": "-2250"
-  },
-  {
-    "id": "66b5bcd3-a432-4e2b-8b26-504828564af1",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "bosque de flores",
-    "x": "-2907",
-    "y": "74",
-    "z": "-2562"
-  },
-  {
-    "id": "0287dce1-f910-41d5-854c-77fa8c378851",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "corales",
-    "x": "-4591",
-    "y": "48",
-    "z": "-485"
   },
   {
     "id": "374f2f64-7828-4eee-85cc-f05e2635f90e",
@@ -126,15 +27,6 @@
     "z": "8389"
   },
   {
-    "id": "46ff8538-e27a-4ffd-a792-bdad449980c2",
-    "fecha": "1/1/1999",
-    "server": "explosivo116.aternos.me",
-    "lugar": "almacenamiento de slaim",
-    "x": "-1531",
-    "y": "99999",
-    "z": "658"
-  },
-  {
     "id": "e42b2033-a221-43d5-b48d-7159fabe8d8c",
     "fecha": "1/1/1999",
     "server": "projectkingdoom.mc.gg",
@@ -142,5 +34,14 @@
     "x": "0",
     "y": "64",
     "z": "-5140"
+  },
+  {
+    "id": "15d4e482-bb0b-4a7b-93a7-6dabbd41e7ed",
+    "fecha": "23hs 17/9/2020",
+    "server": "explosivo116.aternos.me",
+    "lugar": "muchos ahogados",
+    "x": "1994",
+    "y": "64",
+    "z": "2909"
   }
 ]

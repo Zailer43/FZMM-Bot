@@ -148,6 +148,7 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
 
   bot.on('message', function (message) {
     //if (message.includes('Anti-AFK')) return;
+    //if (message === '[Bot] FraZaMaMe whispers to you: Anti-AFK' || message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK') return;
     logs.push(message);
     if (logs.length > 20) logs.shift();
   })
