@@ -4,7 +4,7 @@ const vec3 = require('vec3');
 const axios = require('axios').default;
 
 const config = require('./fzmm/datos/config.json');
-const credenciales = require('C:\\bot\\credenciales.json');
+const credenciales = require('./fzmm/credenciales.json');
 const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
 const ip = process.argv[2];

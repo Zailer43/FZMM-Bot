@@ -1,0 +1,28 @@
+{
+  "name": "fzmm-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fzmm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zailer43/FZMM-Bot.git"
+  },
+  "author": "Zailer43",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zailer43/FZMM-Bot/issues"
+  },
+  "homepage": "https://github.com/Zailer43/FZMM-Bot#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "mineflayer": "^2.28.1",
+    "mineflayer-navigate": "0.0.10",
+    "mineflayer-pathfinder": "^1.0.10",
+    "mineflayer-tps": "^1.0.1"
+  }
+}
