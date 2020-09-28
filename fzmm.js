@@ -205,21 +205,21 @@ function obtenertps() {
   let tps = bot.getTps();
   let tpsmessage = lang.tps.actual + tps + lang.tps.prefix;
   if (tps === 20) {
-    bot.chat(tpsmessage += lang.tps.perfecto)
+    tpsmessage += lang.tps.perfecto
   } else if (tps === 19) {
-    bot.chat(tpsmessage += lang.tps.casisinlag);
+    tpsmessage += lang.tps.casisinlag
   } else if (tps >= 16 && tps <= 18) {
-    bot.chat(tpsmessage += lang.tps.unpocolag);
+    tpsmessage += lang.tps.unpocolag
   } else if (tps >= 14 && tps <= 15) {
-    bot.chat(tpsmessage += lang.tps.lag);
+    tpsmessage += lang.tps.lag
   } else if (tps >= 11 && tps <= 13) {
-    bot.chat(tpsmessage += lang.tps.lageado);
+    tpsmessage += lang.tps.lageado
   } else if (tps >= 6 && tps <= 10) {
-    bot.chat(tpsmessage += lang.tps.muylageado);
+    tpsmessage += lang.tps.muylageado
   } else if (tps >= 2 && tps <= 5) {
-    bot.chat(tpsmessage += lang.tps.injugable);
+    tpsmessage += lang.tps.injugable
   } else if (tps >= 0 && tps <= 1) {
-    bot.chat(tpsmessage += lang.tps.terrible);
+    tpsmessage += lang.tps.terrible
   }
   tpsmessage += lang.tps.subfix;
   bot.chat(tpsmessage)
