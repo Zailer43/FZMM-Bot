@@ -20,12 +20,10 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, lang, prefixlongi, admin, password, prefix, repetir, mirar, saltar, seguir) {
+function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir) {
 
   const mcData = require('minecraft-data')(bot.version);
 
-  let repetirestado = repetir;
-  let mirarestado = mirar;
   let saltoestado = saltar;
   let seguirestado = seguir;
   let target;

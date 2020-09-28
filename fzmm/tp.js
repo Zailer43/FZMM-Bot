@@ -90,6 +90,8 @@ function inject(bot, lang, prefixlongi, prefix, admin) {
                 return 7;
             case 'imaguss_':
                 return 8;
+            case 'gamerexde':
+                return 9;
         }
     }
 }

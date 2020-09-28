@@ -32,7 +32,7 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
         case (prefix + 'help survi'):
           bot.chat(lang.help.surviinfo)
           fzmm.sleep(150);
-          bot.chat(`${prefix}coords [overworld / nether] <x> <z> -  ${prefix}ping - ${prefix}tps -  ${prefix}uuid <nick> -  ${prefix}itemframe <cantidad> *${prefix}armorstand [brazos / placa]`);
+          bot.chat(`${prefix}coords [overworld / nether] <x> <z> -  ${prefix}ping - ${prefix}tps -  ${prefix}uuid <nick>`);
           break;
         case (prefix + 'help tp'):
           bot.chat(lang.help.tpinfo)
@@ -42,7 +42,7 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
         case (prefix + 'help cosmeticos'):
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}color <color> - *${prefix}simbolos`);
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - ${prefix}itemframe <cantidad> - *${prefix}armorstand [brazos / placa]`);
           break;
         case (prefix + 'help conversor'):
           bot.chat(lang.help.stacksinfo);

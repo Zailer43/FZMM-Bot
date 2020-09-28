@@ -22,8 +22,8 @@
         },
         "tps": {
             "actual": "El TPS actual es ",
-            "prefixestado": " (",
-            "subfixestado": ")",
+            "prefix": " (",
+            "subfix": ")",
             "terrible": "☠ TERRIBLE ☠",
             "injugable": "⚠ Hay un poco de server en tu lag ⚠",
             "muylageado": "Muy Lageado",

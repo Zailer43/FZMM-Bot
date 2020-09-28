@@ -203,46 +203,27 @@ function pingsv(ip) {
 
 function obtenertps() {
   let tps = bot.getTps();
-  switch (tps) {
-    case 0:
-    case 1:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.terrible + lang.tps.subfixestado);
-      break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.injugable + lang.tps.subfixestado);
-      break;
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.muylageado + lang.tps.subfixestado);
-      break;
-    case 11:
-    case 12:
-    case 13:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.lageado + lang.tps.subfixestado);
-      break;
-    case 14:
-    case 15:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.lag + lang.tps.subfixestado);
-      break;
-    case 16:
-    case 17:
-    case 18:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.unpocolag + lang.tps.subfixestado);
-      break;
-    case 19:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.casisinlag + lang.tps.subfixestado);
-      break;
-    case 20:
-      bot.chat(lang.tps.actual + tps + lang.tps.prefixestado + lang.tps.perfecto + lang.tps.subfixestado);
-      break;
+  let tpsmessage = lang.tps.actual + tps + lang.tps.prefix;
+  if (tps === 20) {
+    bot.chat(tpsmessage += lang.tps.perfecto)
+  } else if (tps === 19) {
+    bot.chat(tpsmessage += lang.tps.casisinlag);
+  } else if (tps >= 16 && tps <= 18) {
+    bot.chat(tpsmessage += lang.tps.unpocolag);
+  } else if (tps >= 14 && tps <= 15) {
+    bot.chat(tpsmessage += lang.tps.lag);
+  } else if (tps >= 11 && tps <= 13) {
+    bot.chat(tpsmessage += lang.tps.lageado);
+  } else if (tps >= 6 && tps <= 10) {
+    bot.chat(tpsmessage += lang.tps.muylageado);
+  } else if (tps >= 2 && tps <= 5) {
+    bot.chat(tpsmessage += lang.tps.injugable);
+  } else if (tps >= 0 && tps <= 1) {
+    bot.chat(tpsmessage += lang.tps.terrible);
   }
-  console.log(lang.tps.actual + tps)
+  tpsmessage += lang.tps.subfix;
+  bot.chat(tpsmessage)
+  console.log(tpsmessage)
 }
 
 function obteneruuidynicks(nick) {
@@ -297,7 +278,6 @@ function goToSleep() {
   return out;
 }*/
 
-//sleep
 function sleep(ms) {
   var r = Date.now() + ms;
   while (Date.now() < r) {}
@@ -315,7 +295,7 @@ bot.on('message', function (message) {
 })
 */
 const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar, prefixlongi);
-const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, prefixlongi, config.admin, config.serverpassword, config.prefix, config.repetir, config.mirar, config.saltar, config.seguir);
+const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, prefixlongi, config.admin, config.serverpassword, config.prefix, config.saltar, config.seguir);
 const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
 if (config.administrartp) {
@@ -325,8 +305,8 @@ if (config.web) {
   const web = require('./fzmm/web.js')(bot, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
 }
 
-setInterval(() => {
-  if (config.antiafk) {
-    bot.chat(lang.antiafk)
-  }
-}, 180000)
+if (config.antiafk) {
+  setInterval(() => {
+      bot.chat(lang.antiafk)
+  }, 180000)
+}
