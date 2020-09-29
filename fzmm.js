@@ -63,9 +63,9 @@ bot.on('chat2', function (username, message) {
       case (config.prefix + 'armorstand base'):
         bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {NoBasePlate:1b}')
         break;
-        case (config.prefix + 'armorstand small'):
-          bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {Small:1b}')
-          break;
+      case (config.prefix + 'armorstand small'):
+        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {Small:1b}')
+        break;
     }
     if (message.toLowerCase().startsWith(config.prefix + 'server ')) {
       pingsv(message.slice((prefixlongi + 7)));

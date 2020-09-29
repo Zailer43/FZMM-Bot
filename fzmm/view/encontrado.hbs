@@ -12,18 +12,13 @@
   <ul>
     <li><a href="/">Consola</a></li>
     <li style="float:right"><a href="/buscar">Buscar</a></li>
-    <li style="float:right"><a href="/encontrado">Encontrado</a></li>
-    <li style="float:right"><a class="active" href="/coords">Coords</a></li>
+    <li style="float:right"><a class="active" href="/encontrado">Encontrado</a></li>
+    <li style="float:right"><a href="/coords">Coords</a></li>
   </ul>
-  {{# each coords}}
+  {{# each encontrado}}
     <a class="coords">
       <div class="coords-top">
         <div class="coords-name">{{x}} {{y}} {{z}}</div>
-          <div class="coords-description">{{lugar}}</div>
-        </div>
-        <div class="coords-footer">
-          <div class="coords-ip">{{server}}</div>
-        <div class="coords-fecha">{{fecha}}</div>
       </div>
     </a>
   {{/each}}

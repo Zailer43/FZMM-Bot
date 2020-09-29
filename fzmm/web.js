@@ -68,7 +68,9 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
   app.get('/encontrado', function (req, res) {
     const json_encontrado = fs.readFileSync(encontradodirectorio, 'utf-8');
     const encontrado = JSON.parse(json_encontrado);
-    res.send(encontrado);
+    var data = {};
+    data.encontrado = encontrado;
+    res.render('encontrado', data)
   });
 
   app.get('/coords', (req, res) => {
