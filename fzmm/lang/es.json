@@ -15,7 +15,11 @@
             "desconocido": "Color desconocido, intenta ",
             "desconocido2": "colores"
         },
-        "tuping": "Tu ping es ",
+        "ping": {
+            "ping": "El ping de ",
+            "ping2": " es ",
+            "error": "No encontré a ese jugador"
+        },
         "pingserver": {
             "motd": "MOTD: ",
             "jugadores": "Jugadores: "
@@ -77,8 +81,9 @@
             "cantidadinfo": "Y con lo de acá puedes saber el número exacto de items que tienes entre todos tus stacks",
             "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
             "armorstandinfo": "Con ",
-            "armorstandinfo2": "armorstand arms puedes mostrar los brazos del armor stand, y con ",
-            "armorstandinfo3": "armorstand base le quitas la placa (esto funciona con el armor stand colocado más cercano)",
+            "armorstandinfo2": "armorstand arms -> mostrar los brazos, ",
+            "armorstandinfo3": "armorstand base -> quitas la placa ",
+            "armorstandinfo4": "armorstand small -> lo haces enano (todo esto funciona con el armor stand colocado más cercano)",
             "itemframeinfo": "Debes especificar la cantidad de item frames que tienes en la mano para que esto funcione"
         },
         "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/'",

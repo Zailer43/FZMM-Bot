@@ -42,7 +42,7 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
         case (prefix + 'help cosmeticos'):
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - ${prefix}itemframe <cantidad> - *${prefix}armorstand [brazos / placa]`);
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - ${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small]`);
           break;
         case (prefix + 'help conversor'):
           bot.chat(lang.help.stacksinfo);
@@ -57,7 +57,7 @@ function inject(bot, lang, prefix, saludar, prefixlongi) {
           bot.chat(lang.help.itemframeinfo);
           break;
         case (prefix + 'armorstand'):
-          bot.chat(lang.help.armorstandinfo + prefix + lang.help.armorstandinfo2 + prefix + lang.help.armorstandinfo3);
+          bot.chat(lang.help.armorstandinfo + prefix + lang.help.armorstandinfo2 + prefix + lang.help.armorstandinfo3 + prefix + lang.help.armorstandinfo4);
           break;
         case (prefix + 'coords'):
           bot.chat(lang.help.coordsinfo);

@@ -63,6 +63,9 @@ bot.on('chat2', function (username, message) {
       case (config.prefix + 'armorstand base'):
         bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {NoBasePlate:1b}')
         break;
+        case (config.prefix + 'armorstand small'):
+          bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {Small:1b}')
+          break;
     }
     if (message.toLowerCase().startsWith(config.prefix + 'server ')) {
       pingsv(message.slice((prefixlongi + 7)));
@@ -172,6 +175,9 @@ bot.on('chat2', function (username, message) {
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + itemframes[1]);
       sleep(150);
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
+    } else if (message.toLowerCase().startsWith(config.prefix + 'ping ')) {
+      const pingmessage = message.split(' ');
+      pingms(pingmessage[1]);
     }
   }
 });
@@ -183,9 +189,14 @@ bot.on('entidadescount', function (message) {
 })
 
 function pingms(username) {
-  let pingms = bot.players[username].ping;
-  bot.chat(lang.tuping + pingms + ' ms');
-  console.log('El ping de ' + username + ' es ' + pingms);
+  try {
+      let pingms = bot.players[username].ping;
+      bot.chat(lang.ping.ping + username + lang.ping.ping2 + pingms + ' ms');
+      console.log(lang.ping.ping + username + lang.ping.ping2 + pingms + ' ms');
+  } catch (e) {
+    bot.chat(lang.ping.error);
+  }
+  
 }
 
 function pingsv(ip) {
