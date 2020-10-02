@@ -20,7 +20,7 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir) {
+  function inject(bot, lang, admin, prefix, saltar, seguir) {
 
   const mcData = require('minecraft-data')(bot.version);
 
@@ -31,32 +31,33 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir)
   bot.on('chat2', function (username, message) {
     if (username != admin) return;
     if (message.startsWith(prefix)) {
+      message = message.slice(prefix.length)
       switch (message) {
-        case (prefix + 'tp'):
+        case 'tp':
           bot.chat('/tp ' + admin);
           console.log(lang.tepeado + admin);
           break;
-        case (prefix + 'gmc'):
+        case 'gmc':
           bot.chat( lang.gamemode + lang.gmc);
           console.log(lang.gamemode + lang.gmc);
           break;
-        case (prefix + 'gms'):
+        case 'gms':
           bot.chat(lang.gamemode + lang.gms);
           console.log(lang.gamemode + lang.gms);
           break;
-        case (prefix + 'gmsp'):
+        case 'gmsp':
           bot.chat(lang.gamemode + lang.gmsp);
           console.log(lang.gamemode + lang.gmsp);
           break;
-        case (prefix + 'heal'):
+        case 'heal':
           bot.chat('/heal');
           break;
-        case (prefix + 'saltar'):
+        case 'saltar':
           saltoestado = !saltoestado;
           bot.setControlState('jump', saltoestado);
           console.log(lang.saltar + saltoestado)
           break;
-        case (prefix + 'nukereal'):
+        case 'nukereal':
           bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
           console.log(lang.nukereal);
       }
@@ -98,20 +99,21 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir)
     console.log(username + lang.tell + message);
     if (username != admin) return;
     if (message.startsWith(prefix)) {
+      message = message.slice(prefix.length)
       switch (message) {
-        case (prefix + 'tpa'):
+        case 'tpa':
           bot.chat('/tpa ' + username);
           console.log('/tpa ' + username);
           break;
-        case (prefix + 'tpaccept'):
+        case 'tpaccept':
           bot.chat('/tpaccept');
           break;
-        case (prefix + 'ven'):
+        case 'ven':
           target = bot.players[admin] ? bot.players[admin].entity : null;
           if (!target) return;
           bot.navigate.to(target.position);
           break;
-        case (prefix + 'seguir'):
+        case 'seguir':
           target = bot.players[admin].entity;
           seguirestado = !seguirestado
           if (seguirestado) {
@@ -122,7 +124,7 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir)
             bot.pathfinder.setGoal(null)
           }
           break;
-        case (prefix + 'coords'):
+        case 'coords':
           console.log(bot.entity.position.toString());
           break;
       }
@@ -131,15 +133,15 @@ function inject(bot, lang, prefixlongi, admin, password, prefix, saltar, seguir)
         const item = bot.inventory.items()[0]
         bot.tossStack(item, tossNext)
       }
-      if (message.startsWith(prefix + 'di ')) {
-        bot.chat(message.slice((prefixlongi + 3)));
-        console.log('Dije: ' + message.slice((prefixlongi + 3)));
+      if (message.startsWith('di ')) {
+        bot.chat(message.slice(3));
+        console.log('Dije: ' + message.slice(3));
 
-      } else if (message.startsWith(prefix + 'hat ')) {
-        bot.creative.setInventorySlot(5, new Item(message.slice(prefixlongi + 4), 1));
+      } else if (message.startsWith('hat ')) {
+        bot.creative.setInventorySlot(5, new Item(message.slice(4), 1));
         
-      } else if (message.startsWith(prefix + 'drop ')) {
-        bot.creative.setInventorySlot(36, new Item(message.slice(prefixlongi + 5), 64));
+      } else if (message.startsWith('drop ')) {
+        bot.creative.setInventorySlot(36, new Item(message.slice(5), 64));
         tossNext();
       }
     }

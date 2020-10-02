@@ -61,6 +61,10 @@
             "stack2": ") y sobran ",
             "cantidad1": " items"
         },
+        "armorstand": {
+            "execute": "/execute at @a[name=\"",
+            "execute2": "\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {"
+        },
         "itemframe": "Item frame invisible",
         "entidadescount": "Hay un total de ",
         "entidadescount2": " entidades cargadas"
@@ -144,8 +148,8 @@
         "notienesdeuda": "No tienes deuda pendiente"
     },
     "random": {
-        "whither": "En tu proximo wither tienes ",
-        "whither2": "% de probabilidades de obtener calavera",
+        "wither": "En tu proximo wither tienes ",
+        "wither2": "% de probabilidades de obtener calavera",
         "perdonado": "teperd0no",
         "noperdono": "pecador, no eres perdonado",
         "cara":"cara",

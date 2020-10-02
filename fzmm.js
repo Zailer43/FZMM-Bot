@@ -35,45 +35,44 @@ const bot = mineflayer.createBot({
   checkTimeoutInterval: (60 * 1000)
 });
 
-const prefixlongi = config.prefix.length;
-
 bot.loadPlugin(tpsPlugin)
 
 //comandos públicos
 bot.on('chat2', function (username, message) {
   if (username === bot.username) return;
   if (message.toLowerCase().startsWith(config.prefix)) {
+    message = message.slice(config.prefix.length);
     switch (message.toLowerCase()) {
-      case (config.prefix + 'ping'):
+      case 'ping':
         pingms(username);
         break;
-      case (config.prefix + 'tps'):
+      case 'tps':
         obtenertps();
         bot.chat('/tellraw ' + bot.username + ' [{"text":"fz!entidadescount "},{"selector":"@e"}]');
         break;
-      case (config.prefix + 'uuid'):
+      case 'uuid':
         obteneruuidynicks(username);
         break;
-      case (config.prefix + 'mimir'):
+      case 'mimir':
         goToSleep();
         break;
-      case (config.prefix + 'armorstand arms'):
-        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {ShowArms:1b}')
+      case 'armorstand arms':
+        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'ShowArms:1b}')
         break;
-      case (config.prefix + 'armorstand base'):
-        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {NoBasePlate:1b}')
+      case 'armorstand base':
+        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'NoBasePlate:1b}')
         break;
-      case (config.prefix + 'armorstand small'):
-        bot.chat('/execute as @a[name="' + username + '"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {Small:1b}')
+      case 'armorstand small':
+        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'Small:1b}')
         break;
     }
-    if (message.toLowerCase().startsWith(config.prefix + 'server ')) {
-      pingsv(message.slice((prefixlongi + 7)));
+    if (message.toLowerCase().startsWith('server ')) {
+      pingsv(message.slice((7)));
 
-    } else if (message.toLowerCase().startsWith(config.prefix + 'uuid ')) {
-      obteneruuidynicks(message.slice((prefixlongi + 5)));
+    } else if (message.toLowerCase().startsWith('uuid ')) {
+      obteneruuidynicks(message.slice((5)));
 
-    } else if (message.toLowerCase().startsWith(config.prefix + 'coords ')) {
+    } else if (message.toLowerCase().startsWith('coords ')) {
       const cmd = message.split(' ');
       if (cmd.length === 4) {
         const dimension = cmd[1];
@@ -91,7 +90,7 @@ bot.on('chat2', function (username, message) {
             break;
         }
       }
-    } else if (message.toLowerCase().startsWith(config.prefix + 'color ')) {
+    } else if (message.toLowerCase().startsWith('color ')) {
       const elegircolor = message.split(' ');
       if (elegircolor.length === 2) {
         switch (elegircolor[1]) {
@@ -126,7 +125,7 @@ bot.on('chat2', function (username, message) {
 
         }
       }
-    } else if (message.toLowerCase().startsWith(config.prefix + 'stack ')) {
+    } else if (message.toLowerCase().startsWith('stack ')) {
       // fz!stack 64 ?? -> Son ?? stacks y sobra ??
       const stacks = message.split(' ');
       if (stacks.length === 3) {
@@ -148,7 +147,7 @@ bot.on('chat2', function (username, message) {
       } else {
         bot.chat(lang.conversor.error + lang.conversor.falta);
       }
-    } else if (message.toLowerCase().startsWith(config.prefix + 'cantidad ')) {
+    } else if (message.toLowerCase().startsWith('cantidad ')) {
       // fz!cantidad 64 ?? ?? -> Son ?? Items
       const cantidad = message.split(' ');
       if (cantidad.length === 4) {
@@ -170,12 +169,12 @@ bot.on('chat2', function (username, message) {
       } else {
         bot.chat(lang.conversor.error + lang.conversor.falta + lang.conversor.falta2);
       }
-    } else if (message.toLowerCase().startsWith(config.prefix + 'itemframe ')) {
+    } else if (message.toLowerCase().startsWith('itemframe ')) {
       const itemframes = message.split(' ');
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + itemframes[1]);
       sleep(150);
       bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
-    } else if (message.toLowerCase().startsWith(config.prefix + 'ping ')) {
+    } else if (message.toLowerCase().startsWith('ping ')) {
       const pingmessage = message.split(' ');
       pingms(pingmessage[1]);
     }
@@ -305,12 +304,12 @@ bot.on('message', function (message) {
   console.log(message)
 })
 */
-const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar, prefixlongi);
-const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, prefixlongi, config.admin, config.serverpassword, config.prefix, config.saltar, config.seguir);
+const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar);
+const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, config.admin, config.prefix, config.saltar, config.seguir);
 const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
 const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
 if (config.administrartp) {
-  const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, prefixlongi, config.prefix, config.admin);
+  const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
 }
 if (config.web) {
   const web = require('./fzmm/web.js')(bot, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
