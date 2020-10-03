@@ -65,6 +65,8 @@ bot.on('chat2', function (username, message) {
       case 'armorstand small':
         bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'Small:1b}')
         break;
+      case 'bot ram':
+        bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
     }
     if (message.toLowerCase().startsWith('server ')) {
       pingsv(message.slice((7)));
