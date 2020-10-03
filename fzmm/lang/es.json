@@ -133,7 +133,14 @@
         "saltar": "Saltar: ",
         "nukereal": "Nuke real",
         "guardarcoords": "Se guardaron correctamente las coords",
-        "tell": " susurró: "
+        "tell": " susurró: ",
+        "admin": {
+            "eltoken": "El token es: ",
+            "introducetoken": "Introduce el token generado",
+            "nohaytoken": "Error: Genera un token con ",
+            "tokeninvalido": "Error: token invalido",
+            "eresadmin": "Ahora tienes permisos de admin hasta que me reinicie"
+        }
     },
     "tp": {
         "asimismo": "No puedes hacerte tp a ti mismo, sería inutil",
