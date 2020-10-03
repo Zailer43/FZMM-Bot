@@ -144,6 +144,12 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
     res.redirect('/');
   });
 
+  app.get('/botones/splash', function (req, res) {
+    const splash = require('./datos/splash.json');
+    bot.chat(splash[parseInt(Math.random() * splash.length)])
+    res.redirect('/');
+  });
+
   app.listen(3000, function () {
     console.log('Servidor abierto en http://localhost:3000/'.yellow);
   });
