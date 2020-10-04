@@ -1,4 +1,7 @@
 module.exports = inject;
+const fzmm = require('./../fzmm.js');
+
+let unavez = 0;
 
 function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
   let repetirestado = repetir;
@@ -42,7 +45,7 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
     const buscarhtml = fs.readFileSync(path.join(__dirname, 'view/buscar.html'), {
       encoding: 'utf8',
       flag: 'r'
-    });;
+    });
     res.send(buscarhtml);
   });
 
@@ -79,6 +82,19 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
     var data = {};
     data.coords = coordenadas;
     res.render('coords', data)
+  });
+
+  app.get('/conectar', (req, res) => {
+    const conectarhtml = fs.readFileSync(path.join(__dirname, 'view/conectar.html'), {
+      encoding: 'utf8',
+      flag: 'r'
+    });;
+    res.send(conectarhtml)
+  });
+
+  app.post('/conectar', (req, res) => {
+    fzmm.invocarbot(req.body.server);
+    res.redirect('/');
   });
 
   app.get('/botones/shift', function (req, res) {
@@ -150,9 +166,11 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
     res.redirect('/');
   });
 
-  app.listen(3000, function () {
-    console.log('Servidor abierto en http://localhost:3000/'.yellow);
-  });
+  if (unavez === 0) {
+    app.listen(3000, function () {
+      console.log('Servidor abierto en http://localhost:3000/'.yellow);
+    });
+  }
 
   bot.on('message', function (message) {
     //if (message.includes('Anti-AFK')) return;
@@ -183,4 +201,5 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
   }
 
   bot.on('physicTick', mirarJugadorCercano);
+  unavez++;
 }
