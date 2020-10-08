@@ -15,7 +15,7 @@ function inject(bot, lang, prefix) {
           else if (!perdonado) bot.chat(lang.noperdono);
           break;
         case 'caraocruz':
-          caraocruz = (Math.floor(Math.random() * 2) - 1).toString();
+          caraocruz = Math.floor(Math.random() * 2).toString();
           if (caraocruz) bot.chat(lang.cara)
           else if (!caraocruz) bot.chat(lang.cruz);
           break;

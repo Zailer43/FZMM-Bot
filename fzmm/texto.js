@@ -38,12 +38,12 @@ function inject(bot, lang, prefix, saludar) {
         case 'help tp':
           bot.chat(lang.help.tpinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}tp <nick> - *${prefix}pagartp  - ${prefix}deuda`);
+          bot.chat(`*${prefix}tp <nick> - *${prefix}pagartp <nick> - ${prefix}deuda`);
           break;
         case 'help cosmeticos':
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - ${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small]`);
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - *${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small]`);
           break;
         case 'help conversor':
           bot.chat(lang.help.stacksinfo);

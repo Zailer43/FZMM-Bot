@@ -48,13 +48,23 @@ function inject(bot, lang, prefix, admin) {
 
             } else if (message ==='deuda') {
                 bot.chat(lang.tudeudaes + deudas[indice(username.toLowerCase())].deudatotal + lang.material);
+
+            } else if (message.startsWith('pagartp ')) {
+                const pagartpcmd = message.split(' ');
+                pagardeuda(pagartpcmd[1], indice(pagartpcmd[1].toLowerCase()));
             }
         }
     })
 
     function aumentardeuda(username, nick, aumentarledeudaa) {
+        let estaonline;
+        Object.keys(bot.players).forEach(element => { 
+            if (element.toLocaleLowerCase() === nick) estaonline++; 
+        })
         if (deudas[aumentarledeudaa].deudatotal >= 5) {
             bot.chat(lang.deudaalmax + prefix + 'pagardeuda');
+        } else if (!estaonline) {
+            bot.chat(lang.noestaonline);
         } else {
             deudas[aumentarledeudaa].deudatotal = deudas[aumentarledeudaa].deudatotal + 1;
             bot.chat(lang.tudeuda + (deudas[aumentarledeudaa].deudatotal));
@@ -73,6 +83,7 @@ function inject(bot, lang, prefix, admin) {
             bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw FraZaMaMe "<' + admin +'> ' + prefix + 'restartp ' + username + '"');
         }
     }
+
     function indice(nick) {
         switch (nick) {
             case 'frazamame':

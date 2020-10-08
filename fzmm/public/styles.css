@@ -61,8 +61,14 @@ textarea {
 .logs {
     font-size: 14px;
     font-family: Calibri;
-    height: 5px;
+    height: 14px;
     width: 1800px;
+}
+
+.logcaja {
+	overflow: scroll;
+	width: 100%;
+	height: 370px;
 }
 
 .coords {

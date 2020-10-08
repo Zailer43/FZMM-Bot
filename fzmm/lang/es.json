@@ -146,6 +146,7 @@
         "asimismo": "No puedes hacerte tp a ti mismo, sería inutil",
         "albot": "No puedes hacerte tp a mí",
         "noesta": "No se encontró el nombre del jugador en la whitelist",
+        "noestaonline": "El jugador no se encuentra online",
         "tudeuda": "Tu deuda ahora es ",
         "ladeuda": "Ahora la deuda de ",
         "ladeudaes": " es ",
