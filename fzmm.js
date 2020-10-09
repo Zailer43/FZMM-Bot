@@ -309,6 +309,7 @@ function invocarbot (ip) {
   const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, config.admin, config.prefix, config.saltar, config.seguir);
   const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
   const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
+  const encuestas = require('./fzmm/encuestas.js')(bot, require('./fzmm/lang/' + config.lang + '.json').encuestas, config.prefix, config.spamearencuesta)
   if (config.administrartp) {
     const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
   }

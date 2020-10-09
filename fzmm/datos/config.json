@@ -2,7 +2,7 @@
 	"lang": "es",
 	"usarport":false,
 	"port":61073,
-	"version":"1.16.1",
+	"version":"1.16.3",
 	"longitudchat":"256",
 	"chunkrender":"normal",
 	"admin":"Zailer43",
@@ -17,5 +17,6 @@
 	"seguir":false,
 	"shift": false,
 	"saludar":true,
+	"spamearencuesta": true,
 	"web":true
 }

@@ -147,7 +147,7 @@
         "albot": "No puedes hacerte tp a mí",
         "noesta": "No se encontró el nombre del jugador en la whitelist",
         "noestaonline": "El jugador no se encuentra online",
-        "tudeuda": "Tu deuda ahora es ",
+        "tudeuda": "Tu deuda ahora es de ",
         "ladeuda": "Ahora la deuda de ",
         "ladeudaes": " es ",
         "tudeudaes": "Tu deuda es de ",
@@ -162,5 +162,11 @@
         "noperdono": "pecador, no eres perdonado",
         "cara":"cara",
         "cruz": "cruz"
+    },
+    "encuestas": {
+        "yavotaste": "Lo siento, ya votaste anteriormente en esta encuesta",
+        "gracias": "Gracias por tu voto",
+        "idincorrecta": "Debiste poner la ID de la encuesta mal",
+        "respuestainvalida": "Solo puedes responder con una de las siguientes palabras: "
     }
 }

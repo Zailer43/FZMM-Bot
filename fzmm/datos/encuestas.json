@@ -1,0 +1,26 @@
+[
+  {
+    "id": "48ab3",
+    "texto": "¿Quieres que cambie mi prefix a uno más corto?",
+    "votos": {
+      "si": 1,
+      "no": 0,
+      "daigual": 0
+    },
+    "votantes": [
+      "Zailer43"
+    ]
+  },
+  {
+    "id": "37cd4",
+    "texto": "¿Te gustaría que en el survi 1.17 se reseteen los mundos?",
+    "votos": {
+      "si": 0,
+      "no": 0,
+      "daigual": 1
+    },
+    "votantes": [
+      "Zailer43"
+    ]
+  }
+]
