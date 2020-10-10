@@ -190,9 +190,15 @@ function invocarbot (ip) {
 
   function pingms(username) {
     try {
-        let pingms = bot.players[username].ping;
-        bot.chat(lang.ping.ping + username + lang.ping.ping2 + pingms + ' ms');
-        console.log(lang.ping.ping + username + lang.ping.ping2 + pingms + ' ms');
+      //console.log(bot.players);
+      Object.keys(bot.players).forEach(element => { 
+        if (element.toLowerCase() === username.toLowerCase()) {
+          let pingms = bot.players[element].ping;
+          bot.chat(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
+          console.log(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
+        }; 
+      })
+      
     } catch (e) {
       bot.chat(lang.ping.error);
     }
@@ -314,7 +320,7 @@ function invocarbot (ip) {
     const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
   }
   if (config.web) {
-    const web = require('./fzmm/web.js')(bot, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
+    const web = require('./fzmm/web.js')(bot, config.prefix, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
   }
 
   if (config.antiafk) {

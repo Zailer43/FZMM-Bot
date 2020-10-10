@@ -5,7 +5,7 @@ const path = require('path')
 
 function inject(bot, lang, prefix, spamearencuesta) {
     const encuestasdirectorio = path.join(__dirname, 'datos/encuestas.json');
-    let encuestas;;
+    let encuestas;
 
     bot.on('chat2', function (username, message) {
         if (username === bot.username) return;
@@ -47,11 +47,11 @@ function inject(bot, lang, prefix, spamearencuesta) {
         bot.chat(mensajeencuesta)
     }
     
-    exports.spamencuesta = spamencuesta();
+    //exports.spamencuesta = spamencuesta;
 
     if (spamearencuesta) {
         setInterval(() => {
             spamencuesta();
-        }, (60*1000)*1000);
+        }, (40*1000)*60);
     }
 }

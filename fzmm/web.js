@@ -3,7 +3,7 @@ const fzmm = require('./../fzmm.js');
 
 let unavez = 0;
 
-function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
+function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, shift) {
   let repetirestado = repetir;
   let mirarestado = mirar;
   let saltoestado = saltar;
@@ -98,14 +98,14 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
   });
 
   app.get('/botones/shift', function (req, res) {
-    bot.setControlState('sneak', shiftestado);
     shiftestado = !shiftestado;
+    bot.setControlState('sneak', shiftestado);
     res.redirect('/');
   });
 
   app.get('/botones/saltar', function (req, res) {
-    bot.setControlState('jump', saltoestado);
     saltoestado = !saltoestado;
+    bot.setControlState('jump', saltoestado);
     res.redirect('/');
   });
 
@@ -166,15 +166,30 @@ function inject(bot, admin, password, repetir, mirar, saltar, seguir, shift) {
     res.redirect('/');
   });
 
+  let encuestaciclo = 0;
+  app.get('/botones/encuesta', function (req, res) { //no me funca el function exportado
+    const path = require('path')
+    const encuestas = require(path.join(__dirname, 'datos/encuestas.json'));
+    if (encuestaciclo === encuestas.length) encuestaciclo = 0;
+    let mensajeencuesta = encuestas[encuestaciclo].texto + ' ' + prefix + 'vote ' + encuestas[encuestaciclo].id + ' [ ';
+    mensajeencuesta += (Object.keys(encuestas[encuestaciclo].votos).join(' / ')) + ' ]';
+    encuestaciclo++;
+    console.log(mensajeencuesta)
+    bot.chat(mensajeencuesta)
+    res.redirect('/');
+  });
+
   if (unavez === 0) {
     app.listen(3000, function () {
       console.log('Servidor abierto en http://localhost:3000/'.yellow);
     });
   }
 
-  bot.on('message', function (message) {
+  bot.on('messagesinjson', function (message) {
     //if (message.includes('Anti-AFK')) return;
-    //if (message === '[Bot] FraZaMaMe whispers to you: Anti-AFK' || message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK') return;
+    if (message === '[Bot] FraZaMaMe whispers to you: Anti-AFK' ||
+    message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK' ||
+    message.startsWith(prefix + 'entidadescount')) return;
     logs.push(message);
     if (logs.length > 20) logs.shift();
   })

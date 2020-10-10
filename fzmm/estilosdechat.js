@@ -15,6 +15,7 @@ function inject(bot) {
       bot.chatAddPattern(/^<(.+)>\ fz!gcoord\ (.[0-9]*)\ (.[0-9]*)\ (.[0-9]*)\ (.+)$/, 'guardarcoord', '<username> fz!gcoord x y z message');
       //bot.chatAddPattern(/^<(.+)> fz!color (.+)$/, 'color', '<username> fz!color color');
       bot.chatAddPattern(/^fz!entidadescount (.+)$/, 'entidadescount', 'fz!entidades asd, asd2, asd3, etc');
+      bot.chatAddPattern(/^(.+)$/, 'messagesinjson', 'message');
 
       //bot.chatAddPattern(/^\[Usuario\]([^ :]*): (.*)$/, 'chat2', '[Usuario]username: message');
       //bot.chatAddPattern(/^\[Owner\]([^ :]*): (.*)$/, 'chat2', '[Owner]username: message');

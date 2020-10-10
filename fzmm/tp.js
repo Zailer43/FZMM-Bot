@@ -9,7 +9,7 @@ const json_deudas = fs.readFileSync(deudasdirectorio, 'utf-8');
 let deudas = JSON.parse(json_deudas);
 
 function inject(bot, lang, prefix, admin) {
-    const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_']
+    const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_', 'gamerexde']
     bot.on('chat2', function (username, message) {
         if (message.startsWith(prefix)) {
             message = message.slice(prefix.length)
@@ -40,8 +40,8 @@ function inject(bot, lang, prefix, admin) {
                 bajarledeuda = indice(message.slice(9).toLowerCase());
                 bot.chat('/clear ' + message.slice(9) + ' minecraft:quartz_block 64')
                 deudas[bajarledeuda].deudatotal = deudas[bajarledeuda].deudatotal - 1;
-                bot.chat(lang.tudeuda + (deudas[bajarledeuda].deudatotal));
-                console.log(lang.ladeuda + message.slice(9).toLowerCase() + lang.es + (deudas[bajarledeuda].deudatotal))
+                bot.chat(lang.tudeuda + deudas[bajarledeuda].deudatotal  + lang.material);
+                console.log(lang.ladeuda + message.slice(9).toLowerCase() + lang.ladeudaes + (deudas[bajarledeuda].deudatotal))
 
                 const json_deudas = JSON.stringify(deudas, null, 2);
                 fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
@@ -69,7 +69,7 @@ function inject(bot, lang, prefix, admin) {
             deudas[aumentarledeudaa].deudatotal = deudas[aumentarledeudaa].deudatotal + 1;
             bot.chat(lang.tudeuda + (deudas[aumentarledeudaa].deudatotal));
             bot.chat('/tp ' + username + ' ' + nick);
-            console.log(lang.ladeuda + username + lang.es + (deudas[aumentarledeudaa].deudatotal));
+            console.log(lang.ladeuda + username + lang.ladeudaes + (deudas[aumentarledeudaa].deudatotal));
 
             const json_deudas = JSON.stringify(deudas, null, 2);
             fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
