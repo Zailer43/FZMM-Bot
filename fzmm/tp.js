@@ -57,9 +57,11 @@ function inject(bot, lang, prefix, admin) {
     })
 
     function aumentardeuda(username, nick, aumentarledeudaa) {
-        let estaonline;
+        let estaonline = 0;
         Object.keys(bot.players).forEach(element => { 
-            if (element.toLocaleLowerCase() === nick) estaonline++; 
+            if (element.toLowerCase() === nick) {
+                estaonline++;
+            }
         })
         if (deudas[aumentarledeudaa].deudatotal >= 5) {
             bot.chat(lang.deudaalmax + prefix + 'pagardeuda');

@@ -328,6 +328,13 @@ function invocarbot (ip) {
         bot.chat(lang.antiafk)
     }, 180000)
   }
+
+  if (config.spamearsplash) {
+    setInterval(() => {
+      const splash = require('./fzmm/datos/splash.json');
+      bot.chat(splash[parseInt(Math.random() * splash.length)])
+    }, (25*1000)*60)
+  }
 }
 
 invocarbot(process.argv[2]);
