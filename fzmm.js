@@ -66,6 +66,10 @@ function invocarbot (ip) {
           break;
         case 'bot ram':
           bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
+          break;
+        case 'montar':
+          const vehiculo = bot.nearestEntity((entity) => { return entity.type === 'object' })
+          if (vehiculo) bot.mount(vehiculo)
       }
       if (message.toLowerCase().startsWith('server ')) {
         pingsv(message.slice((7)));
@@ -311,16 +315,16 @@ function invocarbot (ip) {
     console.log(message)
   })
   */
-  const texto = require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar);
-  const admin = require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, config.admin, config.prefix, config.saltar, config.seguir);
-  const random = require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
-  const estilosdechat = require('./fzmm/estilosdechat.js')(bot);
-  const encuestas = require('./fzmm/encuestas.js')(bot, require('./fzmm/lang/' + config.lang + '.json').encuestas, config.prefix, config.spamearencuesta)
+  require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar);
+  require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, config.admin, config.prefix, config.saltar, config.seguir, config.lang);
+  require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
+  require('./fzmm/estilosdechat.js')(bot);
+  require('./fzmm/encuestas.js')(bot, require('./fzmm/lang/' + config.lang + '.json').encuestas, config.prefix, config.spamearencuesta)
   if (config.administrartp) {
-    const tp = require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
+    require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
   }
   if (config.web) {
-    const web = require('./fzmm/web.js')(bot, config.prefix, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
+    require('./fzmm/web.js')(bot, config.prefix, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
   }
 
   if (config.antiafk) {

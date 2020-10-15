@@ -134,6 +134,7 @@
         "nukereal": "Nuke real",
         "guardarcoords": "Se guardaron correctamente las coords",
         "tell": " susurró: ",
+        "plugincargado": "Plugin cargado exitosamente",
         "admin": {
             "eltoken": "El token es: ",
             "introducetoken": "Introduce el token generado",
@@ -168,5 +169,14 @@
         "gracias": "Gracias por tu voto",
         "idincorrecta": "Debiste poner la ID de la encuesta mal",
         "respuestainvalida": "Solo puedes responder con una de las siguientes palabras: "
+    },
+    "pvp": {
+        "noteveo": "No puedo verte",
+        "guardia": "Voy a proteger esta zona",
+        "preparate": "Preparate para el PvP"
+    },
+    "minero": {
+        "direccioninvalida": "Dirección invalida",
+        "termine": "He terminado de picar"
     }
 }

@@ -20,7 +20,7 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, lang, admin, prefix, saltar, seguir) {
+function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
 
   const mcData = require('minecraft-data')(bot.version);
 
@@ -78,6 +78,14 @@ function inject(bot, lang, admin, prefix, saltar, seguir) {
         case 'nukereal':
           bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
           console.log(lang.nukereal);
+          break;
+        case 'load pvp':
+          require('./pvp.js')(bot, require('./lang/' + lang2 + '.json').pvp, prefix, admin);
+          bot.chat(lang.plugincargado)
+          break;
+        case 'load minero':
+          require('./minero.js')(bot, require('./lang/' + lang2 + '.json').minero, prefix, admin);
+          bot.chat(lang.plugincargado)
           break;
       }
     }
