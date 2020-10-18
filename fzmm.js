@@ -7,7 +7,7 @@ const config = require('./fzmm/datos/config.json');
 const credenciales = require('./fzmm/credenciales.json');
 const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
-function invocarbot (ip) {
+function invocarbot(ip) {
   let nick, contra, puerto;
   if (config.premium) {
     nick = credenciales.username;
@@ -17,10 +17,8 @@ function invocarbot (ip) {
     contra = null;
   }
 
-  if (config.usarport) {
+  if (config.port) {
     puerto = config.port;
-  } else {
-    puerto = null;
   }
 
   const bot = mineflayer.createBot({
@@ -40,6 +38,7 @@ function invocarbot (ip) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
     if (message.toLowerCase().startsWith(config.prefix)) {
+
       message = message.slice(config.prefix.length);
       switch (message.toLowerCase()) {
         case 'ping':
@@ -68,120 +67,137 @@ function invocarbot (ip) {
           bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
           break;
         case 'montar':
-          const vehiculo = bot.nearestEntity((entity) => { return entity.type === 'object' })
+          const vehiculo = bot.nearestEntity((entity) => {
+            return entity.type === 'object'
+          })
           if (vehiculo) bot.mount(vehiculo)
+          break;
+        case 'jokes':
+          jokes();
+          break;
+        case 'inv':
+          console.log(bot.inventory)
       }
-      if (message.toLowerCase().startsWith('server ')) {
-        pingsv(message.slice((7)));
 
-      } else if (message.toLowerCase().startsWith('uuid ')) {
-        obteneruuidynicks(message.slice((5)));
+      const cmd = message.split(' ');
+      if (cmd.length === 1) return;
 
-      } else if (message.toLowerCase().startsWith('coords ')) {
-        const cmd = message.split(' ');
-        if (cmd.length === 4) {
-          const dimension = cmd[1];
-          const x = parseInt(cmd[2], 10);
-          const z = parseInt(cmd[3], 10);
-          switch (dimension) {
-            case 'overworld':
-              bot.chat(lang.coords.overworld + (x / 8) + ' ' + (z / 8));
-              break;
-            case 'nether':
-              bot.chat(lang.coords.nether + (x * 8) + ' ' + (z * 8));
-              break;
-            case 'end':
-              bot.chat(lang.coords.end);
-              break;
+      switch (cmd[0]) {
+        case 'server':
+          pingsv(cmd[1]);
+          break;
+        case 'uuid':
+          obteneruuidynicks(cmd[1]);
+          break;
+        case 'coords':
+          if (cmd.length === 4) {
+            const x = parseInt(cmd[2], 10);
+            const z = parseInt(cmd[3], 10);
+            switch (cmd[1]) {
+              case 'overworld':
+                bot.chat(lang.coords.overworld + (x / 8) + ' ' + (z / 8));
+                break;
+              case 'nether':
+                bot.chat(lang.coords.nether + (x * 8) + ' ' + (z * 8));
+                break;
+              case 'end':
+                bot.chat(lang.coords.end);
+                break;
+            }
+          } else {
+            bot.chat(lang.coords.error + config.prefix + 'coords <dimension actual> <x> <z>')
           }
-        }
-      } else if (message.toLowerCase().startsWith('color ')) {
-        const elegircolor = message.split(' ');
-        if (elegircolor.length === 2) {
-          switch (elegircolor[1]) {
-            case 'aqua':
-            case 'black':
-            case 'blue':
-            case 'dark_aqua':
-            case 'dark_blue':
-            case 'dark_gray':
-            case 'dark_green':
-            case 'dark_purple':
-            case 'dark_red':
-            case 'gold':
-            case 'gray':
-            case 'green':
-            case 'light_purple':
-            case 'red':
-            case 'white':
-            case 'yellow':
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'leave ' + username);
-              sleep(450);
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'add ' + username + lang.color.subfixteam);
-              sleep(450);
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + ' ' + username);
-              sleep(450);
-              bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + elegircolor[1]);
-              bot.chat(lang.color.nuevocolor)
-              break;
-            default:
-              bot.chat(lang.color.desconocido + config.prefix + lang.color.desconocido2);
-              break;
+          break;
+        case 'color':
+          if (cmd.length === 2) {
+            switch (cmd[1]) {
+              case 'aqua':
+              case 'black':
+              case 'blue':
+              case 'dark_aqua':
+              case 'dark_blue':
+              case 'dark_gray':
+              case 'dark_green':
+              case 'dark_purple':
+              case 'dark_red':
+              case 'gold':
+              case 'gray':
+              case 'green':
+              case 'light_purple':
+              case 'red':
+              case 'white':
+              case 'yellow':
+                bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'leave ' + username);
+                sleep(450);
+                bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'add ' + username + lang.color.subfixteam);
+                sleep(450);
+                bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + ' ' + username);
+                sleep(450);
+                bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
+                bot.chat(lang.color.nuevocolor)
+                break;
+              default:
+                bot.chat(lang.color.desconocido + config.prefix + lang.color.desconocido2);
+                break;
+            }
+          } else {
+            bot.chat(lang.color.error + config.prefix + 'colores')
+          }
+          break;
+        case 'stack':
+          // fz!stack 64 <cantidad> -> Son ?? stacks y sobra ??
+          if (cmd.length === 3) {
+            const tipo = parseInt(cmd[1]);
+            const cantidad = parseInt(cmd[2]);
+            if (cantidad > 250000) {
+              bot.chat(lang.conversor.error + lang.conversor.muygrande);
+              return;
 
-          }
-        }
-      } else if (message.toLowerCase().startsWith('stack ')) {
-        // fz!stack 64 ?? -> Son ?? stacks y sobra ??
-        const stacks = message.split(' ');
-        if (stacks.length === 3) {
-          if (parseInt(stacks[2]) > 250000) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
-          } else if (parseInt(stacks[2]) < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
-          switch (parseInt(stacks[1])) {
-            case 64:
-            case 16:
-              bot.chat(lang.conversor.son + Math.trunc(parseInt(stacks[2]) / parseInt(stacks[1])) + lang.conversor.stack1 + parseInt(stacks[1]) + lang.conversor.stack2 + parseInt(stacks[2]) % parseInt(stacks[1]))
+            } else if (cantidad < 0) {
+              bot.chat(lang.conversor.error + lang.conversor.negativo);
+              return;
+            }
+
+            if (tipo === 64 || tipo === 16) {
+              bot.chat(lang.conversor.son + Math.trunc(cantidad / tipo) + lang.conversor.stack1 + tipo + lang.conversor.stack2 + cantidad % tipo)
               break;
-            default:
+            } else {
               bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxisstack);
+            }
+          } else {
+            bot.chat(lang.conversor.error + lang.conversor.falta);
           }
-        } else {
-          bot.chat(lang.conversor.error + lang.conversor.falta);
-        }
-      } else if (message.toLowerCase().startsWith('cantidad ')) {
-        // fz!cantidad 64 ?? ?? -> Son ?? Items
-        const cantidad = message.split(' ');
-        if (cantidad.length === 4) {
-          if (parseInt(cantidad[2]) > 25000 || parseInt(cantidad[3]) > 64) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
-          } else if (parseInt(cantidad[2]) < 0 || parseInt(cantidad[3]) < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
-          switch (parseInt(cantidad[1])) {
-            case 64:
-            case 16:
-              bot.chat(lang.conversor.son + ((parseInt(cantidad[2]) * parseInt(cantidad[1])) + parseInt(cantidad[3])) + lang.conversor.cantidad1);
-              break;
-            default:
+          break;
+        case 'cantidad':
+          // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
+          if (cantidad.length === 4) {
+            const tipo = parseInt(cmd[1]);
+            const cantidadStacks = parseInt(cmd[2]);
+            const sobra = parseInt(cmd[3]);
+            if (cantidadStacks > 25000 || sobra > 64) {
+              bot.chat(lang.conversor.error + lang.conversor.muygrande);
+              return;
+            } else if (cantidadStacks < 0 || sobra < 0) {
+              bot.chat(lang.conversor.error + lang.conversor.negativo);
+              return;
+            }
+            if (tipo === 64 || tipo === 16) {
+              bot.chat(lang.conversor.son + ((cantidadStacks * tipo) + sobra) + lang.conversor.cantidad1);
+            } else {
               bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxiscantidad);
+            }
+          } else {
+            bot.chat(lang.conversor.error + lang.conversor.falta);
           }
-        } else {
-          bot.chat(lang.conversor.error + lang.conversor.falta + lang.conversor.falta2);
-        }
-      } else if (message.toLowerCase().startsWith('itemframe ')) {
-        const itemframes = message.split(' ');
-        bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + itemframes[1]);
-        sleep(150);
-        bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + itemframes[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
-      } else if (message.toLowerCase().startsWith('ping ')) {
-        const pingmessage = message.split(' ');
-        pingms(pingmessage[1]);
+          break;
+        case 'itemframe':
+          bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + cmd[1]);
+          sleep(150);
+          bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
+          break;
+        case 'ping':
+          pingms(cmd[1])
+          break;
       }
     }
   });
@@ -195,18 +211,18 @@ function invocarbot (ip) {
   function pingms(username) {
     try {
       //console.log(bot.players);
-      Object.keys(bot.players).forEach(element => { 
+      Object.keys(bot.players).forEach(element => {
         if (element.toLowerCase() === username.toLowerCase()) {
           let pingms = bot.players[element].ping;
           bot.chat(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
           console.log(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
-        }; 
+        };
       })
-      
+
     } catch (e) {
       bot.chat(lang.ping.error);
     }
-    
+
   }
 
   function pingsv(ip) {
@@ -216,6 +232,17 @@ function invocarbot (ip) {
         bot.chat(lang.pingserver.motd + serverdatos.data.motd.clean);
         console.log(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
         bot.chat(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  function jokes() {
+    axios.get('https://icanhazdadjoke.com/slack')
+      .then(jokesdatos => {
+        console.log(jokesdatos.data.attachments[0].text);
+        bot.chat(jokesdatos.data.attachments[0].text);
       })
       .catch(error => {
         console.log(error);
@@ -329,7 +356,7 @@ function invocarbot (ip) {
 
   if (config.antiafk) {
     setInterval(() => {
-        bot.chat(lang.antiafk)
+      bot.chat(lang.antiafk)
     }, 180000)
   }
 
@@ -337,7 +364,7 @@ function invocarbot (ip) {
     setInterval(() => {
       const splash = require('./fzmm/datos/splash.json');
       bot.chat(splash[parseInt(Math.random() * splash.length)])
-    }, (25*1000)*60)
+    }, (25 * 1000) * 60)
   }
 }
 

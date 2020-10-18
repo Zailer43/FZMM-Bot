@@ -4,7 +4,8 @@
         "coords": {
             "overworld": "Esas coords en el nether son: ",
             "nether": "Esas coords en el overworld son: ",
-            "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end"
+            "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
+            "error": "La sintaxis del comando es: "
         },
         "color": {
             "executeif": "/execute if entity @a[name=\"",
@@ -13,7 +14,8 @@
             "subfixteam": "_color",
             "nuevocolor": "Ya tienes un nuevo color!",
             "desconocido": "Color desconocido, intenta ",
-            "desconocido2": "colores"
+            "desconocido2": "colores",
+            "error": "Quizás intentabas ver los colores con "
         },
         "ping": {
             "ping": "El ping de ",
@@ -51,8 +53,7 @@
             "error": "Error: ",
             "muygrande": "Cantidad muy grande",
             "negativo": "No entiendo como chucha vas a tener items negativos",
-            "falta": "Faltan/sobran argumentos",
-            "falta2": "(en el caso de que no sobre nada poner un 0)",
+            "falta": "Faltan/sobran argumentos (en el caso de que no sobre nada poner un 0)",
             "sintaxis1": "La sintaxis es ",
             "sintaxisstack": "stack [64 / 16] <cantidad>",
             "sintaxiscantidad": "cantidad [64 / 16] <stacks> <sobra (menos de 64)>",
@@ -104,11 +105,11 @@
         "magic": "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
         "calmate": "┳━┳ ノ( ゜-゜ノ)",
         "patas": "( ͡° ͜ʖ ͡°) hmm",
-        "zzz": "(￣o￣) . z Z'",
+        "zzz": "(￣o￣) . z Z",
         "defaultf": "▉",
         "errorf": "El mensaje puede ser de un máximo de 8 caracteres",
-        "conteoinicio": "preparados...",
-        "conteofinal": "ya",
+        "conteoinicio": "Preparados...",
+        "conteofinal": "¡Ya!",
         "simbolosmsg": "Click acá y luego ctrl+v en el chat",
         "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』 ⩶ ⫽ ⫻ Ξ",
         "bruh": "bruh",

@@ -23,7 +23,7 @@ function inject(bot, lang, prefix, saludar) {
         case 'help text':
           bot.chat(lang.help.textinfo)
           fzmm.sleep(150);
-          bot.chat(`${prefix}test ${prefix}nuke ${prefix}ak-47${prefix}?? ${prefix}shrug ${prefix}tableflip ${prefix}tableflipx2 ${prefix}f <texto> ${prefix}hi ${prefix}wtf ${prefix}wtfgrupal ${prefix}magic ${prefix}calmate ${prefix}patas ${prefix}zzz ${prefix}r1p ${prefix}conteo ${prefix}bruh ${prefix}colores`);
+          bot.chat(`${prefix}test ${prefix}nuke ${prefix}ak-47 ${prefix}?? ${prefix}shrug ${prefix}tableflip ${prefix}tableflipx2 ${prefix}f <texto> ${prefix}hi ${prefix}wtf ${prefix}wtfgrupal ${prefix}magic ${prefix}calmate ${prefix}patas ${prefix}zzz ${prefix}r1p ${prefix}conteo ${prefix}bruh ${prefix}colores`);
           break;
         case 'help random':
           bot.chat(lang.help.aleatorioinfo)
@@ -43,7 +43,7 @@ function inject(bot, lang, prefix, saludar) {
         case 'help cosmeticos':
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - *${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small]`);
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - *${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small] - ${prefix}jokes`);
           break;
         case 'help conversor':
           bot.chat(lang.help.stacksinfo);

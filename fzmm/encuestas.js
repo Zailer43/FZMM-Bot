@@ -15,9 +15,7 @@ function inject(bot, lang, prefix, spamearencuesta) {
                 encuestas = require(encuestasdirectorio);
                 const voto = message.split(' ');
                 try {
-                    let encuestaelegida = encuestas.find(({
-                        id
-                    }) => id === voto[1]);
+                    let encuestaelegida = encuestas.find(({id}) => id === voto[1]);
                     if (encuestaelegida.votantes.includes(username)) {
                         bot.chat(lang.yavotaste);
                         return;
@@ -38,11 +36,13 @@ function inject(bot, lang, prefix, spamearencuesta) {
         }
     })
 
+    let encuestaciclo = 0;
     function spamencuesta() {
         encuestas = require(encuestasdirectorio);
-        const numerorandom = Math.floor(Math.random() * Math.floor(encuestas.length));
-        let mensajeencuesta = encuestas[numerorandom].texto + ' ' + prefix + 'vote ' + encuestas[numerorandom].id + ' [ ';
-        mensajeencuesta += (Object.keys(encuestas[numerorandom].votos).join(' / ')) + ' ]';
+        if (encuestaciclo === encuestas.length) encuestaciclo = 0;
+        let mensajeencuesta = encuestas[encuestaciclo].texto + ' ' + prefix + 'vote ' + encuestas[encuestaciclo].id + ' [ ';
+        mensajeencuesta += (Object.keys(encuestas[encuestaciclo].votos).join(' / ')) + ' ]';
+        encuestaciclo++;
         console.log(mensajeencuesta)
         bot.chat(mensajeencuesta)
     }

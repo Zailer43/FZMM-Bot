@@ -1,6 +1,5 @@
 module.exports = inject;
 // https://github.com/TheDudeFromCI/Mineflayer-Youtube-Tutorials/blob/master/pvpBot2/index.js
-
 const pvp = require('mineflayer-pvp').plugin
 const armorManager = require('mineflayer-armor-manager')
 const {
@@ -16,23 +15,22 @@ function inject(bot, lang, prefix, admin) {
 
     bot.on('playerCollect', (collector, itemDrop) => {
         if (collector !== bot.entity) return
-
+    
         setTimeout(() => {
-            const sword = bot.inventory.items().find(item => item.name.includes('Sword'))
-            if (sword) bot.equip(sword, 'hand')
+            bot.inventory.items().find(item => {
+                const swords = [608, 603, 598, 593, 588, 583]
+                if (swords.includes(item.type)) bot.equip(item, 'hand')
+            })
         }, 150)
         
-    })
-
-    bot.on('playerCollect', (collector, itemDrop) => {
-        if (collector !== bot.entity) return
-
         setTimeout(() => {
-            const shield = bot.inventory.items().find(item => item.name.includes('Shield'))
-            if (shield) bot.equip(shield, 'off-hand')
+            bot.inventory.items().find(item => {
+                const shield = 897
+                if (item.type === shield) bot.equip(item, 'off-hand')
+            })
         }, 250)
-        
-    })
+      })
+    
 
     let guardPos = null
 
@@ -62,6 +60,14 @@ function inject(bot, lang, prefix, admin) {
         }
     })
 
+    /*bot.on('physicTick', () => {
+      if (bot.pvp.target) return
+      if (bot.pathfinder.isMoving()) return
+
+      const entity = bot.nearestEntity()
+      if (entity) bot.lookAt(entity.position.offset(0, entity.height, 0))
+    })*/
+
     bot.on('physicTick', () => {
         if (!guardPos) return
 
@@ -74,7 +80,8 @@ function inject(bot, lang, prefix, admin) {
         }
     })
 
-    bot.on('chat', (username, message) => {
+    bot.on('chat2', (username, message) => {
+        //console.log(bot.inventory)
         if (message.startsWith(prefix)) {
             message = message.slice(prefix.length)
             switch (message) {
