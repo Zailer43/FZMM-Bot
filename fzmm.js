@@ -37,6 +37,12 @@ function invocarbot(ip) {
   //comandos públicos
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
+
+    if (message.startsWith('@')) {
+      const tag = message.split(' ');
+      bot.chat('/execute at ' + tag[0].slice(1) + ' run playsound entity.player.levelup master ' + tag[0].slice(1) + ' ~ ~ ~');
+    }
+
     if (message.toLowerCase().startsWith(config.prefix)) {
 
       message = message.slice(config.prefix.length);
