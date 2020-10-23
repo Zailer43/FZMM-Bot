@@ -24,7 +24,8 @@
         },
         "pingserver": {
             "motd": "MOTD: ",
-            "jugadores": "Jugadores: "
+            "jugadores": "Jugadores: ",
+            "error": "No encontré el servidor"
         },
         "tps": {
             "actual": "El TPS actual es ",
@@ -179,5 +180,13 @@
     "minero": {
         "direccioninvalida": "Dirección invalida",
         "termine": "He terminado de picar"
+    },
+    "tageos": {
+        "volumen": "Especifica el volumen (0-999)",
+        "volumencambiado": "Se ha cambiado el volumen correctamente",
+        "sonidocambiado": "Se ha cambiado el sonido correctamente",
+        "sonidosdisponibles": "Los sonidos disponbles son: ",
+        "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo",
+        "errorsintaxis": "Error de sintaxis, intenta "
     }
 }

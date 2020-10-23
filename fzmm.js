@@ -38,11 +38,6 @@ function invocarbot(ip) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
 
-    if (message.startsWith('@')) {
-      const tag = message.split(' ');
-      bot.chat('/execute at ' + tag[0].slice(1) + ' run playsound entity.player.levelup master ' + tag[0].slice(1) + ' ~ ~ ~');
-    }
-
     if (message.toLowerCase().startsWith(config.prefix)) {
 
       message = message.slice(config.prefix.length);
@@ -240,7 +235,7 @@ function invocarbot(ip) {
         bot.chat(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
       })
       .catch(error => {
-        console.log(error);
+        bot.chat(lang.pingserver.error)
       });
   }
 
@@ -348,13 +343,15 @@ function invocarbot(ip) {
     console.log(message)
   })
   */
-  require('./fzmm/texto.js')(bot, require('./fzmm/lang/' + config.lang + '.json').texto, config.prefix, config.saludar);
-  require('./fzmm/admin.js')(bot, require('./fzmm/lang/' + config.lang + '.json').admin, config.admin, config.prefix, config.saltar, config.seguir, config.lang);
-  require('./fzmm/random.js')(bot, require('./fzmm/lang/' + config.lang + '.json').random, config.prefix);
+ const langrequire = './fzmm/lang/' + config.lang + '.json';
+  require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, config.saludar);
+  require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.saltar, config.seguir, config.lang);
+  require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
   require('./fzmm/estilosdechat.js')(bot);
-  require('./fzmm/encuestas.js')(bot, require('./fzmm/lang/' + config.lang + '.json').encuestas, config.prefix, config.spamearencuesta)
+  require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
+  require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix)
   if (config.administrartp) {
-    require('./fzmm/tp.js')(bot, require('./fzmm/lang/' + config.lang + '.json').tp, config.prefix, config.admin);
+    require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin);
   }
   if (config.web) {
     require('./fzmm/web.js')(bot, config.prefix, config.admin, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
@@ -364,13 +361,6 @@ function invocarbot(ip) {
     setInterval(() => {
       bot.chat(lang.antiafk)
     }, 180000)
-  }
-
-  if (config.spamearsplash) {
-    setInterval(() => {
-      const splash = require('./fzmm/datos/splash.json');
-      bot.chat(splash[parseInt(Math.random() * splash.length)])
-    }, (25 * 1000) * 60)
   }
 }
 

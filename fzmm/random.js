@@ -1,6 +1,6 @@
 module.exports = inject;
 
-function inject(bot, lang, prefix) {
+function inject(bot, lang, prefix, spamearsplash) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
     if (message.startsWith(prefix)) {
@@ -22,4 +22,11 @@ function inject(bot, lang, prefix) {
       }
     }
   })
+
+  if (spamearsplash) {
+    setInterval(() => {
+      const splash = require('./datos/splash.json');
+      bot.chat(splash[parseInt(Math.random() * splash.length)])
+    }, (25 * 1000) * 60)
+  }
 }

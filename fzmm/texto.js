@@ -33,7 +33,7 @@ function inject(bot, lang, prefix, saludar) {
         case 'help survi':
           bot.chat(lang.help.surviinfo)
           fzmm.sleep(150);
-          bot.chat(`${prefix}coords [overworld / nether] <x> <z> -  ${prefix}ping - ${prefix}tps -  ${prefix}uuid <nick>`);
+          bot.chat(`${prefix}coords [overworld / nether] <x> <z> -  ${prefix}ping - ${prefix}tps -  ${prefix}uuid <nick> ${prefix}server <ip>`);
           break;
         case 'help tp':
           bot.chat(lang.help.tpinfo)

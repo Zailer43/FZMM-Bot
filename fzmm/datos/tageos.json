@@ -1,0 +1,12 @@
+[
+  {
+    "nick": "Zailer43",
+    "sonido": "entity.generic.explode",
+    "volumen": "1"
+  },
+  {
+    "nick": "kKrIi",
+    "sonido": "entity.player.levelup",
+    "volumen": "10"
+  }
+]
