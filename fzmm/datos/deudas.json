@@ -1,7 +1,7 @@
 [
   {
     "nick": "frazamame",
-    "deudatotal": 0
+    "deudatotal": -100
   },
   {
     "nick": "zailer43",
@@ -9,23 +9,23 @@
   },
   {
     "nick": "kkrii",
-    "deudatotal": 1
-  },
-  {
-    "nick": "choriso",
     "deudatotal": 2
   },
   {
+    "nick": "choriso",
+    "deudatotal": 0
+  },
+  {
     "nick": "dirtopi",
-    "deudatotal": 1
+    "deudatotal": 2
   },
   {
     "nick": "fzaidm",
-    "deudatotal": 0
+    "deudatotal": 1
   },
   {
     "nick": "antondv",
-    "deudatotal": 0
+    "deudatotal": 1
   },
   {
     "nick": "pakitoh",

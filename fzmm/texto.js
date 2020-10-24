@@ -38,12 +38,12 @@ function inject(bot, lang, prefix, saludar) {
         case 'help tp':
           bot.chat(lang.help.tpinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}tp <nick> - *${prefix}pagartp <nick> - ${prefix}deuda`);
+          bot.chat(`*${prefix}tp <nick> - *${prefix}pagartp <nick> - ${prefix}deuda <nick>`);
           break;
         case 'help cosmeticos':
           bot.chat(lang.help.cosmeticosinfo)
           fzmm.sleep(150);
-          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - *${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small] - ${prefix}jokes`);
+          bot.chat(`*${prefix}color <color> - *${prefix}simbolos - *${prefix}itemframe <cantidad> - *${prefix}armorstand [arms / base / small] - ${prefix}jokes - ${prefix}tag [sonido / volumen]`);
           break;
         case 'help conversor':
           bot.chat(lang.help.stacksinfo);
@@ -59,6 +59,9 @@ function inject(bot, lang, prefix, saludar) {
           break;
         case 'armorstand':
           bot.chat(lang.help.armorstandinfo + prefix + lang.help.armorstandinfo2 + prefix + lang.help.armorstandinfo3 + prefix + lang.help.armorstandinfo4);
+          break;
+        case 'tag':
+          bot.chat(lang.help.tag + prefix + 'tag [sonido / volumen]');
           break;
         case 'coords':
           bot.chat(lang.help.coordsinfo);

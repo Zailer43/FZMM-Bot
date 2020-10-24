@@ -9,9 +9,11 @@ let datostag = require(datostagdirectorio);
 function inject(bot, lang, prefix) {
     bot.on('chat2', function (username, message) {
         const tag = message.split(' ');
-        var maxtageos;
+        var maxtageos = 0;
 
         tag.forEach(element => {
+            if (maxtageos === 4) return;
+
             if (element.startsWith('@')) {
                 maxtageos++;
                 let datostagelegido3 = datostag.find(({
@@ -23,7 +25,6 @@ function inject(bot, lang, prefix) {
                     bot.chat('/execute at ' + element.slice(1) + ' run playsound ' + datostagelegido3.sonido + ' master ' + element.slice(1) + ' ~ ~ ~ ' + datostagelegido3.volumen);
                 }
             }
-            if (maxtageos === 4) return;
         })
 
         if (message.toLowerCase().startsWith(prefix)) {
