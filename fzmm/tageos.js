@@ -6,13 +6,13 @@ const path = require('path');
 const datostagdirectorio = path.join(__dirname, 'datos/tageos.json');
 let datostag = require(datostagdirectorio);
 
-function inject(bot, lang, prefix) {
+function inject(bot, lang, prefix, tageosmax) {
     bot.on('chat2', function (username, message) {
         const tag = message.split(' ');
         var maxtageos = 0;
 
         tag.forEach(element => {
-            if (maxtageos === 4) return;
+            if (maxtageos === tageosmax) return;
 
             if (element.startsWith('@')) {
                 maxtageos++;

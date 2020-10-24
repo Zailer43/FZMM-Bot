@@ -1,9 +1,6 @@
 module.exports = inject;
-const fzmm = require('./../fzmm.js');
 
-let unavez = 0;
-
-function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, shift) {
+function inject(bot, prefix, admin, webport, password, repetir, mirar, saltar, seguir, shift) {
   let repetirestado = repetir;
   let mirarestado = mirar;
   let saltoestado = saltar;
@@ -92,11 +89,6 @@ function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, sh
     res.send(conectarhtml)
   });
 
-  app.post('/conectar', (req, res) => {
-    fzmm.invocarbot(req.body.server);
-    res.redirect('/');
-  });
-
   app.get('/botones/shift', function (req, res) {
     shiftestado = !shiftestado;
     bot.setControlState('sneak', shiftestado);
@@ -120,11 +112,6 @@ function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, sh
       Movements
     } = require('mineflayer-pathfinder');
     const {
-      GoalNear,
-      GoalBlock,
-      GoalXZ,
-      GoalY,
-      GoalInvert,
       GoalFollow
     } = require('mineflayer-pathfinder').goals;
     const mcData = require('minecraft-data')(bot.version);
@@ -179,17 +166,15 @@ function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, sh
     res.redirect('/');
   });
 
-  if (unavez === 0) {
-    app.listen(3000, function () {
-      console.log('Servidor abierto en http://localhost:3000/'.yellow);
-    });
-  }
+  app.listen(webport, function () {
+    console.log('Servidor abierto en http://localhost:'.yellow + webport + '/'.yellow);
+  });
 
   bot.on('messagesinjson', function (message) {
     //if (message.includes('Anti-AFK')) return;
     if (message === '[Bot] FraZaMaMe whispers to you: Anti-AFK' ||
-    message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK' ||
-    message.startsWith(prefix + 'entidadescount')) return;
+      message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK' ||
+      message.startsWith(prefix + 'entidadescount')) return;
     logs.push(message);
     if (logs.length > 20) logs.shift();
   })
@@ -203,7 +188,8 @@ function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, sh
     if (mirarestado) {
       const playerFilter = (entity) => entity.type === 'player';
       const playerEntity = bot.nearestEntity(playerFilter);
-      if (!playerEntity) return;
+
+      if (!playerEntity || bot.pathfinder.isMoving()) return;
       const pos = playerEntity.position.offset(0, playerEntity.height, 0);
       bot.lookAt(pos);
     }
@@ -216,5 +202,4 @@ function inject(bot, prefix, admin, password, repetir, mirar, saltar, seguir, sh
   }
 
   bot.on('physicTick', mirarJugadorCercano);
-  unavez++;
 }

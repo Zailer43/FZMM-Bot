@@ -18,5 +18,7 @@
 	"saludar": true,
 	"spamearencuesta": false,
 	"spamearsplash": true,
-	"web": true
+	"web": true,
+	"webport": 3000,
+	"tageosmax": 4
 }
