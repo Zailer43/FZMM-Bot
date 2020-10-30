@@ -33,9 +33,27 @@ const bot = mineflayer.createBot({
 
 bot.loadPlugin(tpsPlugin)
 
-//comandos públicos
+let afk = [];
+
 bot.on('chat2', function (username, message) {
   if (username === bot.username) return;
+
+  let afkesta = afk.find(({nick}) => nick === username);
+  if (afkesta) {
+    let segundos = parseInt((Date.now() - afkesta.tiempo) / 1000);
+    let minutos = parseInt(segundos / 60);
+    let mensaje = afkesta.nick + lang.afk;
+    if (minutos) {
+      mensaje += minutos.toString() + lang.minutos;
+    } else mensaje += segundos.toString() + lang.segundos;
+    bot.chat(mensaje);
+
+    delete afkesta.nick, afkesta.tiempo;
+
+    //afk.forEach(element, index => {
+    //  if (element.nick === username) delete afk[index];
+    //});
+  }
 
   if (message.toLowerCase().startsWith(config.prefix)) {
 
@@ -77,6 +95,10 @@ bot.on('chat2', function (username, message) {
         break;
       case 'inv':
         console.log(bot.inventory)
+        break;
+      case 'afk':
+        afk.push({nick: username, tiempo: Date.now()});
+        bot.chat(lang.estasafk)
     }
 
     const cmd = message.split(' ');
