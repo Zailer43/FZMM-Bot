@@ -170,7 +170,7 @@ bot.on('chat2', function (username, message) {
         break;
       case 'cantidad':
         // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
-        if (cantidad.length === 4) {
+        if (cmd.length === 4) {
           const tipo = parseInt(cmd[1]);
           const cantidadStacks = parseInt(cmd[2]);
           const sobra = parseInt(cmd[3]);
@@ -198,6 +198,14 @@ bot.on('chat2', function (username, message) {
       case 'ping':
         pingms(cmd[1])
         break;
+      case 'length':
+        console.log(cmd)
+        var longitudcmd = cmd;
+        longitudcmd.shift();
+        longitudcmd = longitudcmd.join(' ');
+        longitudcmd = longitudcmd.length;
+        bot.chat(lang.longitud + longitudcmd.toString());
+        break;
     }
   }
 });
@@ -207,6 +215,20 @@ bot.on('entidadescount', function (message) {
   bot.chat(lang.entidadescount + entidades + lang.entidadescount2);
   console.log(lang.entidadescount + entidades + lang.entidadescount2);
 })
+
+let jugadormovistar, movistardetect = 0;
+
+bot.on('join', function (username) {
+  if (jugadormovistar === username) {
+    movistardetect++;
+    if (movistardetect >= 5) bot.chat(lang.movistardetect);
+    
+  } else {
+    jugadormovistar = username;
+    movistardetect = 0;
+    bot.chat(lang.hi)
+  }
+});
 
 function pingms(username) {
   try {
@@ -343,7 +365,7 @@ bot.on('message', function (message) {
 })
 */
 const langrequire = './fzmm/lang/' + config.lang + '.json';
-require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, config.saludar);
+require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, require(langrequire).help);
 require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.saltar, config.seguir, config.lang);
 require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
 require('./fzmm/estilosdechat.js')(bot);
