@@ -15,9 +15,9 @@ function inject(bot, lang, prefix, spamearsplash) {
           else if (!perdonado) bot.chat(lang.noperdono);
           break;
         case 'caraocruz':
-          caraocruz = Math.floor(Math.random() * 2).toString();
-          if (caraocruz) bot.chat(lang.cara)
-          else if (!caraocruz) bot.chat(lang.cruz);
+          caraocruz = Math.floor(Math.random() * 2)
+          if (caraocruz <= 0.5) bot.chat(lang.cara)
+          else if (caraocruz >= 0.51) bot.chat(lang.cruz);
           break;
       }
     }

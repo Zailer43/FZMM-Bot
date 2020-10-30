@@ -8,6 +8,7 @@ let datostag = require(datostagdirectorio);
 
 function inject(bot, lang, prefix, tageosmax) {
     bot.on('chat2', function (username, message) {
+        if (username === bot.username) return;
         const tag = message.split(' ');
         var maxtageos = 0;
 

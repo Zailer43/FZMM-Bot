@@ -10,6 +10,8 @@ function inject(bot, lang, prefix, admin) {
     const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_', 'gamerexde']
     bot.on('chat2', function (username, message) {
         if (message.startsWith(prefix)) {
+            if (username === bot.username)
+
             message = message.slice(prefix.length)
             if (message.startsWith('tp ')) {
                 const nick = message.slice(3).toLowerCase();

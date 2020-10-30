@@ -69,29 +69,26 @@
         },
         "itemframe": "Item frame invisible",
         "entidadescount": "Hay un total de ",
-        "entidadescount2": " entidades cargadas"
+        "entidadescount2": " entidades cargadas",
+        "hi": "(^Ｕ^)ノ ~Hi",
+        "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
+        "longitud": "La longitud del mensaje es: "
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
         "conectado": "~~---- <][> Conectado <][> ----~~",
         "kick": "Fui kickeado por ",
         "help": {
-            "help": "help [text / random / survi / tp / cosmeticos / conversor]",
-            "helpinfo": "Si el comando tiene un * significa que requiere /op",
+            "noexiste": "Página inexistente, el máximo es ",
+            "help": "help [text / tp] o ",
+            "help2": "help page <Numero de pagina>",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
-            "aleatorioinfo": "Aquí todo los comandos son aleatorios",
-            "surviinfo": "Comandos que quizás puedan ser útiles en un survival o probablemente no",
-            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de cuarzo por tp",
-            "cosmeticosinfo": "Cosas decorativas y nada utiles a 0$ cada una",
+            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
             "stacksinfo": "Con esto puedes convertir un número a stacks (puedes elegir entre 16 y 64)",
             "cantidadinfo": "Y con lo de acá puedes saber el número exacto de items que tienes entre todos tus stacks",
             "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
-            "armorstandinfo": "Con ",
-            "armorstandinfo2": "armorstand arms -> mostrar los brazos, ",
-            "armorstandinfo3": "armorstand base -> quitas la placa ",
-            "armorstandinfo4": "armorstand small -> lo haces enano (todo esto funciona con el armor stand colocado más cercano)",
             "itemframeinfo": "Debes especificar la cantidad de item frames que tienes en la mano para que esto funcione",
-            "tag":"Puedes tagear gente usando @<nick> en un mensaje y cambiar tu configuración de sonido con "
+            "tag": "Puedes tagear gente usando @<nick> en un mensaje y cambiar tu configuración de sonido con "
         },
         "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/'",
         "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
@@ -125,6 +122,40 @@
             "─▀█────██▀█▀██────█▀──"
         ]
     },
+    "help": [
+        [
+            "help text: Lista de comandos que simplemente muestran texto por chat",
+            "ping <usuario (opcional)>: Obtiene el ping",
+            "tps: Obtiene un aproximado de los Ticks Por Segundo del servidor",
+            "color <color>: Te cambia el nick a un color a tu elección",
+            "colores: Lista de colores disponibles en minecraft (no hexadecimal)",
+            "uuid <usuario (opcional)>: Dice el UUID premium del jugador (en caso de serlo) y sus anteriores nicks"
+        ],
+        [
+            "server <ip>: Hace ping al servidor, obtiene su MOTD y los jugadores conectados",
+            "coords <Dimensión actual (overworld o nether)> <x> <z>: Si estás en overworld devide las coords por 8 y si es nether las multiplica",
+            "simbolos: Crea un mensaje clickeable que te copia en el portapapeles simbolos",
+            "itemframe <cantidad>: Convierte item frames normales a invisibles, debes especificar la cantidad exacta de item frames en tu mano",
+            "armorstand [arms / base / small]: Convierte un armor stand normal a uno con brazos, sin placa o pequeño"
+        ],
+        [
+            "jokes: Dice un chiste random (en inglés)",
+            "tag sonido <sonido>: Especifica un sonido para cuando te hacen un tag",
+            "tag volumen <0-999>: Cambia el volumen de cuando te tagean",
+            "calavera: Obtiene un porcentaje de tus probabilidades de obtener una calavera (100% real no fake)",
+            "caraocruz"
+        ],
+        [
+            "tp <nick>: Tepearte a un jugador (se te sumará a la deuda un stack de bloques de cuarzo)",
+            "pagartp <nick (opcional)>: Para pagar la deuda deberas de tener el material nombrado en la mano",
+            "deuda <nick (opcional)>: Ver cuanto debe alguien (el máximo es 5)"
+        ],
+        [
+            "stack <tipo de stack (64 o 16)> <cantidad>: Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)",
+            "cantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack>: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
+            "length <mensaje>: Obtener longitud del mensaje"
+        ]
+    ],
     "admin": {
         "tepeado": "Tepeado a ",
         "gamemode": "/gamemode ",
@@ -155,7 +186,7 @@
         "ladeuda": "Ahora la deuda de ",
         "ladeudaes": " es ",
         "ladeudade": "La deuda de ",
-        "material": " stacks de cuarzo",
+        "material": " stack(s) de bloques de cuarzo",
         "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar ",
         "notienesdeuda": "No tienes deuda pendiente"
     },
@@ -164,7 +195,7 @@
         "wither2": "% de probabilidades de obtener calavera",
         "perdonado": "teperd0no",
         "noperdono": "pecador, no eres perdonado",
-        "cara":"cara",
+        "cara": "cara",
         "cruz": "cruz"
     },
     "encuestas": {
