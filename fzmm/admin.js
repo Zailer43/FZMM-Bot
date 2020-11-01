@@ -3,9 +3,9 @@ const mineflayer = require('mineflayer');
 const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 const { pathfinder, Movements } = require('mineflayer-pathfinder')
 const { GoalNear, GoalBlock, GoalXZ, GoalY, GoalInvert, GoalFollow } = require('mineflayer-pathfinder').goals
-const Item = require("prismarine-item")('1.16.1');
-const fs = require("fs");
-const fzmm = require('./../fzmm');
+const Item = require('prismarine-item')('1.16.1');
+const fs = require('fs');
+const util = require('util');
 
 function uuid() {
   var uuid = "", i, random;
@@ -20,11 +20,10 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
+function inject(bot, lang, admin, prefix, seguir, lang2) {
 
   const mcData = require('minecraft-data')(bot.version);
 
-  let saltoestado = saltar;
   let seguirestado = seguir;
   let target, token;
   let admintemporal = [];
@@ -35,12 +34,12 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
       message = message.slice(prefix.length)
       if (message === 'admin') {
         token = uuid();
-        console.log(lang.admin.eltoken + token);
+        console.log(util.format(lang.admin.eltoken, token));
         bot.chat(lang.admin.introducetoken)
       }  else if (message.toLowerCase().startsWith('admin ')) {
         const admincmd = message.split(' ');
         if (!token) {
-          bot.chat(lang.admin.nohaytoken+ prefix + 'admin');
+          bot.chat(util.format(lang.admin.nohaytoken, prefix));
         } else if (admincmd[1] === token) {
           admintemporal.push(username);
           bot.chat(lang.admin.eresadmin);
@@ -53,7 +52,6 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
       switch (message) {
         case 'tp':
           bot.chat('/tp ' + username);
-          console.log(lang.tepeado + username);
           break;
         case 'gmc':
           bot.chat(lang.gamemode + lang.gmc);
@@ -69,11 +67,6 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
           break;
         case 'heal':
           bot.chat('/heal');
-          break;
-        case 'saltar':
-          saltoestado = !saltoestado;
-          bot.setControlState('jump', saltoestado);
-          console.log(lang.saltar + saltoestado)
           break;
         case 'nukereal':
           bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
@@ -120,12 +113,13 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
 
   navigatePlugin(bot);
 
-  bot.on('whisper', function (username, message, rawMessage) {
+  bot.on('whisper', function (username, message) {
     if (username === bot.username) return;
-    console.log(username + lang.tell + message);
+    
     if (!admintemporal.includes(username)) return;
     if (message.startsWith(prefix)) {
       message = message.slice(prefix.length)
+
       switch (message) {
         case 'tpa':
           bot.chat('/tpa ' + username);
@@ -155,11 +149,6 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
           break;
       }
 
-      function tossNext() {
-        if (bot.inventory.items().length === 0) return
-        const item = bot.inventory.items()[0]
-        bot.tossStack(item, tossNext)
-      }
       if (message.startsWith('di ')) {
         if (username != admin) return;
         bot.chat(message.slice(3));
@@ -174,4 +163,10 @@ function inject(bot, lang, admin, prefix, saltar, seguir, lang2) {
       }
     }
   })
+
+  function tossNext() {
+    if (bot.inventory.items().length === 0) return
+    const item = bot.inventory.items()[0]
+    bot.tossStack(item, tossNext)
+  }
 }

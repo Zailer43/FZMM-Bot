@@ -1,4 +1,5 @@
 module.exports = inject;
+const util = require('util');
 
 function inject(bot, lang, prefix, spamearsplash) {
   bot.on('chat2', function (username, message) {
@@ -7,7 +8,7 @@ function inject(bot, lang, prefix, spamearsplash) {
       message = message.slice(prefix.length)
       switch (message) {
         case 'calavera':
-          bot.chat(lang.wither + Math.floor((Math.random() * 20) + 1).toString() + lang.wither2);
+          bot.chat(util.format(lang.wither, Math.floor((Math.random() * 20) + 1).toString()));
           break;
         case 'perdoname diosito':
           perdonado = Math.floor(Math.random() * 2).toString();

@@ -22,5 +22,17 @@
     "votantes": [
       "Zailer43"
     ]
+  },
+  {
+    "id": "67be3",
+    "texto": "¿Te parece un buen precio un stack de cuarzo por un tp?",
+    "votos": {
+      "si": 0,
+      "no": 0,
+      "muybarato": 0,
+      "perfecto": 0,
+      "muycaro": 0
+    },
+    "votantes": []
   }
 ]

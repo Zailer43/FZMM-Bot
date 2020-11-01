@@ -2,6 +2,7 @@ const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
 const vec3 = require('vec3');
 const axios = require('axios').default;
+const util = require('util');
 
 const config = require('./fzmm/datos/config.json');
 const credenciales = require('./fzmm/credenciales.json');
@@ -73,13 +74,13 @@ bot.on('chat2', function (username, message) {
         goToSleep();
         break;
       case 'armorstand arms':
-        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'ShowArms:1b}')
+        bot.chat(util.format(lang.armorstand, username, 'ShowArms'));
         break;
       case 'armorstand base':
-        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'NoBasePlate:1b}')
+        bot.chat(util.format(lang.armorstand, username, 'NoBasePlate'));
         break;
       case 'armorstand small':
-        bot.chat(lang.armorstand.execute + username + lang.armorstand.execute2 + 'Small:1b}')
+        bot.chat(util.format(lang.armorstand, username, 'Small'));
         break;
       case 'bot ram':
         bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
@@ -117,17 +118,17 @@ bot.on('chat2', function (username, message) {
           const z = parseInt(cmd[3], 10);
           switch (cmd[1]) {
             case 'overworld':
-              bot.chat(lang.coords.overworld + (x / 8) + ' ' + (z / 8));
+              bot.chat(util.format(lang.coords.mensaje, cmd[1], x / 8, x / 8));
               break;
             case 'nether':
-              bot.chat(lang.coords.nether + (x * 8) + ' ' + (z * 8));
+              bot.chat(util.format(lang.coords.mensaje, cmd[1], x * 8, x * 8));
               break;
             case 'end':
               bot.chat(lang.coords.end);
               break;
           }
         } else {
-          bot.chat(lang.coords.error + config.prefix + 'coords <dimension actual> <x> <z>')
+          bot.chat(util.format(lang.coords.error, config.prefix));
         }
         break;
       case 'color':
@@ -149,21 +150,21 @@ bot.on('chat2', function (username, message) {
             case 'red':
             case 'white':
             case 'yellow':
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'leave ' + username);
+              bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
               sleep(450);
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'add ' + username + lang.color.subfixteam);
+              bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
               sleep(450);
-              bot.chat(lang.color.executeif + username + lang.color.executeteam + username + lang.color.subfixteam + lang.color.executerun + 'join ' + username + lang.color.subfixteam + ' ' + username);
+              bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
               sleep(450);
               bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
               bot.chat(lang.color.nuevocolor)
               break;
             default:
-              bot.chat(lang.color.desconocido + config.prefix + lang.color.desconocido2);
+              bot.chat(util.format(lang.color.desconocido, config.prefix));
               break;
           }
         } else {
-          bot.chat(lang.color.error + config.prefix + 'colores')
+          bot.chat(util.format(lang.color.error, config.prefix))
         }
         break;
       case 'stack':
@@ -181,13 +182,10 @@ bot.on('chat2', function (username, message) {
           }
 
           if (tipo === 64 || tipo === 16) {
-            bot.chat(lang.conversor.son + Math.trunc(cantidad / tipo) + lang.conversor.stack1 + tipo + lang.conversor.stack2 + cantidad % tipo)
-            break;
+            bot.chat(util.format(lang.conversor.stack, Math.trunc(cantidad / tipo), tipo, cantidad % tipo))
           } else {
-            bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxisstack);
+            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxisstack, config.prefix));
           }
-        } else {
-          bot.chat(lang.conversor.error + lang.conversor.falta);
         }
         break;
       case 'cantidad':
@@ -204,9 +202,9 @@ bot.on('chat2', function (username, message) {
             return;
           }
           if (tipo === 64 || tipo === 16) {
-            bot.chat(lang.conversor.son + ((cantidadStacks * tipo) + sobra) + lang.conversor.cantidad1);
+            bot.chat(util.format(lang.conversor.cantidad, (cantidad * tipo) + sobra))
           } else {
-            bot.chat(lang.conversor.error + lang.conversor.sintaxis1 + config.prefix + lang.conversor.sintaxiscantidad);
+            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxis1, config.prefix));
           }
         } else {
           bot.chat(lang.conversor.error + lang.conversor.falta);
@@ -226,7 +224,7 @@ bot.on('chat2', function (username, message) {
         longitudcmd.shift();
         longitudcmd = longitudcmd.join(' ');
         longitudcmd = longitudcmd.length;
-        bot.chat(lang.longitud + longitudcmd.toString());
+        bot.chat(util.format(lang.longitud, longitudcmd));
         break;
     }
   }
@@ -234,8 +232,8 @@ bot.on('chat2', function (username, message) {
 
 bot.on('entidadescount', function (message) {
   const entidades = (message.split(', ')).length;
-  bot.chat(lang.entidadescount + entidades + lang.entidadescount2);
-  console.log(lang.entidadescount + entidades + lang.entidadescount2);
+  bot.chat(util.format(lang.entidadescount, entidades));
+  console.log(util.format(lang.entidadescount, entidades));
 })
 
 let jugadormovistar, movistardetect = 0;
@@ -244,7 +242,7 @@ bot.on('join', function (username) {
   if (jugadormovistar === username) {
     movistardetect++;
     if (movistardetect >= 5) bot.chat(lang.movistardetect);
-    
+
   } else {
     jugadormovistar = username;
     movistardetect = 0;
@@ -252,14 +250,15 @@ bot.on('join', function (username) {
   }
 });
 
+
 function pingms(username) {
   try {
     //console.log(bot.players);
     Object.keys(bot.players).forEach(element => {
       if (element.toLowerCase() === username.toLowerCase()) {
         let pingms = bot.players[element].ping;
-        bot.chat(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
-        console.log(lang.ping.ping + element + lang.ping.ping2 + pingms + ' ms');
+        bot.chat(util.format(lang.ping.ping, element, pingms));
+        console.log(util.format(lang.ping.ping, element, pingms));
       };
     })
 
@@ -272,10 +271,10 @@ function pingms(username) {
 function pingsv(ip) {
   axios.get('https://api.mcsrvstat.us/2/' + ip)
     .then(serverdatos => {
-      console.log(lang.pingserver.motd + serverdatos.data.motd.clean);
-      bot.chat(lang.pingserver.motd + serverdatos.data.motd.clean);
-      console.log(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
-      bot.chat(lang.pingserver.jugadores + serverdatos.data.players.online + '/' + serverdatos.data.players.max);
+      console.log(util.format(lang.pingserver.motd, serverdatos.data.motd.clean));
+      bot.chat(util.format(lang.pingserver.motd, serverdatos.data.motd.clean));
+      console.log(util.format(lang.pingserver.jugadores, serverdatos.data.players.online, serverdatos.data.players.max));
+      bot.chat(util.format(lang.pingserver.jugadores, serverdatos.data.players.online, serverdatos.data.players.max));
     })
     .catch(error => {
       bot.chat(lang.pingserver.error)
@@ -294,35 +293,34 @@ function jokes() {
 }
 
 function obtenertps() {
-  let tps = bot.getTps();
-  let tpsmessage = lang.tps.actual + tps + lang.tps.prefix;
+  let tps = bot.getTps(),
+    estado;
   if (tps === 20) {
-    tpsmessage += lang.tps.perfecto
+    estado = lang.tps.perfecto
   } else if (tps === 19) {
-    tpsmessage += lang.tps.casisinlag
+    estado = lang.tps.casisinlag
   } else if (tps >= 16 && tps <= 18) {
-    tpsmessage += lang.tps.unpocolag
+    estado = lang.tps.unpocolag
   } else if (tps >= 14 && tps <= 15) {
-    tpsmessage += lang.tps.lag
+    estado = lang.tps.lag
   } else if (tps >= 11 && tps <= 13) {
-    tpsmessage += lang.tps.lageado
+    estado = lang.tps.lageado
   } else if (tps >= 6 && tps <= 10) {
-    tpsmessage += lang.tps.muylageado
+    estado = lang.tps.muylageado
   } else if (tps >= 2 && tps <= 5) {
-    tpsmessage += lang.tps.injugable
+    estado = lang.tps.injugable
   } else if (tps >= 0 && tps <= 1) {
-    tpsmessage += lang.tps.terrible
+    estado = lang.tps.terrible
   }
-  tpsmessage += lang.tps.subfix;
-  bot.chat(tpsmessage)
-  console.log(tpsmessage)
+  bot.chat(util.format(lang.tps.mensaje, tps, estado))
+  console.log(util.format(lang.tps.mensaje, tps, estado))
 }
 
 function obteneruuidynicks(nick) {
   axios.get('https://api.mojang.com/users/profiles/minecraft/' + nick)
     .then(function (uuid) {
-      console.log(lang.uuid.es + uuid.data.name + lang.uuid.es2 + uuid.data.id);
-      bot.chat(lang.uuid.es + uuid.data.name + lang.uuid.es2 + uuid.data.id);
+      console.log(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
+      bot.chat(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
       axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
         .then(function (historial) {
           var longinicks = Object.keys(historial.data).length;
@@ -332,8 +330,8 @@ function obteneruuidynicks(nick) {
             if (i != (longinicks - 1))
               historialdenicks = historialdenicks + ', ';
           }
-          console.log(lang.uuid.nicks + historialdenicks);
-          bot.chat(lang.uuid.nicks + historialdenicks);
+          bot.chat(util.format(lang.uuid.nicks, historialdenicks));
+          console.log(util.format(lang.uuid.nicks, historialdenicks));
         })
         .catch(error => {
           console.log(error);
@@ -388,7 +386,7 @@ bot.on('message', function (message) {
 */
 const langrequire = './fzmm/lang/' + config.lang + '.json';
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, require(langrequire).help);
-require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.saltar, config.seguir, config.lang);
+require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang);
 require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
 require('./fzmm/estilosdechat.js')(bot);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)

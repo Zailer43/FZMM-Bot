@@ -2,6 +2,7 @@ module.exports = inject;
 
 const fzmm = require('./../fzmm.js');
 const colors = require('colors');
+const util = require('util');
 
 function inject(bot, lang, prefix, help) {
   bot.on('chat2', function (username, message) {
@@ -16,7 +17,7 @@ function inject(bot, lang, prefix, help) {
           break;
           //startwith help
         case 'help':
-          bot.chat(prefix + lang.help.help + prefix + lang.help.help2);
+          bot.chat(util.format(lang.help.help, prefix, prefix));
           break;
         case 'help text':
           bot.chat(lang.help.textinfo)
@@ -112,7 +113,7 @@ function inject(bot, lang, prefix, help) {
           bot.chat(lang.conteofinal);
           break;
         case 'simbolos':
-          bot.chat('/tellraw @a {"text":"Click acá y luego ctrl+v en el chat","clickEvent":{"action":"copy_to_clipboard","value":"' + lang.simbolos + '"}}');
+          bot.chat('/tellraw @a {"text":"' + lang.simbolosmsg + '","clickEvent":{"action":"copy_to_clipboard","value":"' + lang.simbolos + '"}}');
           break;
         case lang.bruh:
           bot.chat(lang.bruh);
@@ -132,7 +133,7 @@ function inject(bot, lang, prefix, help) {
           if (cmd[1] === 'page') {
             const pagina = parseInt(cmd[2]);
             if ((pagina) > (help).length || pagina <= 0) {
-              bot.chat(lang.help.noexiste + (help).length);
+              bot.chat(util.format(lang.help.noexiste, (help).length));
               return;
             }
             bot.chat('« Help [' + cmd[2] + '/' + (help).length + '] »')
@@ -146,11 +147,11 @@ function inject(bot, lang, prefix, help) {
   });
 
   bot.on('join', function (player) {
-    console.log('+ '.green + player + ' se conectó')
+    console.log('+ '.green + util.format(lang.entro, player));
   })
 
   bot.on('leave', function (player) {
-    console.log('- ' + player + ' se fue del servidor')
+    console.log('- ' + util.format(lang.salio, player))
   })
 
   bot.on('connect', function () {
@@ -159,7 +160,12 @@ function inject(bot, lang, prefix, help) {
   });
 
   bot.on('kicked', (reason) => {
-    console.log(lang.kick + reason.red)
+    console.log(util.format(lang.kick, reason).red);
+  })
+
+  bot.on('whisper', function (username, message) {
+    if (username === bot.username) return;
+    console.log(util.format(lang.tell, username, message));
   })
 
   function efe(f) {

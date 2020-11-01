@@ -2,35 +2,28 @@
     "fzmm": {
         "antiafk": "/tell FraZaMaMe Anti-AFK",
         "coords": {
-            "overworld": "Esas coords en el nether son: ",
-            "nether": "Esas coords en el overworld son: ",
+            "mensaje": "Esas coords en el %s son: %s %s",
             "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
-            "error": "La sintaxis del comando es: "
+            "error": "La sintaxis del comando es: %scoords <dimension actual> <x> <z>"
         },
         "color": {
-            "executeif": "/execute if entity @a[name=\"",
-            "executeteam": "\",team=!",
-            "executerun": "] run team ",
+            "execute": "/execute if entity @a[name=\"%s\",team=!%s] run team %s %s",
             "subfixteam": "_color",
-            "nuevocolor": "Ya tienes un nuevo color!",
-            "desconocido": "Color desconocido, intenta ",
-            "desconocido2": "colores",
-            "error": "Quizás intentabas ver los colores con "
+            "nuevocolor": "¡Ya tienes un nuevo color!",
+            "desconocido": "Color desconocido, intenta %scolores",
+            "error": "Quizás intentabas ver los colores, es con %scolores"
         },
         "ping": {
-            "ping": "El ping de ",
-            "ping2": " es ",
+            "ping": "El ping de %s es %s ms",
             "error": "No encontré a ese jugador"
         },
         "pingserver": {
-            "motd": "MOTD: ",
-            "jugadores": "Jugadores: ",
+            "motd": "MOTD: %s",
+            "jugadores": "Jugadores: %s/%s",
             "error": "No encontré el servidor"
         },
         "tps": {
-            "actual": "El TPS actual es ",
-            "prefix": " (",
-            "subfix": ")",
+            "mensaje": "El TPS actual es %s (%s)",
             "terrible": "☠ TERRIBLE ☠",
             "injugable": "⚠ Hay un poco de server en tu lag ⚠",
             "muylageado": "Muy Lageado",
@@ -41,9 +34,8 @@
             "perfecto": "Sin lag"
         },
         "uuid": {
-            "es": "La UUID de ",
-            "es2": " es: ",
-            "nicks": "Nicks: "
+            "es": "La UUID de %s es %s",
+            "nicks": "Nicks: %s"
         },
         "mimir": {
             "error": "No puedo dormir: ",
@@ -55,37 +47,31 @@
             "muygrande": "Cantidad muy grande",
             "negativo": "No entiendo como chucha vas a tener items negativos",
             "falta": "Faltan/sobran argumentos (en el caso de que no sobre nada poner un 0)",
-            "sintaxis1": "La sintaxis es ",
-            "sintaxisstack": "stack [64 / 16] <cantidad>",
-            "sintaxiscantidad": "cantidad [64 / 16] <stacks> <sobra (menos de 64)>",
-            "son": "Son ",
-            "stack1": " stacks (",
-            "stack2": ") y sobran ",
-            "cantidad1": " items"
+            "sintaxisstack": "La sintaxis es %sstack [64 / 16] <cantidad>",
+            "sintaxiscantidad": "La sintaxis es %scantidad [64 / 16] <stacks> <sobra (menos de 64)>",
+            "stack": "Son %s stacks (%s) y sobran %s items",
+            "cantidad": "Son %s items"
         },
-        "armorstand": {
-            "execute": "/execute at @a[name=\"",
-            "execute2": "\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {"
-        },
+        "armorstand": "/execute at @a[name=\"%s\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {%s:1b}",
         "itemframe": "Item frame invisible",
-        "entidadescount": "Hay un total de ",
-        "entidadescount2": " entidades cargadas",
+        "entidadescount": "Hay un total de %s entidades cargadas",
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
-        "longitud": "La longitud del mensaje es: ",
+        "longitud": "La longitud del mensaje es: %s",
         "afk": ", estuviste AFK durante ",
         "estasafk": "Ahora estás afk",
         "segundos": " segundos",
-        "minutos": " minutos"
+        "minutos": " minutos",
+        "tradeos1": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
         "conectado": "~~---- <][> Conectado <][> ----~~",
-        "kick": "Fui kickeado por ",
+        "kick": "Fui kickeado por %s",
+        "tell": "%s me susurró: %s",
         "help": {
-            "noexiste": "Página inexistente, el máximo es ",
-            "help": "help [text / tp] o ",
-            "help2": "help page <Numero de pagina>",
+            "noexiste": "Página inexistente, el máximo es %s",
+            "help": "%shelp [text / tp] o %shelp page <Numero de pagina>",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
             "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
             "stacksinfo": "Con esto puedes convertir un número a stacks (puedes elegir entre 16 y 64)",
@@ -116,8 +102,8 @@
         "simbolosmsg": "Click acá y luego ctrl+v en el chat",
         "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』 ⩶ ⫽ ⫻ Ξ",
         "bruh": "bruh",
-        "entrar": " se conectó",
-        "salir": " se fue",
+        "entro": "%s se conectó",
+        "salio": "%s se fue",
         "r1p": [
             "──▄────▄▄▄▄▄▄▄────▄───",
             "─▀▀▄─▄█████████▄─▄▀▀──",
@@ -158,26 +144,22 @@
             "stack <tipo de stack (64 o 16)> <cantidad>: Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)",
             "cantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack>: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
             "length <mensaje>: Obtener longitud del mensaje",
-            "afk: Te dice cuanto tiempo pasó entre que pusiste el comando y tu siguiente mensaje"
+            "afk: Te dice cuanto tiempo pasó entre que pusiste el comando y tu siguiente mensaje",
+            "tradeos: Calcula el tiempo para la proxima vez que los aldeanos recargan"
         ]
     ],
     "admin": {
-        "tepeado": "Tepeado a ",
         "gamemode": "/gamemode ",
         "gmc": "creative",
         "gms": "survival",
         "gmsp": "spectator",
-        "repetir": "Repetir: ",
-        "mirar": "Mirar: ",
-        "saltar": "Saltar: ",
         "nukereal": "Nuke real",
         "guardarcoords": "Se guardaron correctamente las coords",
-        "tell": " susurró: ",
         "plugincargado": "Plugin cargado exitosamente",
         "admin": {
-            "eltoken": "El token es: ",
+            "eltoken": "El token es: %s",
             "introducetoken": "Introduce el token generado",
-            "nohaytoken": "Error: Genera un token con ",
+            "nohaytoken": "Error: Genera un token con %sadmin",
             "tokeninvalido": "Error: token invalido",
             "eresadmin": "Ahora tienes permisos de admin hasta que me reinicie"
         }
@@ -187,17 +169,13 @@
         "albot": "No puedes hacerte tp a mí",
         "noesta": "No se encontró el nombre del jugador en la whitelist",
         "noestaonline": "El jugador no se encuentra online",
-        "tudeuda": "Tu deuda ahora es de ",
-        "ladeuda": "Ahora la deuda de ",
-        "ladeudaes": " es ",
-        "ladeudade": "La deuda de ",
-        "material": " stack(s) de bloques de cuarzo",
+        "tudeuda": "Tu deuda ahora es de %s stack(s) de bloques de cuarzo",
+        "ladeudade": "La deuda de %s es %s stack(s) de bloques de cuarzo",
         "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar ",
         "notienesdeuda": "No tienes deuda pendiente"
     },
     "random": {
-        "wither": "En tu proximo wither tienes ",
-        "wither2": "% de probabilidades de obtener calavera",
+        "wither": "En tu proximo wither tienes %s% de probabilidades de obtener calavera",
         "perdonado": "teperd0no",
         "noperdono": "pecador, no eres perdonado",
         "cara": "cara",

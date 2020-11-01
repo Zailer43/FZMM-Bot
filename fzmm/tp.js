@@ -1,7 +1,8 @@
 module.exports = inject;
 
-const fs = require("fs");
+const fs = require('fs');
 const path = require('path');
+const util = require('util');
 
 const deudasdirectorio = path.join(__dirname, 'datos/deudas.json');
 let deudas = require(deudasdirectorio);
@@ -9,18 +10,20 @@ let deudas = require(deudasdirectorio);
 function inject(bot, lang, prefix, admin) {
     const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_', 'gamerexde']
     bot.on('chat2', function (username, message) {
-        if (message.startsWith(prefix)) {
-            if (username === bot.username)
+        if (username === bot.username) return;
 
+        if (message.startsWith(prefix)) {
             message = message.slice(prefix.length)
+
             if (message.startsWith('tp ')) {
-                const nick = message.slice(3).toLowerCase();
+                const cmd = message.split(' ');
+                const nick = cmd[1];
 
                 if (username.toLowerCase() === nick) {
                     bot.chat(lang.asimismo);
                     return;
 
-                } else if (message.slice(3).toLowerCase() === 'frazamame') {
+                } else if (nick === 'frazamame') {
                     bot.chat(lang.albot);
                     return;
 
@@ -46,8 +49,8 @@ function inject(bot, lang, prefix, admin) {
                 bot.chat('/clear ' + cmd[1] + ' minecraft:quartz_block 64')
                 bajarledeuda.deudatotal--;
 
-                bot.chat(lang.tudeuda + bajarledeuda.deudatotal + lang.material);
-                console.log(lang.ladeuda + cmd[1] + lang.ladeudaes + bajarledeuda.deudatotal)
+                bot.chat(util.format(lang.tudeuda, bajarledeuda.deudatotal));
+                console.log(util.format(lang.ladeudade, username, bajarledeuda.deudatotal));
 
                 const json_deudas = JSON.stringify(deudas, null, 2);
                 fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
@@ -87,7 +90,6 @@ function inject(bot, lang, prefix, admin) {
             bot.chat('/tp ' + username + ' ' + nick);
 
             bot.chat(lang.tudeuda + (jugadorelegido.deudatotal));
-            console.log(lang.ladeuda + username + lang.ladeudaes + jugadorelegido.deudatotal);
 
             const json_deudas = JSON.stringify(deudas, null, 2);
             fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
@@ -117,6 +119,6 @@ function inject(bot, lang, prefix, admin) {
             bot.chat(lang.noesta)
             return;
         }
-        bot.chat(lang.ladeudade + username + lang.ladeudaes + jugadordatos.deudatotal + lang.material);
+        bot.chat(util.format(lang.ladeudade, username, jugadordatos.deudatotal));
     }
 }
