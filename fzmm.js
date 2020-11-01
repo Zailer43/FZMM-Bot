@@ -100,6 +100,38 @@ bot.on('chat2', function (username, message) {
       case 'afk':
         afk.push({nick: username, tiempo: Date.now()});
         bot.chat(lang.estasafk)
+        break;
+      case 'tradeos':
+        const tiempo = bot.time.timeOfDay,
+          ticksporsegundo = 20,
+          tradeo1 = 2000,
+          tradeo2 = 3000,
+          tradeo3 = 5000,
+          tradeo4 = 6000;
+        let faltaminuto = 0,
+          faltasegundo;
+        if (tiempo < tradeo1) {
+          faltasegundo = (tradeo1 - tiempo) / ticksporsegundo;
+
+        } else if (tiempo < tradeo2) {
+          faltasegundo = (tradeo2 - tiempo) / ticksporsegundo;
+
+        } else if (tiempo < tradeo3) {
+          faltasegundo = (tradeo3 - tiempo) / ticksporsegundo;
+
+        } else if (tiempo < tradeo4) {
+          faltasegundo = (tradeo4 - tiempo) / ticksporsegundo;
+
+        } else if (tiempo > tradeo1) {
+          faltasegundo = (tiempo - tradeo1) / ticksporsegundo;
+        }
+
+        if (faltasegundo > 60) {
+          faltaminuto = parseInt(faltasegundo / 60)
+          faltasegundo = faltasegundo % 60;
+        }
+
+        bot.chat(util.format(lang.tradeos, faltaminuto, parseInt(faltasegundo)));
     }
 
     const cmd = message.split(' ');
