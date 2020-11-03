@@ -36,24 +36,24 @@ bot.loadPlugin(tpsPlugin)
 
 let afk = [];
 
+
 bot.on('chat2', function (username, message) {
   if (username === bot.username) return;
 
-  let afkesta = afk.find(({nick}) => nick === username);
+  let afkesta = afk.find(({
+    nick
+  }) => nick === username);
   if (afkesta) {
     let segundos = parseInt((Date.now() - afkesta.tiempo) / 1000);
     let minutos = parseInt(segundos / 60);
-    let mensaje = afkesta.nick + lang.afk;
+    let mensaje = afkesta.nick + lang.afk.fin;
     if (minutos) {
       mensaje += minutos.toString() + lang.minutos;
     } else mensaje += segundos.toString() + lang.segundos;
     bot.chat(mensaje);
+    bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`);
 
     delete afkesta.nick, afkesta.tiempo;
-
-    //afk.forEach(element, index => {
-    //  if (element.nick === username) delete afk[index];
-    //});
   }
 
   if (message.toLowerCase().startsWith(config.prefix)) {
@@ -98,8 +98,12 @@ bot.on('chat2', function (username, message) {
         console.log(bot.inventory)
         break;
       case 'afk':
-        afk.push({nick: username, tiempo: Date.now()});
-        bot.chat(lang.estasafk)
+        afk.push({
+          nick: username,
+          tiempo: Date.now()
+        });
+        bot.chat(lang.afk.nuevo);
+        bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
         break;
       case 'tradeos':
         const tiempo = bot.time.timeOfDay,
@@ -282,6 +286,9 @@ bot.on('join', function (username) {
   }
 });
 
+bot.on('leave', function (username) {
+  if ( afk.find(({nick}) => nick === username) ) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
+});
 
 function pingms(username) {
   try {
