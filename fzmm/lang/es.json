@@ -58,11 +58,14 @@
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
         "longitud": "La longitud del mensaje es: %s",
-        "afk": ", estuviste AFK durante ",
-        "estasafk": "Ahora estás afk",
+        "afk": {
+            "fin": ", estuviste AFK durante ",
+            "nuevo": "Ahora estás afk",
+            "prefix": "[AFK] "
+        },
         "segundos": " segundos",
         "minutos": " minutos",
-        "tradeos1": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)"
+        "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
