@@ -154,10 +154,10 @@ bot.on('chat2', function (username, message) {
           const z = parseInt(cmd[3], 10);
           switch (cmd[1]) {
             case 'overworld':
-              bot.chat(util.format(lang.coords.mensaje, cmd[1], x / 8, x / 8));
+              bot.chat(util.format(lang.coords.mensaje, cmd[1], x / 8, z / 8));
               break;
             case 'nether':
-              bot.chat(util.format(lang.coords.mensaje, cmd[1], x * 8, x * 8));
+              bot.chat(util.format(lang.coords.mensaje, cmd[1], x * 8, z * 8));
               break;
             case 'end':
               bot.chat(lang.coords.end);
