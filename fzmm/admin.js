@@ -3,7 +3,6 @@ const mineflayer = require('mineflayer');
 const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 const { pathfinder, Movements } = require('mineflayer-pathfinder')
 const { GoalNear, GoalBlock, GoalXZ, GoalY, GoalInvert, GoalFollow } = require('mineflayer-pathfinder').goals
-const Item = require('prismarine-item')('1.16.1');
 const fs = require('fs');
 const util = require('util');
 
@@ -22,7 +21,8 @@ function uuid() {
 
 function inject(bot, lang, admin, prefix, seguir, lang2) {
 
-  const mcData = require('minecraft-data')(bot.version);
+const Item = require('prismarine-item')(bot.version);
+const mcData = require('minecraft-data')(bot.version);
 
   let seguirestado = seguir;
   let target, token;
@@ -147,6 +147,10 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
         case 'coords':
           console.log(bot.entity.position.toString());
           break;
+        case 'drop':
+          bot.creative.setInventorySlot(36, new Item(message.slice(5), 64));
+          tossNext();
+          break;
       }
 
       if (message.startsWith('di ')) {
@@ -155,11 +159,15 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
         console.log('Dije: ' + message.slice(3));
 
       } else if (message.startsWith('hat ')) {
-        bot.creative.setInventorySlot(5, new Item(message.slice(4), 1));
+        const hat = message.split(' ');
+        try {
+          const bloque = mcData.blocksByName[hat[1]];
+          console.log(bloque);
+          bot.creative.setInventorySlot(5, new Item(bloque.drops[0], 1));
+        } catch (e) {
+          bot.creative.setInventorySlot(5, new Item(message.slice(4), 1));
+        }
 
-      } else if (message.startsWith('drop ')) {
-        bot.creative.setInventorySlot(36, new Item(message.slice(5), 64));
-        tossNext();
       }
     }
   })

@@ -80,7 +80,7 @@ function inject(bot, lang, prefix, admin) {
             }
         })
         if (jugadorelegido.deudatotal >= 5) {
-            bot.chat(lang.deudaalmax + prefix + 'pagardeuda');
+            bot.chat(util.format(lang.deudaalmax, prefix));
 
         } else if (!estaonline) {
             bot.chat(lang.noestaonline);
@@ -89,7 +89,7 @@ function inject(bot, lang, prefix, admin) {
             jugadorelegido.deudatotal++;
             bot.chat('/tp ' + username + ' ' + nick);
 
-            bot.chat(lang.tudeuda + (jugadorelegido.deudatotal));
+            bot.chat(util.format(lang.tudeuda, jugadorelegido.deudatotal));
 
             const json_deudas = JSON.stringify(deudas, null, 2);
             fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');

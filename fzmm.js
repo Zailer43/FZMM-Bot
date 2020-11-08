@@ -127,7 +127,8 @@ bot.on('chat2', function (username, message) {
           faltasegundo = (tradeo4 - tiempo) / ticksporsegundo;
 
         } else if (tiempo > tradeo1) {
-          faltasegundo = (tiempo - tradeo1) / ticksporsegundo;
+          bot.chat(lang.nomastradeos);
+          return;
         }
 
         if (faltasegundo > 60) {
@@ -154,10 +155,10 @@ bot.on('chat2', function (username, message) {
           const z = parseInt(cmd[3], 10);
           switch (cmd[1]) {
             case 'overworld':
-              bot.chat(util.format(lang.coords.mensaje, cmd[1], x / 8, z / 8));
+              bot.chat(util.format(lang.coords.mensaje, 'nether', Math.round(x / 8), Math.round(z / 8)));
               break;
             case 'nether':
-              bot.chat(util.format(lang.coords.mensaje, cmd[1], x * 8, z * 8));
+              bot.chat(util.format(lang.coords.mensaje, 'overworld', x * 8, z * 8));
               break;
             case 'end':
               bot.chat(lang.coords.end);

@@ -65,7 +65,8 @@
         },
         "segundos": " segundos",
         "minutos": " minutos",
-        "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)"
+        "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)",
+        "nomastradeos": "Espera al siguiente día para volver a tradear"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
@@ -174,7 +175,7 @@
         "noestaonline": "El jugador no se encuentra online",
         "tudeuda": "Tu deuda ahora es de %s stack(s) de bloques de cuarzo",
         "ladeudade": "La deuda de %s es %s stack(s) de bloques de cuarzo",
-        "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar ",
+        "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar %spagartp",
         "notienesdeuda": "No tienes deuda pendiente"
     },
     "random": {
