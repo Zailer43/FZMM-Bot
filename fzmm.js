@@ -291,6 +291,13 @@ bot.on('leave', function (username) {
   if ( afk.find(({nick}) => nick === username) ) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
 });
 
+if (config.autologin) {
+  bot.once('login', function () {
+    bot.chat('/login ' + config.serverpassword)
+  })  
+}
+
+
 function pingms(username) {
   try {
     //console.log(bot.players);
