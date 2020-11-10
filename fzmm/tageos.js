@@ -2,6 +2,7 @@ module.exports = inject;
 
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 
 const datostagdirectorio = path.join(__dirname, 'datos/tageos.json');
 let datostag = require(datostagdirectorio);
@@ -114,7 +115,7 @@ function inject(bot, lang, prefix, tageosmax) {
                         bot.chat(lang.sonidocambiado);
                         break;
                     default:
-                        bot.chat(lang.errorsintaxis + prefix + 'tag [sonido / volumen]')
+                        bot.chat(util.format(lang.errorsintaxis, prefix));
                 }
             }
         }

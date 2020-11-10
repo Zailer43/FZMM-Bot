@@ -31,7 +31,7 @@
             "lag": "Lag",
             "unpocolag": "Un poco de lag",
             "casisinlag": "Practicamente sin lag",
-            "perfecto": "Sin lag"
+            "perfecto": "Sin lag :D"
         },
         "uuid": {
             "es": "La UUID de %s es %s",
@@ -59,13 +59,11 @@
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
         "longitud": "La longitud del mensaje es: %s",
         "afk": {
-            "fin": ", estuviste AFK durante ",
+            "fin": "%s, estuviste AFK durante %s minutos y %s segundos",
             "nuevo": "Ahora estás afk",
             "prefix": "[AFK] "
         },
-        "segundos": " segundos",
-        "minutos": " minutos",
-        "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundo(s)",
+        "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundos",
         "nomastradeos": "Espera al siguiente día para volver a tradear"
     },
     "texto": {
@@ -78,11 +76,9 @@
             "help": "%shelp [text / tp] o %shelp page <Numero de pagina>",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
             "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
-            "stacksinfo": "Con esto puedes convertir un número a stacks (puedes elegir entre 16 y 64)",
-            "cantidadinfo": "Y con lo de acá puedes saber el número exacto de items que tienes entre todos tus stacks",
             "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
             "itemframeinfo": "Debes especificar la cantidad de item frames que tienes en la mano para que esto funcione",
-            "tag": "Puedes tagear gente usando @<nick> en un mensaje y cambiar tu configuración de sonido con "
+            "tag": "Puedes tagear gente usando @<nick> en un mensaje y cambiar tu configuración de sonido con %stag [sonido / volumen]"
         },
         "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/'",
         "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
@@ -206,6 +202,6 @@
         "sonidocambiado": "Se ha cambiado el sonido correctamente",
         "sonidosdisponibles": "Los sonidos disponbles son: ",
         "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo",
-        "errorsintaxis": "Error de sintaxis, intenta "
+        "errorsintaxis": "Error de sintaxis, intenta %stag [sonido / volumen]"
     }
 }

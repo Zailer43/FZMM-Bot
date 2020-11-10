@@ -46,11 +46,8 @@ bot.on('chat2', function (username, message) {
   if (afkesta) {
     let segundos = parseInt((Date.now() - afkesta.tiempo) / 1000);
     let minutos = parseInt(segundos / 60);
-    let mensaje = afkesta.nick + lang.afk.fin;
-    if (minutos) {
-      mensaje += minutos.toString() + lang.minutos;
-    } else mensaje += segundos.toString() + lang.segundos;
-    bot.chat(mensaje);
+    segundos = segundos % 60;
+    bot.chat(util.format(lang.afk.fin, afkesta.nick, minutos, segundos));
     bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`);
 
     delete afkesta.nick, afkesta.tiempo;
@@ -256,7 +253,6 @@ bot.on('chat2', function (username, message) {
         pingms(cmd[1])
         break;
       case 'length':
-        console.log(cmd)
         var longitudcmd = cmd;
         longitudcmd.shift();
         longitudcmd = longitudcmd.join(' ');

@@ -33,7 +33,7 @@ function inject(bot, lang, prefix, help) {
           bot.chat(lang.help.itemframeinfo);
           break;
         case 'tag':
-          bot.chat(lang.help.tag + prefix + 'tag [sonido / volumen]');
+          bot.chat(util.format(lang.help.tag, prefix));
           break;
         case 'coords':
           bot.chat(lang.help.coordsinfo);
