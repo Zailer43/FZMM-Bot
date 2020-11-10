@@ -143,9 +143,12 @@
         [
             "stack <tipo de stack (64 o 16)> <cantidad>: Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)",
             "cantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack>: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
-            "length <mensaje>: Obtener longitud del mensaje",
-            "afk: Te dice cuanto tiempo pasó entre que pusiste el comando y tu siguiente mensaje",
+            "afk: Te dice cuanto tiempo paso entre que pusiste el comando y tu siguiente mensaje",
             "tradeos: Calcula el tiempo para la proxima vez que los aldeanos recargan"
+        ],
+        [
+            "length <mensaje>: Obtener longitud del mensaje",
+            "reverse <mensaje>: Da vuelta el mensaje"
         ]
     ],
     "admin": {

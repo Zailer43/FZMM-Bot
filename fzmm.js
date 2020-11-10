@@ -259,6 +259,13 @@ bot.on('chat2', function (username, message) {
         longitudcmd = longitudcmd.length;
         bot.chat(util.format(lang.longitud, longitudcmd));
         break;
+      case 'reverse':
+        var reverse = cmd;
+        reverse.shift();
+        reverse = reverse.join(' ').split('').reverse().join('');
+        bot.chat(reverse);
+        console.log(reverse);
+        break;
     }
   }
 });
