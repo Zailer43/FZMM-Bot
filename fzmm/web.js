@@ -1,11 +1,7 @@
 module.exports = inject;
 
-function inject(bot, prefix, admin, webport, password, repetir, mirar, saltar, seguir, shift) {
-  let repetirestado = repetir;
-  let mirarestado = mirar;
-  let saltoestado = saltar;
-  let seguirestado = seguir;
-  let shiftestado = shift;
+function inject(bot, prefix, admin, webport, password, repetirestado, mirarestado, saltoestado, 
+                seguirestado, shiftestado) {
 
   const express = require('express');
   const path = require('path');
@@ -181,7 +177,7 @@ function inject(bot, prefix, admin, webport, password, repetir, mirar, saltar, s
 
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
-    else if (repetirestado == true) bot.chat(message)
+    else if (repetirestado === true) bot.chat(message)
   })
 
   function mirarJugadorCercano() {

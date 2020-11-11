@@ -294,11 +294,13 @@ bot.on('leave', function (username) {
   if ( afk.find(({nick}) => nick === username) ) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
 });
 
-if (config.autologin) {
-  bot.once('login', function () {
-    bot.chat('/login ' + config.serverpassword)
-  })  
-}
+bot.once('login', function () {
+  if (config.autologin) bot.chat('/login ' + config.serverpassword);
+  setTimeout(() => {
+    bot.setControlState('jump', config.saltar);
+    bot.setControlState('sneak', config.shift);
+  }, 10000);
+})  
 
 
 function pingms(username) {

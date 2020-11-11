@@ -6,20 +6,25 @@
 	"chunkrender": "normal",
 	"admin": "Zailer43",
 	"prefix": "!",
+	
 	"serverpassword": "ba814c0091efe315bf7be2c83ccb918f",
 	"autologin": true,
 	"premium": false,
+
 	"administrartp": true,
 	"antiafk": true,
+	"tageosmax": 4,
+	
 	"repetir": false,
 	"mirar": true,
-	"saltar": true,
-	"seguir": false,
+	"saltar": false,
 	"shift": false,
+
 	"saludar": true,
+	"seguir": false,
 	"spamearencuesta": false,
-	"spamearsplash": true,
+	"spamearsplash": false,
+
 	"web": true,
-	"webport": 3000,
-	"tageosmax": 4
+	"webport": 3000
 }
