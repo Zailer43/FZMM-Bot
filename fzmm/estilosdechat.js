@@ -2,7 +2,7 @@ module.exports = inject;
 
 function inject(bot) {
     try {
-      bot.chatAddPattern(/^<(?:.* )?(\w+)+?> (.+)$/, 'chat2', '<* username> message');
+      bot.chatAddPattern(/^<(?:[^\<\>]* )?(\w+)+?> (.+)$/, 'chat2', '<* username> message');
       //bot.chatAddPattern(/^(.[^ ]+): (.+)$/, 'chat2', 'username: message');
 
       bot.chatAddPattern(/^(?:.\s*){0,3}?(\w+)+? joined the game$/, 'join', 'username joined the game');
