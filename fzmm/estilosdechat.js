@@ -2,11 +2,11 @@ module.exports = inject;
 
 function inject(bot) {
     try {
-      bot.chatAddPattern(/(\w+)> (.+)$/, 'chat2', '*loquesea* username> message');
+      bot.chatAddPattern(/^<(?:.* )?(\w+)+?> (.+)$/, 'chat2', '<* username> message');
       //bot.chatAddPattern(/^(.[^ ]+): (.+)$/, 'chat2', 'username: message');
 
-      bot.chatAddPattern(/(\w+) joined the game$/, 'join', 'username joined the game');
-      bot.chatAddPattern(/(\w+) left the game$/, 'leave', 'username left the game');
+      bot.chatAddPattern(/^(?:.\s*){0,3}?(\w+)+? joined the game$/, 'join', 'username joined the game');
+      bot.chatAddPattern(/^(?:.\s*){0,3}?(\w+)+? left the game$/, 'leave', 'username left the game');
 
       bot.chatAddPattern(/^\[(.[^ ]+)-> me\] (.+)$/, 'whisper', '[username -> me] message');
       bot.chatAddPattern(/^(.[^ ]+) whispers: (.*)$/, 'whisper', 'username whispers: message');
@@ -14,8 +14,8 @@ function inject(bot) {
       //bot.chatAddPattern(/^<(.+)>\ fz!coords\ (.+)\ (.[0-9]*)\ (.[0-9]*)$/, 'coords', '<username> fz!coords dimension x z');
       //bot.chatAddPattern(/^<(.+)>\ fz!ir\ (.[0-9]*)\ (.[0-9]*)\ (.[0-9]*)$/, 'ir', '<username> fz!ir x y z');
       
-      bot.chatAddPattern(/^<(.+)>\ !gcoord\ (.[0-9]*)\ (.[0-9]*)\ (.[0-9]*)\ (.+)$/, 'guardarcoord', '<username> fz!gcoord x y z message');
-      bot.chatAddPattern(/^!entidadescount (.+)$/, 'entidadescount', 'fz!entidades asd, asd2, asd3, etc');
+      bot.chatAddPattern(/^<(.+)> !gcoord (.[0-9]*) (.[0-9]*) (.[0-9]*) (.+)$/, 'guardarcoord', '<username> !gcoord x y z message');
+      bot.chatAddPattern(/^!entidadescount (.+)$/, 'entidadescount', '!entidades asd, asd2, asd3, etc');
       
       bot.chatAddPattern(/^(.+)$/, 'messagesinjson', 'message');
 
