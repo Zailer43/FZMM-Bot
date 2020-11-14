@@ -34,6 +34,9 @@
             "perfecto": "&nSin lag :D"
         },
         "uuid": {
+            "alfanumerico": "&cEl nick debe ser alfanumerico",
+            "longitud": "&cEl nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
+            "noespremium":"&cEse jugador no es premium :(",
             "es": "&aLa UUID de &6%s &aes &6%s",
             "nicks": "&aNicks: &6%s"
         },
@@ -80,7 +83,7 @@
             "itemframeinfo": "&cDebes especificar la cantidad de item frames que tienes en la mano para que esto funcione",
             "tag": "&aPuedes tagear gente usando &e@<nick> &aen un mensaje y cambiar tu configuración de sonido con &e%stag [sonido / volumen]"
         },
-        "bot": "&aVersión del bot: &6veintiquince &a- Texture pack que recomiendo: &6&nhttps://www.planetminecraft.com/texture-pack/fzmm/'",
+        "bot": "&aVersión del bot: &6veintiquince &a- Texture pack que recomiendo: &6&nhttps://www.planetminecraft.com/texture-pack/fzmm/",
         "colores": "&baqua, &0black, &9blue, &3dark_aqua, &1dark_blue, &8dark_gray, &2dark_green, &5dark_purple, &4dark_red, &6gold, &7gray, &agreen, &dlight_purple, &cred, &fwhite, &eyellow",
         "nuke": "&cＢ Ｏ Ｏ Ｏ Ｍ ！ &f＼（〇_ｏ）／",
         "ak47": "(ﾒ￣▽￣)︻┳═一",

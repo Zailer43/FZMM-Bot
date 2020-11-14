@@ -146,7 +146,14 @@ bot.on('comando', function (username, message) {
       pingsv(cmd[1]);
       break;
     case 'uuid':
-      obteneruuidynicks(cmd[1]);
+      const regexnick = /^(\w+)$/
+      if (!regexnick.test(cmd[1])) {
+        bot.chat(lang.uuid.alfanumerico);
+
+      } else if (cmd[1].length > 16 || cmd[1].length < 3) {
+        bot.chat(lang.uuid.longitud);
+
+      } else obteneruuidynicks(cmd[1]);
       break;
     case 'coords':
       if (cmd.length === 4) {
@@ -374,17 +381,24 @@ function obtenertps() {
 function obteneruuidynicks(nick) {
   axios.get('https://api.mojang.com/users/profiles/minecraft/' + nick)
     .then(function (uuid) {
+      if (!uuid.data.name) {
+        bot.chat(lang.uuid.noespremium);
+        return;
+      }
       console.log(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
       bot.chat(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
+      
       axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
         .then(function (historial) {
           var longinicks = Object.keys(historial.data).length;
           var historialdenicks = '';
+
           for (var i = 0; i != longinicks; i++) {
             historialdenicks = historialdenicks + historial.data[i].name;
             if (i != (longinicks - 1))
               historialdenicks = historialdenicks + ', ';
           }
+          
           bot.chat(util.format(lang.uuid.nicks, historialdenicks));
           console.log(util.format(lang.uuid.nicks, historialdenicks));
         })
