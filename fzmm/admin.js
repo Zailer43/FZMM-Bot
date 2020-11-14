@@ -1,13 +1,24 @@
 module.exports = inject;
 const mineflayer = require('mineflayer');
 const navigatePlugin = require('mineflayer-navigate')(mineflayer);
-const { pathfinder, Movements } = require('mineflayer-pathfinder')
-const { GoalNear, GoalBlock, GoalXZ, GoalY, GoalInvert, GoalFollow } = require('mineflayer-pathfinder').goals
+const {
+  pathfinder,
+  Movements
+} = require('mineflayer-pathfinder')
+const {
+  GoalNear,
+  GoalBlock,
+  GoalXZ,
+  GoalY,
+  GoalInvert,
+  GoalFollow
+} = require('mineflayer-pathfinder').goals
 const fs = require('fs');
 const util = require('util');
 
 function uuid() {
-  var uuid = "", i, random;
+  var uuid = "",
+    i, random;
   for (i = 0; i < 32; i++) {
     random = Math.random() * 16 | 0;
 
@@ -21,66 +32,63 @@ function uuid() {
 
 function inject(bot, lang, admin, prefix, seguir, lang2) {
 
-const Item = require('prismarine-item')(bot.version);
-const mcData = require('minecraft-data')(bot.version);
+  const Item = require('prismarine-item')(bot.version);
+  const mcData = require('minecraft-data')(bot.version);
 
   let seguirestado = seguir;
   let target, token;
   let admintemporal = [];
   admintemporal.push(admin)
   bot.loadPlugin(pathfinder);
-  bot.on('chat2', function (username, message) {
-    if (message.startsWith(prefix)) {
-      message = message.slice(prefix.length)
-      if (message === 'admin') {
-        token = uuid();
-        console.log(util.format(lang.admin.eltoken, token));
-        bot.chat(lang.admin.introducetoken)
-      }  else if (message.toLowerCase().startsWith('admin ')) {
-        const admincmd = message.split(' ');
-        if (!token) {
-          bot.chat(util.format(lang.admin.nohaytoken, prefix));
-        } else if (admincmd[1] === token) {
-          admintemporal.push(username);
-          bot.chat(lang.admin.eresadmin);
-          token = null;
-        } else {
-          bot.chat(lang.admin.tokeninvalido);
-        }
+  bot.on('comando', function (username, message) {
+    if (message === 'admin') {
+      token = uuid();
+      console.log(util.format(lang.admin.eltoken, token));
+      bot.chat(lang.admin.introducetoken)
+    } else if (message.toLowerCase().startsWith('admin ')) {
+      const admincmd = message.split(' ');
+      if (!token) {
+        bot.chat(util.format(lang.admin.nohaytoken, prefix));
+      } else if (admincmd[1] === token) {
+        admintemporal.push(username);
+        bot.chat(lang.admin.eresadmin);
+        token = null;
+      } else {
+        bot.chat(lang.admin.tokeninvalido);
       }
-      if (!admintemporal.includes(username)) return;
-      switch (message) {
-        case 'tp':
-          bot.chat('/tp ' + username);
-          break;
-        case 'gmc':
-          bot.chat(lang.gamemode + lang.gmc);
-          console.log(lang.gamemode + lang.gmc);
-          break;
-        case 'gms':
-          bot.chat(lang.gamemode + lang.gms);
-          console.log(lang.gamemode + lang.gms);
-          break;
-        case 'gmsp':
-          bot.chat(lang.gamemode + lang.gmsp);
-          console.log(lang.gamemode + lang.gmsp);
-          break;
-        case 'heal':
-          bot.chat('/heal');
-          break;
-        case 'nukereal':
-          bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
-          console.log(lang.nukereal);
-          break;
-        case 'load pvp':
-          require('./pvp.js')(bot, require('./lang/' + lang2 + '.json').pvp, prefix, admin);
-          bot.chat(lang.plugincargado)
-          break;
-        case 'load minero':
-          require('./minero.js')(bot, require('./lang/' + lang2 + '.json').minero, prefix, admin);
-          bot.chat(lang.plugincargado)
-          break;
-      }
+    }
+    if (!admintemporal.includes(username)) return;
+    switch (message) {
+      case 'tp':
+        bot.chat('/tp ' + username);
+        break;
+      case 'gmc':
+        bot.chat(lang.gamemode + lang.gmc);
+        console.log(lang.gamemode + lang.gmc);
+        break;
+      case 'gms':
+        bot.chat(lang.gamemode + lang.gms);
+        console.log(lang.gamemode + lang.gms);
+        break;
+      case 'gmsp':
+        bot.chat(lang.gamemode + lang.gmsp);
+        console.log(lang.gamemode + lang.gmsp);
+        break;
+      case 'heal':
+        bot.chat('/heal');
+        break;
+      case 'nukereal':
+        bot.chat('/playsound entity.generic.explode master @a ~ ~ ~');
+        console.log(lang.nukereal);
+        break;
+      case 'load pvp':
+        require('./pvp.js')(bot, require('./lang/' + lang2 + '.json').pvp, prefix, admin);
+        bot.chat(lang.plugincargado)
+        break;
+      case 'load minero':
+        require('./minero.js')(bot, require('./lang/' + lang2 + '.json').minero, prefix, admin);
+        bot.chat(lang.plugincargado)
+        break;
     }
   })
   bot.on('guardarcoord', function (username, x, y, z, lugar) {
@@ -115,7 +123,7 @@ const mcData = require('minecraft-data')(bot.version);
 
   bot.on('whisper', function (username, message) {
     if (username === bot.username) return;
-    
+
     if (!admintemporal.includes(username)) return;
     if (message.startsWith(prefix)) {
       message = message.slice(prefix.length)

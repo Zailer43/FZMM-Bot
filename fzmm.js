@@ -37,7 +37,7 @@ bot.loadPlugin(tpsPlugin)
 let afk = [];
 
 
-bot.on('chat2', function (username, message) {
+bot.on('chat2', function (username) {
   if (username === bot.username) return;
 
   let afkesta = afk.find(({
@@ -52,221 +52,220 @@ bot.on('chat2', function (username, message) {
 
     delete afkesta.nick, afkesta.tiempo;
   }
+})
 
-  if (message.toLowerCase().startsWith(config.prefix)) {
+bot.on('comando', function (username, message) {
+  if (username === bot.username) return;
+  switch (message.toLowerCase()) {
+    case 'ping':
+      pingms(username);
+      break;
+    case 'tps':
+      obtenertps();
+      bot.chat('/tellraw ' + bot.username + ' [{"text":"fz!entidadescount "},{"selector":"@e"}]');
+      break;
+    case 'uuid':
+      obteneruuidynicks(username);
+      break;
+    case 'mimir':
+      goToSleep();
+      break;
+    case 'armorstand arms':
+      bot.chat(util.format(lang.armorstand, username, 'ShowArms'));
+      break;
+    case 'armorstand base':
+      bot.chat(util.format(lang.armorstand, username, 'NoBasePlate'));
+      break;
+    case 'armorstand small':
+      bot.chat(util.format(lang.armorstand, username, 'Small'));
+      break;
+    case 'bot ram':
+      bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
+      break;
+    case 'montar':
+      const vehiculo = bot.nearestEntity((entity) => {
+        return entity.type === 'object'
+      })
+      if (vehiculo) bot.mount(vehiculo)
+      break;
+    case 'jokes':
+      jokes();
+      break;
+    case 'inv':
+      console.log(bot.inventory)
+      break;
+    case 'afk':
+      afk.push({
+        nick: username,
+        tiempo: Date.now()
+      });
+      bot.chat(lang.afk.nuevo);
+      bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
+      break;
+    case 'tradeos':
+      const tiempo = bot.time.timeOfDay,
+        ticksporsegundo = 20,
+        tradeo1 = 2000,
+        tradeo2 = 3000,
+        tradeo3 = 5000,
+        tradeo4 = 6000;
+      let faltaminuto = 0,
+        faltasegundo;
+      if (tiempo < tradeo1) {
+        faltasegundo = (tradeo1 - tiempo) / ticksporsegundo;
 
-    message = message.slice(config.prefix.length);
-    switch (message.toLowerCase()) {
-      case 'ping':
-        pingms(username);
-        break;
-      case 'tps':
-        obtenertps();
-        bot.chat('/tellraw ' + bot.username + ' [{"text":"fz!entidadescount "},{"selector":"@e"}]');
-        break;
-      case 'uuid':
-        obteneruuidynicks(username);
-        break;
-      case 'mimir':
-        goToSleep();
-        break;
-      case 'armorstand arms':
-        bot.chat(util.format(lang.armorstand, username, 'ShowArms'));
-        break;
-      case 'armorstand base':
-        bot.chat(util.format(lang.armorstand, username, 'NoBasePlate'));
-        break;
-      case 'armorstand small':
-        bot.chat(util.format(lang.armorstand, username, 'Small'));
-        break;
-      case 'bot ram':
-        bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
-        break;
-      case 'montar':
-        const vehiculo = bot.nearestEntity((entity) => {
-          return entity.type === 'object'
-        })
-        if (vehiculo) bot.mount(vehiculo)
-        break;
-      case 'jokes':
-        jokes();
-        break;
-      case 'inv':
-        console.log(bot.inventory)
-        break;
-      case 'afk':
-        afk.push({
-          nick: username,
-          tiempo: Date.now()
-        });
-        bot.chat(lang.afk.nuevo);
-        bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
-        break;
-      case 'tradeos':
-        const tiempo = bot.time.timeOfDay,
-          ticksporsegundo = 20,
-          tradeo1 = 2000,
-          tradeo2 = 3000,
-          tradeo3 = 5000,
-          tradeo4 = 6000;
-        let faltaminuto = 0,
-          faltasegundo;
-        if (tiempo < tradeo1) {
-          faltasegundo = (tradeo1 - tiempo) / ticksporsegundo;
+      } else if (tiempo < tradeo2) {
+        faltasegundo = (tradeo2 - tiempo) / ticksporsegundo;
 
-        } else if (tiempo < tradeo2) {
-          faltasegundo = (tradeo2 - tiempo) / ticksporsegundo;
+      } else if (tiempo < tradeo3) {
+        faltasegundo = (tradeo3 - tiempo) / ticksporsegundo;
 
-        } else if (tiempo < tradeo3) {
-          faltasegundo = (tradeo3 - tiempo) / ticksporsegundo;
+      } else if (tiempo < tradeo4) {
+        faltasegundo = (tradeo4 - tiempo) / ticksporsegundo;
 
-        } else if (tiempo < tradeo4) {
-          faltasegundo = (tradeo4 - tiempo) / ticksporsegundo;
+      } else if (tiempo > tradeo1) {
+        bot.chat(lang.nomastradeos);
+        return;
+      }
 
-        } else if (tiempo > tradeo1) {
-          bot.chat(lang.nomastradeos);
+      if (faltasegundo > 60) {
+        faltaminuto = parseInt(faltasegundo / 60)
+        faltasegundo = faltasegundo % 60;
+      }
+
+      bot.chat(util.format(lang.tradeos, faltaminuto, parseInt(faltasegundo)));
+  }
+
+  const cmd = message.split(' ');
+  if (cmd.length === 1) return;
+
+  switch (cmd[0]) {
+    case 'server':
+      pingsv(cmd[1]);
+      break;
+    case 'uuid':
+      obteneruuidynicks(cmd[1]);
+      break;
+    case 'coords':
+      if (cmd.length === 4) {
+        const x = parseInt(cmd[2], 10);
+        const z = parseInt(cmd[3], 10);
+        switch (cmd[1]) {
+          case 'overworld':
+            bot.chat(util.format(lang.coords.mensaje, 'nether', Math.round(x / 8), Math.round(z / 8)));
+            break;
+          case 'nether':
+            bot.chat(util.format(lang.coords.mensaje, 'overworld', x * 8, z * 8));
+            break;
+          case 'end':
+            bot.chat(lang.coords.end);
+            break;
+        }
+      } else {
+        bot.chat(util.format(lang.coords.error, config.prefix));
+      }
+      break;
+    case 'color':
+      if (cmd.length === 2) {
+        switch (cmd[1]) {
+          case 'aqua':
+          case 'black':
+          case 'blue':
+          case 'dark_aqua':
+          case 'dark_blue':
+          case 'dark_gray':
+          case 'dark_green':
+          case 'dark_purple':
+          case 'dark_red':
+          case 'gold':
+          case 'gray':
+          case 'green':
+          case 'light_purple':
+          case 'red':
+          case 'white':
+          case 'yellow':
+            bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
+            sleep(450);
+            bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
+            sleep(450);
+            bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
+            sleep(450);
+            bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
+            bot.chat(lang.color.nuevocolor)
+            break;
+          default:
+            bot.chat(util.format(lang.color.desconocido, config.prefix));
+            break;
+        }
+      } else {
+        bot.chat(util.format(lang.color.error, config.prefix))
+      }
+      break;
+    case 'stack':
+      // fz!stack 64 <cantidad> -> Son ?? stacks y sobra ??
+      if (cmd.length === 3) {
+        const tipo = parseInt(cmd[1]);
+        const cantidad = parseInt(cmd[2]);
+        if (cantidad > 250000) {
+          bot.chat(lang.conversor.error + lang.conversor.muygrande);
+          return;
+
+        } else if (cantidad < 0) {
+          bot.chat(lang.conversor.error + lang.conversor.negativo);
           return;
         }
 
-        if (faltasegundo > 60) {
-          faltaminuto = parseInt(faltasegundo / 60)
-          faltasegundo = faltasegundo % 60;
-        }
-
-        bot.chat(util.format(lang.tradeos, faltaminuto, parseInt(faltasegundo)));
-    }
-
-    const cmd = message.split(' ');
-    if (cmd.length === 1) return;
-
-    switch (cmd[0]) {
-      case 'server':
-        pingsv(cmd[1]);
-        break;
-      case 'uuid':
-        obteneruuidynicks(cmd[1]);
-        break;
-      case 'coords':
-        if (cmd.length === 4) {
-          const x = parseInt(cmd[2], 10);
-          const z = parseInt(cmd[3], 10);
-          switch (cmd[1]) {
-            case 'overworld':
-              bot.chat(util.format(lang.coords.mensaje, 'nether', Math.round(x / 8), Math.round(z / 8)));
-              break;
-            case 'nether':
-              bot.chat(util.format(lang.coords.mensaje, 'overworld', x * 8, z * 8));
-              break;
-            case 'end':
-              bot.chat(lang.coords.end);
-              break;
-          }
+        if (tipo === 64 || tipo === 16) {
+          bot.chat(util.format(lang.conversor.stack, Math.trunc(cantidad / tipo), tipo, cantidad % tipo))
         } else {
-          bot.chat(util.format(lang.coords.error, config.prefix));
+          bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxisstack, config.prefix));
         }
-        break;
-      case 'color':
-        if (cmd.length === 2) {
-          switch (cmd[1]) {
-            case 'aqua':
-            case 'black':
-            case 'blue':
-            case 'dark_aqua':
-            case 'dark_blue':
-            case 'dark_gray':
-            case 'dark_green':
-            case 'dark_purple':
-            case 'dark_red':
-            case 'gold':
-            case 'gray':
-            case 'green':
-            case 'light_purple':
-            case 'red':
-            case 'white':
-            case 'yellow':
-              bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
-              sleep(450);
-              bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
-              sleep(450);
-              bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
-              sleep(450);
-              bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
-              bot.chat(lang.color.nuevocolor)
-              break;
-            default:
-              bot.chat(util.format(lang.color.desconocido, config.prefix));
-              break;
-          }
+      }
+      break;
+    case 'cantidad':
+      // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
+      if (cmd.length === 4) {
+        const tipo = parseInt(cmd[1]);
+        const cantidadStacks = parseInt(cmd[2]);
+        const sobra = parseInt(cmd[3]);
+        if (cantidadStacks > 25000 || sobra > 64) {
+          bot.chat(lang.conversor.error + lang.conversor.muygrande);
+          return;
+        } else if (cantidadStacks < 0 || sobra < 0) {
+          bot.chat(lang.conversor.error + lang.conversor.negativo);
+          return;
+        }
+        if (tipo === 64 || tipo === 16) {
+          bot.chat(util.format(lang.conversor.cantidad, (cantidad * tipo) + sobra))
         } else {
-          bot.chat(util.format(lang.color.error, config.prefix))
+          bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxis1, config.prefix));
         }
-        break;
-      case 'stack':
-        // fz!stack 64 <cantidad> -> Son ?? stacks y sobra ??
-        if (cmd.length === 3) {
-          const tipo = parseInt(cmd[1]);
-          const cantidad = parseInt(cmd[2]);
-          if (cantidad > 250000) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
-
-          } else if (cantidad < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
-
-          if (tipo === 64 || tipo === 16) {
-            bot.chat(util.format(lang.conversor.stack, Math.trunc(cantidad / tipo), tipo, cantidad % tipo))
-          } else {
-            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxisstack, config.prefix));
-          }
-        }
-        break;
-      case 'cantidad':
-        // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
-        if (cmd.length === 4) {
-          const tipo = parseInt(cmd[1]);
-          const cantidadStacks = parseInt(cmd[2]);
-          const sobra = parseInt(cmd[3]);
-          if (cantidadStacks > 25000 || sobra > 64) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
-          } else if (cantidadStacks < 0 || sobra < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
-          if (tipo === 64 || tipo === 16) {
-            bot.chat(util.format(lang.conversor.cantidad, (cantidad * tipo) + sobra))
-          } else {
-            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxis1, config.prefix));
-          }
-        } else {
-          bot.chat(lang.conversor.error + lang.conversor.falta);
-        }
-        break;
-      case 'itemframe':
-        bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + cmd[1]);
-        sleep(150);
-        bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
-        break;
-      case 'ping':
-        pingms(cmd[1])
-        break;
-      case 'length':
-        var longitudcmd = cmd;
-        longitudcmd.shift();
-        longitudcmd = longitudcmd.join(' ');
-        longitudcmd = longitudcmd.length;
-        bot.chat(util.format(lang.longitud, longitudcmd));
-        break;
-      case 'reverse':
-        var reverse = cmd;
-        reverse.shift();
-        reverse = reverse.join(' ').split('').reverse().join('');
-        bot.chat(reverse);
-        console.log(reverse);
-        break;
-    }
+      } else {
+        bot.chat(lang.conversor.error + lang.conversor.falta);
+      }
+      break;
+    case 'itemframe':
+      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + cmd[1]);
+      sleep(150);
+      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
+      break;
+    case 'ping':
+      pingms(cmd[1])
+      break;
+    case 'length':
+      var longitudcmd = cmd;
+      longitudcmd.shift();
+      longitudcmd = longitudcmd.join(' ');
+      longitudcmd = longitudcmd.length;
+      bot.chat(util.format(lang.longitud, longitudcmd));
+      break;
+    case 'reverse':
+      var reverse = cmd;
+      reverse.shift();
+      reverse = reverse.join(' ').split('').reverse().join('');
+      bot.chat(reverse);
+      console.log(reverse);
+      break;
   }
 });
 
@@ -291,7 +290,9 @@ bot.on('join', function (username) {
 });
 
 bot.on('leave', function (username) {
-  if ( afk.find(({nick}) => nick === username) ) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
+  if (afk.find(({
+      nick
+    }) => nick === username)) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
 });
 
 bot.once('login', function () {
@@ -300,7 +301,7 @@ bot.once('login', function () {
     bot.setControlState('jump', config.saltar);
     bot.setControlState('sneak', config.shift);
   }, 10000);
-})  
+})
 
 
 function pingms(username) {
@@ -440,7 +441,7 @@ const langrequire = './fzmm/lang/' + config.lang + '.json';
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, require(langrequire).help);
 require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang);
 require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
-require('./fzmm/estilosdechat.js')(bot);
+require('./fzmm/estilosdechat.js')(bot, config.prefix);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
 require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
 if (config.administrartp) {

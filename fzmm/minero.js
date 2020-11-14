@@ -22,35 +22,32 @@ function inject(bot, lang, prefix, admin) {
     let blockcount = 0,
         totalpicado = 0;
 
-    bot.on('chat', function (username, message) {
+    bot.on('comando', function (username, message) {
         if (username === bot.username) return
-        if (message.startsWith(prefix)) {
-            message = message.slice(prefix.length)
-            if (message.startsWith('minar ')) {
-                const cmd = message.split(' ');
-                max = parseInt(cmd[1]);
-                switch (cmd[2]) {
-                    case 'norte':
-                        direccionx = 0;
-                        direccionz = -1;
-                        break;
-                    case 'sur':
-                        direccionx = 0;
-                        direccionz = 1;
-                        break;
-                    case 'oeste':
-                        direccionx = -1;
-                        direccionz = 0;
-                        break;
-                    case 'este':
-                        direccionx = 1;
-                        direccionz = 0;
-                        break;
-                    default:
-                        bot.chat(lang.direccioninvalida)
-                }
-                picar();
+        if (message.startsWith('minar ')) {
+            const cmd = message.split(' ');
+            max = parseInt(cmd[1]);
+            switch (cmd[2]) {
+                case 'norte':
+                    direccionx = 0;
+                    direccionz = -1;
+                    break;
+                case 'sur':
+                    direccionx = 0;
+                    direccionz = 1;
+                    break;
+                case 'oeste':
+                    direccionx = -1;
+                    direccionz = 0;
+                    break;
+                case 'este':
+                    direccionx = 1;
+                    direccionz = 0;
+                    break;
+                default:
+                    bot.chat(lang.direccioninvalida)
             }
+            picar();
         }
     })
 

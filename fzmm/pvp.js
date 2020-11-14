@@ -15,22 +15,22 @@ function inject(bot, lang, prefix, admin) {
 
     bot.on('playerCollect', (collector, itemDrop) => {
         if (collector !== bot.entity) return
-    
+
         setTimeout(() => {
             bot.inventory.items().find(item => {
                 const swords = [608, 603, 598, 593, 588, 583]
                 if (swords.includes(item.type)) bot.equip(item, 'hand')
             })
         }, 150)
-        
+
         setTimeout(() => {
             bot.inventory.items().find(item => {
                 const shield = 897
                 if (item.type === shield) bot.equip(item, 'off-hand')
             })
         }, 250)
-      })
-    
+    })
+
 
     let guardPos = null
 
@@ -80,40 +80,37 @@ function inject(bot, lang, prefix, admin) {
         }
     })
 
-    bot.on('chat2', (username, message) => {
+    bot.on('comando', (username, message) => {
         //console.log(bot.inventory)
-        if (message.startsWith(prefix)) {
-            message = message.slice(prefix.length)
-            switch (message) {
-                case 'guardia':
-                    if (username !== admin) return;
-                    const player = bot.players[username]
+        switch (message) {
+            case 'guardia':
+                if (username !== admin) return;
+                const player = bot.players[username]
 
-                    if (!player) {
-                        bot.chat(lang.noteveo)
-                        return
-                    }
+                if (!player) {
+                    bot.chat(lang.noteveo)
+                    return
+                }
 
-                    bot.chat(lang.guardia)
-                    guardArea(player.entity.position)
-                    break;
-                case 'guardia stop':
-                    if (username !== admin) return;
-                    stopGuarding()
-                    break;
-                case 'combatir':
-                    const player2 = bot.players[username]
+                bot.chat(lang.guardia)
+                guardArea(player.entity.position)
+                break;
+            case 'guardia stop':
+                if (username !== admin) return;
+                stopGuarding()
+                break;
+            case 'combatir':
+                const player2 = bot.players[username]
 
-                    if (!player2) {
-                        bot.chat(lang.noteveo)
-                        return
-                    }
+                if (!player2) {
+                    bot.chat(lang.noteveo)
+                    return
+                }
 
-                    bot.chat(lang.preparate)
-                    bot.pvp.attack(player2.entity)
-                    break;
+                bot.chat(lang.preparate)
+                bot.pvp.attack(player2.entity)
+                break;
 
-            }
         }
     })
 }

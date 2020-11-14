@@ -1,7 +1,8 @@
 module.exports = inject;
 
-function inject(bot) {
+function inject(bot, prefix) {
     try {
+      bot.chatAddPattern(new RegExp(`^<(?:[^\\<\\>]* )?(\\w+)+?> ${prefix}(.+)$`), 'comando', '<* username> !message');
       bot.chatAddPattern(/^<(?:[^\<\>]* )?(\w+)+?> (.+)$/, 'chat2', '<* username> message');
       //bot.chatAddPattern(/^(.[^ ]+): (.+)$/, 'chat2', 'username: message');
 
@@ -19,10 +20,6 @@ function inject(bot) {
       
       bot.chatAddPattern(/^(.+)$/, 'messagesinjson', 'message');
 
-      //bot.chatAddPattern(/^\[Usuario\]([^ :]*): (.*)$/, 'chat2', '[Usuario]username: message');
-      //bot.chatAddPattern(/^\[Owner\]([^ :]*): (.*)$/, 'chat2', '[Owner]username: message');
-
-      //bot.chatAddPattern(/^(.[^ ]+) » (.+)$/, 'chat2', 'username » message');
     } catch (e) {
       console.log('[bot.error] ' + e);
     }
