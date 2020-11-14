@@ -5,7 +5,7 @@ const axios = require('axios').default;
 const util = require('util');
 
 const config = require('./fzmm/datos/config.json');
-const credenciales = require('./fzmm/credenciales.json');
+const credenciales = require('./fzmm/datos/credenciales.json');
 const lang = require('./fzmm/lang/' + config.lang + '.json').fzmm;
 
 let nick, contra, puerto;
@@ -22,7 +22,7 @@ if (config.port) {
 }
 
 const bot = mineflayer.createBot({
-  host: process.argv[2], // mf.a68agaming.net explosivo116.aternos.me kaboom.pw 64.42.182.186 projectkingdoom.mc.gg
+  host: process.argv[2],
   port: puerto,
   username: nick,
   password: contra,
@@ -31,6 +31,8 @@ const bot = mineflayer.createBot({
   viewDistance: config.chunkrender,
   checkTimeoutInterval: (60 * 1000)
 });
+
+delete credenciales, nick, contra, puerto
 
 bot.loadPlugin(tpsPlugin)
 
