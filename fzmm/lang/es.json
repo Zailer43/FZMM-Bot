@@ -202,6 +202,7 @@
     "tageos": {
         "volumen": "Especifica el volumen (0-999)",
         "volumencambiado": "Se ha cambiado el volumen correctamente",
+        "volumenesnumero": "Solo puede ser un número entre 0 y 999",
         "sonidocambiado": "Se ha cambiado el sonido correctamente",
         "sonidosdisponibles": "Los sonidos disponbles son: ",
         "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo",

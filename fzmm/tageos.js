@@ -36,6 +36,12 @@ function inject(bot, lang, prefix, tageosmax) {
             const cmd = message.split(' ');
             if (cmd.length === 1) return;
             if (cmd[0] === 'tag') {
+                const regexnumero = /^([0-9]{0,3})$/g; 
+                if (!regexnumero.test(cmd[2])) {
+                    bot.chat(lang.volumenesnumero);
+                    return;
+                }
+
                 switch (cmd[1]) {
                     case 'volumen':
                         if (!cmd[2]) {
