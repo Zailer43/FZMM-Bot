@@ -64,7 +64,10 @@ bot.on('comando', function (username, message) {
       break;
     case 'tps':
       obtenertps();
-      bot.chat('/tellraw ' + bot.username + ' [{"text":"fz!entidadescount "},{"selector":"@e"}]');
+      bot.chat('/tellraw ' + bot.username + ' [{"text":"' + config.prefix + 'entidadescount "},{"selector":"@e"}]');
+      break;
+    case 'entidades':
+      bot.chat('/tellraw ' + bot.username + ' [{"text":"' + config.prefix + 'entidadescount "},{"selector":"@e"}]');
       break;
     case 'uuid':
       obteneruuidynicks(username);
@@ -279,9 +282,32 @@ bot.on('comando', function (username, message) {
 });
 
 bot.on('entidadescount', function (message) {
-  const entidades = (message.split(', ')).length;
-  bot.chat(util.format(lang.entidadescount, entidades));
-  console.log(util.format(lang.entidadescount, entidades));
+  const entidades = (message.split(', '));
+  let listaentidades = Array.from(new Set(entidades));
+  let cantidadentidades = {},
+    mayor = 1,
+    mayormob,
+    i = 0;
+
+  listaentidades.forEach(element => {
+    cantidadentidades[element] = 0;
+  });
+
+  entidades.forEach(element => {
+    cantidadentidades[element]++;
+  });
+
+  console.log(cantidadentidades)
+
+  for (x in cantidadentidades) {
+    if (cantidadentidades[x] > mayor) {
+      mayor = cantidadentidades[x];
+      mayormob = listaentidades[i];
+    }
+    i++;
+  };
+  bot.chat(util.format(lang.entidadescount, entidades.length, mayormob, mayor));
+  console.log(util.format(lang.entidadescount, entidades.length, mayormob, mayor));
 })
 
 let jugadormovistar, movistardetect = 0;
@@ -387,7 +413,7 @@ function obteneruuidynicks(nick) {
       }
       console.log(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
       bot.chat(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
-      
+
       axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
         .then(function (historial) {
           var longinicks = Object.keys(historial.data).length;
@@ -398,7 +424,7 @@ function obteneruuidynicks(nick) {
             if (i != (longinicks - 1))
               historialdenicks = historialdenicks + ', ';
           }
-          
+
           bot.chat(util.format(lang.uuid.nicks, historialdenicks));
           console.log(util.format(lang.uuid.nicks, historialdenicks));
         })

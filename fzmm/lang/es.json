@@ -57,7 +57,7 @@
         },
         "armorstand": "/execute at @a[name=\"%s\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {%s:1b}",
         "itemframe": "Item frame invisible",
-        "entidadescount": "Hay un total de %s entidades cargadas",
+        "entidadescount": "Hay un total de %s entidades cargadas, de esos lo que mayor hay es %s (%s)",
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
         "longitud": "La longitud del mensaje es: %s",
