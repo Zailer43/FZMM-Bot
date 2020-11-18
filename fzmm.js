@@ -315,7 +315,12 @@ let jugadormovistar, movistardetect = 0;
 bot.on('join', function (username) {
   if (jugadormovistar === username) {
     movistardetect++;
-    if (movistardetect >= 5) bot.chat(lang.movistardetect);
+
+    if (movistardetect === 5) {
+      bot.chat(lang.movistardetect);
+      movistardetect = 0;
+      
+    } else bot.chat(lang.hi);
 
   } else {
     jugadormovistar = username;
