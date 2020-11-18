@@ -2,14 +2,14 @@ module.exports = inject;
 
 function inject(bot, prefix) {
     try {
-      bot.chatAddPattern(new RegExp(`^<(?:[^\\<\\>]* )?(\\w+)+?> ${prefix}(.+)$`), 'comando', '<* username> !message');
       bot.chatAddPattern(/^<(?:[^\<\>]* )?(\w+)+?> (.+)$/, 'chat2', '<* username> message');
+      bot.chatAddPattern(new RegExp(`^<(?:[^\\<\\>]* )?(\\w+)+?> ${prefix}(.+)$`), 'comando', '<* username> !message');
       //bot.chatAddPattern(/^(.[^ ]+): (.+)$/, 'chat2', 'username: message');
 
-      bot.chatAddPattern(/^(?:.\s*){0,3}?(\w+)+? joined the game$/, 'join', 'username joined the game');
-      bot.chatAddPattern(/^(?:.\s*){0,3}?(\w+)+? left the game$/, 'leave', 'username left the game');
+      bot.chatAddPattern(/^(?:.\s*){0,5}?(\w+)+? joined the game$/, 'join', 'username joined the game');
+      bot.chatAddPattern(/^(?:.\s*){0,5}?(\w+)+? left the game$/, 'leave', 'username left the game');
 
-      bot.chatAddPattern(/^\[(.[^ ]+)-> me\] (.+)$/, 'whisper', '[username -> me] message');
+      //bot.chatAddPattern(/^\[(.[^ ]+)-> me\] (.+)$/, 'whisper', '[username -> me] message');
       bot.chatAddPattern(/^(.[^ ]+) whispers: (.*)$/, 'whisper', 'username whispers: message');
 
       //bot.chatAddPattern(/^<(.+)>\ fz!coords\ (.+)\ (.[0-9]*)\ (.[0-9]*)$/, 'coords', '<username> fz!coords dimension x z');
