@@ -35,16 +35,15 @@ function inject(bot, lang, prefix, tageosmax) {
         const cmd = message.split(' ');
         if (cmd.length === 1) return;
         if (cmd[0] === 'tag') {
-            const regexnumero = /^([0-9]{0,3})$/g;
-            if (!regexnumero.test(cmd[2])) {
-                bot.chat(lang.volumenesnumero);
-                return;
-            }
 
             switch (cmd[1]) {
                 case 'volumen':
+                    const regexnumero = /^([0-9]{0,3})$/g;
                     if (!cmd[2]) {
                         bot.chat(lang.volumen)
+                        return;
+                    } else if (!regexnumero.test(cmd[2])) {
+                        bot.chat(lang.volumenesnumero);
                         return;
                     }
                     let datostagelegido = datostag.find(({
