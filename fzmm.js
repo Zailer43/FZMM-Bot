@@ -236,6 +236,7 @@ bot.on('comando', function (username, message) {
       break;
     case 'cantidad':
       // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
+      if (!cmd[3]) cmd[3] = 0;
       if (cmd.length === 4) {
         const tipo = parseInt(cmd[1]);
         const cantidadStacks = parseInt(cmd[2]);
@@ -248,7 +249,7 @@ bot.on('comando', function (username, message) {
           return;
         }
         if (tipo === 64 || tipo === 16) {
-          bot.chat(util.format(lang.conversor.cantidad, (cantidad * tipo) + sobra))
+          bot.chat(util.format(lang.conversor.cantidad, (cantidadStacks * tipo) + sobra))
         } else {
           bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxis1, config.prefix));
         }

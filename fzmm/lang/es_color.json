@@ -49,7 +49,7 @@
             "error": "&cError: ",
             "muygrande": "Cantidad muy grande",
             "negativo": "No entiendo como chucha vas a tener items negativos",
-            "falta": "Faltan/sobran argumentos (en el caso de que no sobre nada poner un 0)",
+            "falta": "Faltan/sobran argumentos",
             "sintaxisstack": "La sintaxis es &e%sstack [64 / 16] <cantidad>",
             "sintaxiscantidad": "La sintaxis es &e%scantidad [64 / 16] <stacks> <sobra (menos de 64)>",
             "stack": "&aSon &6%s &astacks (%s) y sobran &6%s &aitems",
@@ -145,7 +145,7 @@
         ],
         [
             "&estack <tipo de stack (64 o 16)> <cantidad>&a: Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)",
-            "&ecantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack>&a: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
+            "&ecantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack (opcional)>&a: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
             "&eafk&a: Te dice cuanto tiempo paso entre que pusiste el comando y tu siguiente mensaje",
             "&etradeos&a: Calcula el tiempo para la proxima vez que los aldeanos recargan"
         ],
