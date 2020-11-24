@@ -492,13 +492,11 @@ require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, con
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
 require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
-if (config.administrartp) {
-  require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin);
-}
-if (config.web) {
-  require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
-}
-delete config.saludar, config.saltar, config.seguir, config.lang, config.spamearsplash, config.spamearencuesta, config.tageosmax, config.webport, config.serverpassword, config.repetir, config.mirar, config.shift;
+if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin);
+if (config.web) require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
+if (config.discordrichpresence) require('./fzmm/discord.js')(config.discordappid, config.discordtiempo);
+
+delete config.saludar, config.saltar, config.seguir, config.lang, config.spamearsplash, config.spamearencuesta, config.tageosmax, config.webport, config.serverpassword, config.repetir, config.mirar, config.shift, config.discordrichpresence, config.discordappid, config.discordtiempo;
 
 if (config.antiafk) {
   setInterval(() => {
