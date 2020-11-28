@@ -38,8 +38,11 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
   let seguirestado = seguir;
   let target, token;
   let admintemporal = [];
+  let spameado = 0;
   admintemporal.push(admin)
+  
   bot.loadPlugin(pathfinder);
+
   bot.on('comando', function (username, message) {
     if (message === 'admin') {
       token = uuid();
@@ -91,6 +94,7 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
         break;
     }
   })
+
   bot.on('guardarcoord', function (username, x, y, z, lugar) {
     if (username != admin) return;
     const path = require('path');
@@ -161,12 +165,12 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
           break;
       }
 
-      if (message.startsWith('di ')) {
+      if (message.toLowerCase().startsWith('di ')) {
         if (username != admin) return;
         bot.chat(message.slice(3));
         console.log('Dije: ' + message.slice(3));
 
-      } else if (message.startsWith('hat ')) {
+      } else if (message.toLowerCase().startsWith('hat ')) {
         const hat = message.split(' ');
         try {
           const bloque = mcData.blocksByName[hat[1]];
@@ -174,9 +178,39 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
           bot.creative.setInventorySlot(5, new Item(bloque.drops[0], 1));
         } catch (e) {
           bot.creative.setInventorySlot(5, new Item(message.slice(4), 1));
-        }
 
-      }
+        }
+      } else if (message.toLowerCase().startsWith('spam ')) {
+          let cmd = message.split(' ');
+          if (cmd.length <= 3) return; // !spam <cantidad / texto> <delay> <mensaje (admite %s)>
+          let cantidadspam, estexto = false, texto;
+
+          const regexnumero = /^[0-9]$/g;
+          if (regexnumero.test(cmd[1])) 
+            cantidadspam = parseInt(cmd[1]); 
+            else {
+              cantidadspam = cmd[1].length;
+              estexto = true;
+              texto = cmd[1].split('');
+            }
+          
+          const delayspam = parseInt(cmd[2]);
+          cmd.shift();
+          cmd.shift();
+          cmd.shift();
+          const messagespam = cmd.join(' ');
+          spameado = 0;
+
+          const spam = setInterval(() => {
+
+            if (estexto) bot.chat(messagespam.replace(/%s/, texto[spameado])) 
+              else bot.chat(messagespam.replace(/%s/, spameado));
+            spameado++;
+            if (spameado >= cantidadspam) clearInterval(spam)
+          }, delayspam);
+
+          spam;
+        }
     }
   })
 
