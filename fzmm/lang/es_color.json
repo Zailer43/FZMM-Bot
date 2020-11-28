@@ -68,6 +68,7 @@
         },
         "tradeos": "&aPara el proximo minuto de tradeo faltan &6%s &aminuto(s) y &6%s &asegundos",
         "nomastradeos": "&aEspera al siguiente día para volver a tradear",
+        "illegalcharacter": "&cLo siento, el mensaje tiene caracteres que no puedo decir por chat"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
@@ -233,6 +234,11 @@
             "cmd": "reverse",
             "args": "<mensaje>",
             "msg": " Da vuelta el mensaje"
+        },
+        {
+            "cmd": "base64",
+            "args": "[encode / decode] <mensaje>",
+            "msg": "Convierte o traduce de base64"
         }
     ],
     "admin": {

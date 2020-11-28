@@ -279,6 +279,32 @@ bot.on('comando', function (username, message) {
       bot.chat(reverse);
       console.log(reverse);
       break;
+    case 'base64':
+      if (!cmd[2]) return;
+
+      const elegido = cmd[1];
+      cmd.shift();
+      cmd.shift();
+      const texto = cmd.join(' ');
+
+      if (elegido === 'decode') {
+        const decode = Buffer.from(texto, 'base64').toString('binary');
+
+        const asciiregex = /^[\x00-\x7FáéíóúýÁÉÍÓÚçÇ·¨´ºª¿¡]*$/;
+        if (!asciiregex.test(decode)) {
+          bot.chat(lang.illegalcharacter);
+          return;
+        }
+
+        bot.chat(decode);
+        console.log(decode);
+
+      } else if (elegido === 'encode') {
+        const encode = Buffer.from(texto, 'binary').toString('base64');
+        
+        bot.chat(encode);
+        console.log(encode);
+      }
   }
 });
 
