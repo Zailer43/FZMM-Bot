@@ -131,18 +131,36 @@ function inject(bot, lang, prefix, help) {
         } else efe(cmd[1])
         break;
       case 'help':
-        if (cmd[1] === 'page') {
-          const pagina = parseInt(cmd[2]);
-          if ((pagina) > (help).length || pagina <= 0) {
-            bot.chat(util.format(lang.help.noexiste, (help).length));
-            return;
+        if (!cmd[1]) return;
+
+        const helpbuscado = help.find(comando => comando.cmd === cmd[1].toLowerCase());
+        
+        if (helpbuscado) {
+          if (helpbuscado.args) bot.chat(util.format(lang.help.cmd, prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg));
+          else bot.chat(util.format(lang.help.cmdsinargs, prefix, helpbuscado.cmd, helpbuscado.msg));
+
+        } else if (cmd[2]) {
+          if (cmd[1] === 'page') {
+            const pagina = parseInt(cmd[2]);
+            const cantidadporhelp = 4;
+            const maximopaginas = Math.round((help).length / cantidadporhelp);
+
+            if (pagina > maximopaginas || pagina <= 0) {
+              bot.chat(util.format(lang.help.noexiste, maximopaginas));
+              return;
+            }
+
+            bot.chat('« Help [' + cmd[2] + '/' + maximopaginas + '] »')
+
+            for (let i = cantidadporhelp * (pagina - 1); i != cantidadporhelp * (pagina - 1) + cantidadporhelp; i++) {
+              if (!help[i]) return;
+
+              if (help[i].args) bot.chat(util.format(lang.help.cmd, prefix, help[i].cmd, help[i].args, help[i].msg));
+              else bot.chat(util.format(lang.help.cmdsinargs, prefix, help[i].cmd, help[i].msg));
+              fzmm.sleep(250)
+            }
           }
-          bot.chat('« Help [' + cmd[2] + '/' + (help).length + '] »')
-          help[pagina - 1].forEach(element => {
-            bot.chat(prefix + element);
-            fzmm.sleep(250)
-          })
-        }
+        } else bot.chat(lang.help.comandoinexistente);
     }
   });
 

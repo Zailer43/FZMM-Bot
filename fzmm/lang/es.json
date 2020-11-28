@@ -36,7 +36,7 @@
         "uuid": {
             "alfanumerico": "El nick debe ser alfanumerico",
             "longitud": "El nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
-            "noespremium":"Ese jugador no es premium :(",
+            "noespremium": "Ese jugador no es premium :(",
             "es": "La UUID de %s es %s",
             "nicks": "Nicks: %s"
         },
@@ -67,7 +67,7 @@
             "prefix": "[AFK] "
         },
         "tradeos": "Para el proximo minuto de tradeo faltan %s minuto(s) y %s segundos",
-        "nomastradeos": "Espera al siguiente día para volver a tradear"
+        "nomastradeos": "Espera al siguiente día para volver a tradear",
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
@@ -75,8 +75,11 @@
         "kick": "Fui kickeado por %s",
         "tell": "%s me susurró: %s",
         "help": {
-            "noexiste": "Página inexistente, el máximo es %s",
-            "help": "%shelp [text / tp] o %shelp page <Numero de pagina>",
+            "noexiste": "Página inexistente, el mínimo es 0 y el máximo es %s",
+            "comandoinexistente": "No tengo información sobre ese comando",
+            "help": "%shelp <comando> o %shelp page <Numero de pagina>",
+            "cmd": "%s%s %s: %s",
+            "cmdsinargs": "%s%s: %s",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
             "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
             "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
@@ -115,44 +118,122 @@
             "─▀█────██▀█▀██────█▀──"
         ]
     },
-    "help": [
-        [
-            "help text: Lista de comandos que simplemente muestran texto por chat",
-            "ping <usuario (opcional)>: Obtiene el ping",
-            "tps: Obtiene un aproximado de los Ticks Por Segundo del servidor",
-            "color <color>: Te cambia el nick a un color a tu elección",
-            "colores: Lista de colores disponibles en minecraft (no hexadecimal)",
-            "uuid <usuario (opcional)>: Dice el UUID premium del jugador (en caso de serlo) y sus anteriores nicks"
-        ],
-        [
-            "server <ip>: Hace ping al servidor, obtiene su MOTD y los jugadores conectados",
-            "coords <Dimensión actual (overworld o nether)> <x> <z>: Si estás en overworld devide las coords por 8 y si es nether las multiplica",
-            "simbolos: Crea un mensaje clickeable que te copia en el portapapeles simbolos",
-            "itemframe <cantidad>: Convierte item frames normales a invisibles, debes especificar la cantidad exacta de item frames en tu mano",
-            "armorstand [arms / base / small]: Convierte un armor stand normal a uno con brazos, sin placa o pequeño"
-        ],
-        [
-            "jokes: Dice un chiste random (en inglés)",
-            "tag sonido <sonido>: Especifica un sonido para cuando te hacen un tag",
-            "tag volumen <0-999>: Cambia el volumen de cuando te tagean",
-            "calavera: Obtiene un porcentaje de tus probabilidades de obtener una calavera (100% real no fake)",
-            "caraocruz"
-        ],
-        [
-            "tp <nick>: Tepearte a un jugador (se te sumará a la deuda un stack de bloques de cuarzo)",
-            "pagartp <nick (opcional)>: Para pagar la deuda deberas de tener el material nombrado en la mano",
-            "deuda <nick (opcional)>: Ver cuanto debe alguien (el máximo es 5)"
-        ],
-        [
-            "stack <tipo de stack (64 o 16)> <cantidad>: Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)",
-            "cantidad [tipo de stack (64 o 16)] <stacks> <cantidad restante del stack (opcional)>: Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total",
-            "afk: Te dice cuanto tiempo paso entre que pusiste el comando y tu siguiente mensaje",
-            "tradeos: Calcula el tiempo para la proxima vez que los aldeanos recargan"
-        ],
-        [
-            "length <mensaje>: Obtener longitud del mensaje",
-            "reverse <mensaje>: Da vuelta el mensaje"
-        ]
+    "help": [{
+            "cmd": "help",
+            "args": "<comando>",
+            "msg": "Lista de comandos que simplemente muestran texto por chat"
+        },
+        {
+            "cmd": "test",
+            "msg": "Para probar cosas :)"
+        },
+        {
+            "cmd": "ping",
+            "args": "<usuario (opcional)>",
+            "msg": "Obtiene el ping"
+        },
+        {
+            "cmd": "tps",
+            "msg": "Obtiene un aproximado de los Ticks Por Segundo del servidor"
+        },
+        {
+            "cmd": "color",
+            "args": "<color>",
+            "msg": "Te cambia el nick a un color a tu elección"
+        },
+        {
+            "cmd": "colores",
+            "msg": "Lista de colores disponibles en minecraft"
+        },
+        {
+            "cmd": "uuid",
+            "args": "<usuario (opcional)>",
+            "msg": "Dice el UUID premium del jugador (en caso de serlo) y sus anteriores nicks"
+        },
+        {
+            "cmd": "server",
+            "args": "<ip>",
+            "msg": "Hace ping al servidor, obtiene su MOTD y los jugadores conectados"
+        },
+        {
+            "cmd": "coords",
+            "args": "<dimensión actual (overworld o nether)> <x> <z>",
+            "msg": "Si estás en overworld devide las coords por 8 y si es nether las multiplica"
+        },
+        {
+            "cmd": "simbolos",
+            "msg": "Crea un mensaje clickeable que te copia en el portapapeles simbolos"
+        },
+        {
+            "cmd": "itemframe",
+            "args": "<cantidad>",
+            "msg": "Convierte item frames normales a invisibles, debes especificar la cantidad exacta de item frames en tu mano"
+        },
+        {
+            "cmd": "armorstand",
+            "args": "[arms / base / small]",
+            "msg": "Convierte un armor stand normal a uno con brazos, sin placa o pequeño"
+        },
+        {
+            "cmd": "jokes",
+            "msg": "Dice un chiste random (en inglés)"
+        },
+        {
+            "cmd": "tag",
+            "args": "[sonido / volumen]",
+            "msg": "Configura el sonido y/o volumen de cuando te tagean con @tunick"
+        },
+        {
+            "cmd": "calavera",
+            "msg": "Obtiene un porcentaje de tus probabilidades de obtener una calavera (100% real no fake)"
+        },
+        {
+            "cmd": "caraocruz",
+            "msg": "Cara o cruz"
+        },
+        {
+            "cmd": "tp",
+            "args": "<nick>",
+            "msg": "Tepearte a un jugador (se te sumará a la deuda un stack de bloques de cuarzo)"
+        },
+        {
+            "cmd": "pagartp",
+            "args": "<nick (opcional)>",
+            "msg": "Para pagar la deuda deberas de tener el material nombrado en la mano"
+        },
+        {
+            "cmd": "deuda",
+            "args": "<nick (opcional)>",
+            "msg": "Ver cuanto debe alguien (el máximo es 5)"
+        },
+        {
+            "cmd": "stack",
+            "args": "<tipo de stack (64 o 16)> <cantidad>",
+            "msg": "Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)"
+        },
+        {
+            "cmd": "cantidad",
+            "args": "[tipo de stack (64 o 16)] <stacks> <cantidad restante del stack (opcional)>",
+            "msg": "Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total"
+        },
+        {
+            "cmd": "afk",
+            "msg": "Te dice cuanto tiempo paso entre que pusiste el comando y tu siguiente mensaje"
+        },
+        {
+            "cmd": "tradeos",
+            "msg": "Calcula el tiempo para la proxima vez que los aldeanos recargan"
+        },
+        {
+            "cmd": "length",
+            "args": "<mensaje>",
+            "msg": "Obtener longitud del mensaje"
+        },
+        {
+            "cmd": "reverse",
+            "args": "<mensaje>",
+            "msg": " Da vuelta el mensaje"
+        }
     ],
     "admin": {
         "gamemode": "/gamemode ",
@@ -203,9 +284,9 @@
         "termine": "He terminado de picar"
     },
     "tageos": {
-        "volumen": "Especifica el volumen (0-999)",
+        "volumen": "Especifica el volumen (0-9)",
         "volumencambiado": "Se ha cambiado el volumen correctamente",
-        "volumenesnumero": "Solo puede ser un número entre 0 y 999",
+        "volumenesnumero": "Solo puede ser un número entre 0 y 9",
         "sonidocambiado": "Se ha cambiado el sonido correctamente",
         "sonidosdisponibles": "Los sonidos disponbles son: ",
         "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo",
