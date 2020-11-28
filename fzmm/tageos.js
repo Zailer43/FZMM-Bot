@@ -22,9 +22,9 @@ function inject(bot, lang, prefix, tageosmax) {
                     nick
                 }) => nick === username);
                 if (!datostagelegido3) {
-                    bot.chat('/execute at ' + element.slice(1) + ' run playsound entity.player.levelup master ' + element.slice(1) + ' ~ ~ ~');
+                    bot.chat(`/execute at ${element.slice(1)} run playsound entity.player.levelup master ${element.slice(1)} ~ ~ ~ 0.8`);
                 } else {
-                    bot.chat('/execute at ' + element.slice(1) + ' run playsound ' + datostagelegido3.sonido + ' master ' + element.slice(1) + ' ~ ~ ~ ' + datostagelegido3.volumen);
+                    bot.chat(`/execute at ${element.slice(1)} run playsound ${datostagelegido3.sonido} master ${element.slice(1)} ~ ~ ~ 0.${datostagelegido3.volumen}`);
                 }
             }
         })
@@ -38,7 +38,7 @@ function inject(bot, lang, prefix, tageosmax) {
 
             switch (cmd[1]) {
                 case 'volumen':
-                    const regexnumero = /^([0-9]{0,3})$/g;
+                    const regexnumero = /^([0-9]{0,1})$/g;
                     if (!cmd[2]) {
                         bot.chat(lang.volumen)
                         return;
@@ -107,7 +107,7 @@ function inject(bot, lang, prefix, tageosmax) {
                         datostag.push({
                             nick: username,
                             sonido: sonido,
-                            volumen: '1'
+                            volumen: '8'
                         })
                     } else {
                         datostagelegido2.sonido = sonido
