@@ -75,15 +75,6 @@ bot.on('comando', function (username, message) {
     case 'mimir':
       goToSleep();
       break;
-    case 'armorstand arms':
-      bot.chat(util.format(lang.armorstand, username, 'ShowArms'));
-      break;
-    case 'armorstand base':
-      bot.chat(util.format(lang.armorstand, username, 'NoBasePlate'));
-      break;
-    case 'armorstand small':
-      bot.chat(util.format(lang.armorstand, username, 'Small'));
-      break;
     case 'bot ram':
       bot.chat('Tengo un total de ' + (parseInt((require('os').freemem() / 1024) / 1024)).toString() + 'MB libres')
       break;
@@ -301,9 +292,32 @@ bot.on('comando', function (username, message) {
 
       } else if (elegido === 'encode') {
         const encode = Buffer.from(texto, 'binary').toString('base64');
-        
+
         bot.chat(encode);
         console.log(encode);
+      }
+      break;
+    case 'armorstand':
+      if (!cmd[1]) return;
+      const cmdarmorstand = '/execute at %s run data merge entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] {%s:1b}',
+        funciono = '/execute at %s if entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "%s"',
+        error = '/execute at %s unless entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "%s"';
+      switch (cmd[1].toLowerCase()) {
+        case 'arms':
+          bot.chat(util.format(cmdarmorstand, username, 'ShowArms'));
+          bot.chat(util.format(funciono, username, lang.armorstand.funciono));
+          bot.chat(util.format(error, username, lang.armorstand.error));
+          break;
+        case 'base':
+          bot.chat(util.format(cmdarmorstand, username, 'NoBasePlate'));
+          bot.chat(util.format(funciono, username, lang.armorstand.funciono));
+          bot.chat(util.format(error, username, lang.armorstand.error));
+          break;
+        case 'small':
+          bot.chat(util.format(cmdarmorstand, username, 'Small'));
+          bot.chat(util.format(funciono, username, lang.armorstand.funciono));
+          bot.chat(util.format(error, username, lang.armorstand.error));
+          break;
       }
   }
 });
@@ -346,7 +360,7 @@ bot.on('join', function (username) {
     if (movistardetect === 5) {
       bot.chat(lang.movistardetect);
       movistardetect = 0;
-      
+
     } else bot.chat(lang.hi);
 
   } else {

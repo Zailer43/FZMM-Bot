@@ -55,7 +55,10 @@
             "stack": "&aSon &6%s &astacks (%s) y sobran &6%s &aitems",
             "cantidad": "&aSon &6%s &aitems"
         },
-        "armorstand": "/execute at @a[name=\"%s\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {%s:1b}",
+        "armorstand": {
+            "funciono": "Bot: &aSe han cambiado correctamente las propiedades del armor stand",
+            "error": "Bot: &cNo tienes un armorstand cerca"
+        },
         "itemframe": "Item frame invisible",
         "entidadescount": "&aHay un total de &6%s &aentidades cargadas, de esos lo que mayor hay es &6%s (%s)",
         "hi": "&3(^Ｕ^)ノ ~Hi",
