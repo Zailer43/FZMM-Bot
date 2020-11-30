@@ -135,7 +135,7 @@ bot.on('comando', function (username, message) {
   const cmd = message.split(' ');
   if (cmd.length === 1) return;
 
-  switch (cmd[0]) {
+  switch (cmd[0].toLowerCase()) {
     case 'server':
       pingsv(cmd[1]);
       break;
@@ -169,39 +169,23 @@ bot.on('comando', function (username, message) {
       }
       break;
     case 'color':
-      if (cmd.length === 2) {
-        switch (cmd[1]) {
-          case 'aqua':
-          case 'black':
-          case 'blue':
-          case 'dark_aqua':
-          case 'dark_blue':
-          case 'dark_gray':
-          case 'dark_green':
-          case 'dark_purple':
-          case 'dark_red':
-          case 'gold':
-          case 'gray':
-          case 'green':
-          case 'light_purple':
-          case 'red':
-          case 'white':
-          case 'yellow':
-            bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
-            sleep(450);
-            bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
-            sleep(450);
-            bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
-            sleep(450);
-            bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
-            bot.chat(lang.color.nuevocolor)
-            break;
-          default:
-            bot.chat(util.format(lang.color.desconocido, config.prefix));
-            break;
-        }
-      } else {
+      if (!cmd.length === 2) {
         bot.chat(util.format(lang.color.error, config.prefix))
+        return;
+      }
+      const colores = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
+      if (colores.includes(cmd[1])) {
+        bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
+        sleep(100);
+        bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
+        sleep(100);
+        bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
+        sleep(100);
+        bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
+        
+        bot.chat(lang.color.nuevocolor)
+      } else {
+        bot.chat(util.format(lang.color.desconocido, config.prefix));
       }
       break;
     case 'stack':
