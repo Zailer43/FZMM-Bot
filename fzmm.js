@@ -249,9 +249,12 @@ bot.on('comando', function (username, message) {
       }
       break;
     case 'itemframe':
-      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run give ' + username + ' item_frame{display:{Name:\'{"text":"' + lang.itemframe + '","color":"#36CC57"}\'},EntityTag:{Invisible:1b}} ' + cmd[1]);
+      const cmditemframe = '/execute %s entity @a[name="%s",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%sb}}] run ';
+      bot.chat(util.format(cmditemframe, 'unless', username, cmd[1]) + `tellraw @a "${lang.itemframe.notienes}"`);
+      bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) + `tellraw @a "${lang.itemframe.funciono}"`);
+      bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) + `give ${username} item_frame{display:{Name:'{"text":"${lang.itemframe.nombre}","color":"#36CC57"}'},EntityTag:{Invisible:1b}} ${cmd[1]}`);
       sleep(150);
-      bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:item_frame",Count:' + cmd[1] + 'b}}] run replaceitem entity  ' + username + ' weapon.mainhand air');
+      bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) +  `replaceitem entity ${username} weapon.mainhand air`);
       break;
     case 'ping':
       pingms(cmd[1])

@@ -60,7 +60,11 @@
             "funciono": "Bot: Se han cambiado correctamente las propiedades del armor stand",
             "error": "Bot: No tienes un armorstand cerca"
         },
-        "itemframe": "Item frame invisible",
+        "itemframe": {
+            "nombre": "Item frame invisible",
+            "notienes": "Bot: No tienes la cantidad de item frames que especificaste en la mano",
+            "funciono": "Bot: Ahora tus itemframes son invisibles"
+        },
         "entidadescount": "Hay un total de %s entidades cargadas, de esos lo que mayor hay es %s (%s)",
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
