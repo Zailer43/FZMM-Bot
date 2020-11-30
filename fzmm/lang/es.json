@@ -37,6 +37,7 @@
             "alfanumerico": "El nick debe ser alfanumerico",
             "longitud": "El nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
             "noespremium": "Ese jugador no es premium :(",
+            "noerespremium": "No eres premium, lo siento :(",
             "es": "La UUID de %s es %s",
             "nicks": "Nicks: %s"
         },

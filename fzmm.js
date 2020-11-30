@@ -70,7 +70,7 @@ bot.on('comando', function (username, message) {
       bot.chat('/tellraw ' + bot.username + ' [{"text":"' + config.prefix + 'entidadescount "},{"selector":"@e"}]');
       break;
     case 'uuid':
-      obteneruuidynicks(username);
+      obteneruuidynicks(username, true);
       break;
     case 'mimir':
       goToSleep();
@@ -147,7 +147,7 @@ bot.on('comando', function (username, message) {
       } else if (cmd[1].length > 16 || cmd[1].length < 3) {
         bot.chat(lang.uuid.longitud);
 
-      } else obteneruuidynicks(cmd[1]);
+      } else obteneruuidynicks(cmd[1], false);
       break;
     case 'coords':
       if (cmd.length === 4) {
@@ -450,11 +450,13 @@ function obtenertps() {
   console.log(util.format(lang.tps.mensaje, tps, estado))
 }
 
-function obteneruuidynicks(nick) {
+function obteneruuidynicks(nick, asimismo) {
   axios.get('https://api.mojang.com/users/profiles/minecraft/' + nick)
     .then(function (uuid) {
       if (!uuid.data.name) {
-        bot.chat(lang.uuid.noespremium);
+        if (asimismo) bot.chat(lang.uuid.noerespremium)
+        else bot.chat(lang.uuid.noespremium);
+        
         return;
       }
       console.log(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
