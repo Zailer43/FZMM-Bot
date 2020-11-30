@@ -268,7 +268,8 @@
         "tudeuda": "&aTu deuda ahora es de &6%s &astack(s) de bloques de cuarzo",
         "ladeudade": "&aLa deuda de &6%s &aes &6%s &astack(s) de bloques de cuarzo",
         "deudaalmax": "&cTu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar &e%spagartp",
-        "notienesdeuda": "&aNo tienes deuda pendiente"
+        "notienesdeuda": "&aNo tienes deuda pendiente",
+        "notienescuarzo": "&cNo puedes pagar el tp, no tienes &nun stack de bloques de cuarzo&c en la mano"
     },
     "random": {
         "wither": "&aEn tu proximo wither tienes &6%s% &ade probabilidades de obtener calavera",

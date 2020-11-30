@@ -55,7 +55,10 @@
             "stack": "Son %s stacks (%s) y sobran %s items",
             "cantidad": "Son %s items"
         },
-        "armorstand": "/execute at @a[name=\"%s\"] run data merge entity @e[type=armor_stand,limit=1,sort=nearest] {%s:1b}",
+        "armorstand": {
+            "funciono": "Bot: Se han cambiado correctamente las propiedades del armor stand",
+            "error": "Bot: No tienes un armorstand cerca"
+        },
         "itemframe": "Item frame invisible",
         "entidadescount": "Hay un total de %s entidades cargadas, de esos lo que mayor hay es %s (%s)",
         "hi": "(^Ｕ^)ノ ~Hi",
@@ -265,7 +268,8 @@
         "tudeuda": "Tu deuda ahora es de %s stack(s) de bloques de cuarzo",
         "ladeudade": "La deuda de %s es %s stack(s) de bloques de cuarzo",
         "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar %spagartp",
-        "notienesdeuda": "No tienes deuda pendiente"
+        "notienesdeuda": "No tienes deuda pendiente",
+        "notienescuarzo": "No puedes pagar el tp, no tienes un stack de bloques de cuarzo en la mano"
     },
     "random": {
         "wither": "En tu proximo wither tienes %s% de probabilidades de obtener calavera",

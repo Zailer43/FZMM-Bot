@@ -103,7 +103,8 @@ function inject(bot, lang, prefix, admin) {
         } else if (pagardeudadatos.deudatotal <= 0) {
             bot.chat(lang.notienesdeuda);
         } else {
-            bot.chat('/execute if entity @a[name="' + username + '",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw FraZaMaMe "<' + admin + '> ' + prefix + 'restartp ' + username + '"');
+            bot.chat(`/execute if entity @a[name="${username}",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw FraZaMaMe "<${admin}> ${prefix}restartp ${username}"`);
+            bot.chat(`/execute unless entity @a[name="${username}",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw @a "${lang.notienescuarzo}"`);
         }
     }
 
