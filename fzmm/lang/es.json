@@ -1,6 +1,6 @@
 {
     "fzmm": {
-        "antiafk": "/tell FraZaMaMe Anti-AFK",
+        "antiafk": "Anti-AFK",
         "coords": {
             "mensaje": "Esas coords en el %s son: %s %s",
             "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
@@ -274,7 +274,7 @@
         "ladeudade": "La deuda de %s es %s stack(s) de bloques de cuarzo",
         "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar %spagartp",
         "notienesdeuda": "No tienes deuda pendiente",
-        "notienescuarzo": "No puedes pagar el tp, no tienes un stack de bloques de cuarzo en la mano"
+        "notienescuarzo": "Bot: No puedes pagar el tp, no tienes un stack de bloques de cuarzo en la mano"
     },
     "random": {
         "wither": "En tu proximo wither tienes %s% de probabilidades de obtener calavera",

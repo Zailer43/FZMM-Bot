@@ -9,7 +9,7 @@ const {
     GoalBlock
 } = require('mineflayer-pathfinder').goals
 
-const fzmm = require('./../fzmm');
+const fzmm = require('./fzmm.js');
 
 function inject(bot, lang, prefix, admin) {
     bot.loadPlugin(pathfinder)

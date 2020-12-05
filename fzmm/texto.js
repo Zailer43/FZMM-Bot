@@ -1,6 +1,6 @@
 module.exports = inject;
 
-const fzmm = require('./../fzmm.js');
+const fzmm = require('./fzmm.js');
 const colors = require('colors');
 const util = require('util');
 
