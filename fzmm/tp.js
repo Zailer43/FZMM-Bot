@@ -7,7 +7,7 @@ const util = require('util');
 const deudasdirectorio = path.join(__dirname, 'datos/deudas.json');
 let deudas = require(deudasdirectorio);
 
-function inject(bot, lang, prefix, admin) {
+function inject(bot, lang, prefix, admin, tpmaterial) {
     const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_', 'gamerexde']
     bot.on('comando', function (username, message) {
         if (username === bot.username) return;
@@ -43,7 +43,7 @@ function inject(bot, lang, prefix, admin) {
                 nick
             }) => nick === cmd[1].toLowerCase());
 
-            bot.chat('/clear ' + cmd[1] + ' minecraft:quartz_block 64')
+            bot.chat(`/clear ${cmd[1]} ${tpmaterial} 64`);
             bajarledeuda.deudatotal--;
 
             bot.chat(util.format(lang.tudeuda, bajarledeuda.deudatotal));
@@ -103,8 +103,8 @@ function inject(bot, lang, prefix, admin) {
         } else if (pagardeudadatos.deudatotal <= 0) {
             bot.chat(lang.notienesdeuda);
         } else {
-            bot.chat(`/execute if entity @a[name="${username}",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw FraZaMaMe "<${admin}> ${prefix}restartp ${username}"`);
-            bot.chat(`/execute unless entity @a[name="${username}",nbt={SelectedItem:{id:"minecraft:quartz_block",Count:64b}}] run tellraw @a "${lang.notienescuarzo}"`);
+            bot.chat(`/execute if entity @a[name="${username}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw ${bot.username} "<${admin}> ${prefix}restartp ${username}"`);
+            bot.chat(`/execute unless entity @a[name="${username}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw @a "${lang.notienescuarzo}"`);
         }
     }
 

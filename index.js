@@ -7,7 +7,7 @@ if (config.premium) {
     nick = credenciales.username;
     contra = credenciales.password;
 } else {
-    nick = 'FraZaMaMe';
+    nick = config.botnick;
     contra = null;
 }
 
@@ -44,6 +44,6 @@ require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, con
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
 require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
-if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin);
+if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin, config.tpmaterial);
 if (config.web) require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
 if (config.discordrichpresence) require('./fzmm/discord.js')(config.discordappid, config.discordtiempo);
