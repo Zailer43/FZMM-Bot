@@ -1,6 +1,5 @@
 module.exports = inject;
 
-const fzmm = require('./fzmm.js');
 const colors = require('colors');
 const util = require('util');
 
@@ -22,12 +21,12 @@ function inject(bot, lang, prefix, help) {
         break;
       case 'help text':
         bot.chat(lang.help.textinfo)
-        fzmm.sleep(150);
+        sleep(150);
         bot.chat(`${prefix}test ${prefix}nuke ${prefix}ak-47 ${prefix}?? ${prefix}shrug ${prefix}tableflip ${prefix}tableflipx2 ${prefix}f <texto> ${prefix}hi ${prefix}wtf ${prefix}wtfgrupal ${prefix}magic ${prefix}calmate ${prefix}patas ${prefix}zzz ${prefix}r1p ${prefix}conteo ${prefix}bruh ${prefix}colores`);
         break;
       case 'help tp':
         bot.chat(lang.help.tpinfo)
-        fzmm.sleep(150);
+        sleep(150);
         bot.chat(`${prefix}tp <nick> - ${prefix}pagartp <nick> - ${prefix}deuda <nick>`);
         break;
       case 'itemframe':
@@ -104,13 +103,13 @@ function inject(bot, lang, prefix, help) {
         break;
       case 'conteo':
         bot.chat(lang.conteoinicio);
-        fzmm.sleep(4000);
+        sleep(4000);
         bot.chat('3');
-        fzmm.sleep(1000);
+        sleep(1000);
         bot.chat('2');
-        fzmm.sleep(1000);
+        sleep(1000);
         bot.chat('1');
-        fzmm.sleep(1000)
+        sleep(1000)
         bot.chat(lang.conteofinal);
         break;
       case 'simbolos':
@@ -157,7 +156,7 @@ function inject(bot, lang, prefix, help) {
 
               if (help[i].args) bot.chat(util.format(lang.help.cmd, prefix, help[i].cmd, help[i].args, help[i].msg));
               else bot.chat(util.format(lang.help.cmdsinargs, prefix, help[i].cmd, help[i].msg));
-              fzmm.sleep(250)
+              sleep(250)
             }
           }
         } else bot.chat(lang.help.comandoinexistente);
@@ -188,11 +187,11 @@ function inject(bot, lang, prefix, help) {
 
   function efe(f) {
     bot.chat(f + f + f + f);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(f);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(f + f + f);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(f);
     bot.chat(f);
     console.log('F');
@@ -200,13 +199,13 @@ function inject(bot, lang, prefix, help) {
 
   function r1p() {
     bot.chat(lang.r1p[0]);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(lang.r1p[1]);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(lang.r1p[2]);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(lang.r1p[3]);
-    fzmm.sleep(150);
+    sleep(150);
     bot.chat(lang.r1p[4]);
   }
 }
@@ -217,3 +216,8 @@ function inject(bot, lang, prefix, help) {
 ─▄██▀───▄██▀───▄██▀
 ─███────███────███
 */
+
+function sleep(ms) {
+  var r = Date.now() + ms;
+  while (Date.now() < r) {}
+}

@@ -469,17 +469,12 @@ function inject(bot, lang, prefix, antiafk) {
     return out;
   }*/
 
-  function sleep(ms) {
-    var r = Date.now() + ms;
-    while (Date.now() < r) {}
-  }
+  
 
   bot.on('death', () => {
     bot.chat('/tp @r[name=!' + bot.username + ']');
   });
 
-  exports.sleep = sleep;
-  exports.ip = process.argv[2];
   /*
   bot.on('message', function (message) {
     console.log(message)

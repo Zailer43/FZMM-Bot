@@ -9,8 +9,6 @@ const {
     GoalBlock
 } = require('mineflayer-pathfinder').goals
 
-const fzmm = require('./fzmm.js');
-
 function inject(bot, lang, prefix, admin) {
     bot.loadPlugin(pathfinder)
 
@@ -24,7 +22,7 @@ function inject(bot, lang, prefix, admin) {
 
     bot.on('comando', function (username, message) {
         if (username === bot.username) return
-        if (message.startsWith('minar ')) {
+        if (message.toLowerCase().startsWith('minar ')) {
             const cmd = message.split(' ');
             max = parseInt(cmd[1]);
             switch (cmd[2]) {
@@ -63,7 +61,7 @@ function inject(bot, lang, prefix, admin) {
         } else if (blockcount === 2) {
             blockcount = 0;
             bot.pathfinder.setGoal(new GoalBlock(bot.entity.position.x + direccionx, bot.entity.position.y, bot.entity.position.z + direccionz));
-            fzmm.sleep(200);
+            sleep(200);
         }
         setTimeout(() => {
             picar();
@@ -83,5 +81,10 @@ function inject(bot, lang, prefix, admin) {
         if (bot.canDigBlock(target) && target.name !== 'air') {
             bot.dig(target, complete);
         } else complete();
+    }
+
+    function sleep(ms) {
+        var r = Date.now() + ms;
+        while (Date.now() < r) {}
     }
 }
