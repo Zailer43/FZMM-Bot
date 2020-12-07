@@ -16,6 +16,7 @@
 	"antiafk": true,
 	"tageosmax": 4,
 	"longitudchat": 256,
+	"paginasporhelp": 4,
 	
 	"repetir": false,
 	"mirar": true,

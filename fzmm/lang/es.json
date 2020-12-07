@@ -85,9 +85,10 @@
         "kick": "Fui kickeado por %s",
         "tell": "%s me susurró: %s",
         "help": {
-            "noexiste": "Página inexistente, el mínimo es 0 y el máximo es %s",
+            "noexiste": "Página inexistente, el mínimo es 1 y el máximo es %s",
             "comandoinexistente": "No tengo información sobre ese comando",
             "help": "%shelp <comando> o %shelp page <Numero de pagina>",
+            "top": "« Help [%s/%s] »",
             "cmd": "%s%s %s: %s",
             "cmdsinargs": "%s%s: %s",
             "textinfo": "Estos son comandos que únicamente muestran un texto",

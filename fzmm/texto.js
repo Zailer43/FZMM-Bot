@@ -3,7 +3,7 @@ module.exports = inject;
 const colors = require('colors');
 const util = require('util');
 
-function inject(bot, lang, prefix, help) {
+function inject(bot, lang, prefix, help, cantidadporhelp) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
     console.log(username + ': ' + message);
@@ -122,7 +122,7 @@ function inject(bot, lang, prefix, help) {
     }
     const cmd = message.split(' ');
 
-    switch (cmd[0]) {
+    switch (cmd[0].toLowerCase()) {
       case 'f':
         if (cmd.length === 1) return
         if (cmd[1].length > 8) {
@@ -139,9 +139,8 @@ function inject(bot, lang, prefix, help) {
           else bot.chat(util.format(lang.help.cmdsinargs, prefix, helpbuscado.cmd, helpbuscado.msg));
 
         } else if (cmd[2]) {
-          if (cmd[1] === 'page') {
+          if (cmd[1].toLowerCase() === 'page') {
             const pagina = parseInt(cmd[2]);
-            const cantidadporhelp = 4;
             const maximopaginas = Math.round((help).length / cantidadporhelp);
 
             if (pagina > maximopaginas || pagina <= 0) {
@@ -149,7 +148,7 @@ function inject(bot, lang, prefix, help) {
               return;
             }
 
-            bot.chat('« Help [' + cmd[2] + '/' + maximopaginas + '] »')
+            bot.chat(util.format(lang.help.top, cmd[2], maximopaginas));
 
             for (let i = cantidadporhelp * (pagina - 1); i != cantidadporhelp * (pagina - 1) + cantidadporhelp; i++) {
               if (!help[i]) return;
