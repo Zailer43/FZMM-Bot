@@ -34,9 +34,9 @@ function inject(bot, lang, prefix, tageosmax) {
         if (username === bot.username) return;
         const cmd = message.split(' ');
         if (cmd.length === 1) return;
-        if (cmd[0] === 'tag') {
+        if (cmd[0].toLowerCase() === 'tag') {
 
-            switch (cmd[1]) {
+            switch (cmd[1].toLowerCase()) {
                 case 'volumen':
                     const regexnumero = /^([0-9]{0,1})$/g;
                     if (!cmd[2]) {
@@ -70,7 +70,7 @@ function inject(bot, lang, prefix, tageosmax) {
                         return;
                     }
                     let sonido;
-                    switch (cmd[2]) {
+                    switch (cmd[2].toLowerCase()) {
                         case 'levelup':
                             sonido = 'entity.player.levelup';
                             break;

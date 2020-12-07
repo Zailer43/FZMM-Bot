@@ -6,11 +6,6 @@ const {
   Movements
 } = require('mineflayer-pathfinder')
 const {
-  GoalNear,
-  GoalBlock,
-  GoalXZ,
-  GoalY,
-  GoalInvert,
   GoalFollow
 } = require('mineflayer-pathfinder').goals
 const fs = require('fs');
@@ -40,11 +35,11 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
   let admintemporal = [];
   let spameado = 0;
   admintemporal.push(admin)
-  
+
   bot.loadPlugin(pathfinder);
 
   bot.on('comando', function (username, message) {
-    if (message === 'admin') {
+    if (message.toLowerCase() === 'admin') {
       token = uuid();
       console.log(util.format(lang.admin.eltoken, token));
       bot.chat(lang.admin.introducetoken)
@@ -61,7 +56,7 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
       }
     }
     if (!admintemporal.includes(username)) return;
-    switch (message) {
+    switch (message.toLowerCase()) {
       case 'tp':
         bot.chat('/tp ' + username);
         break;
@@ -132,7 +127,7 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
     if (message.startsWith(prefix)) {
       message = message.slice(prefix.length)
 
-      switch (message) {
+      switch (message.toLowerCase()) {
         case 'tpa':
           bot.chat('/tpa ' + username);
           console.log('/tpa ' + username);
@@ -165,35 +160,40 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
           break;
       }
 
-      if (message.toLowerCase().startsWith('di ')) {
-        if (username != admin) return;
-        bot.chat(message.slice(3));
-        console.log('Dije: ' + message.slice(3));
+      const cmd = message.split(' ');
+      if (cmd.length === 1) return;
 
-      } else if (message.toLowerCase().startsWith('hat ')) {
-        const hat = message.split(' ');
-        try {
-          const bloque = mcData.blocksByName[hat[1]];
-          console.log(bloque);
-          bot.creative.setInventorySlot(5, new Item(bloque.drops[0], 1));
-        } catch (e) {
-          bot.creative.setInventorySlot(5, new Item(message.slice(4), 1));
-
-        }
-      } else if (message.toLowerCase().startsWith('spam ')) {
-          let cmd = message.split(' ');
+      switch (cmd[0].toLowerCase()) {
+        case 'di':
+          if (username != admin) return;
+          cmd.shift();
+          const dicmd = cmd.join(' ');
+          bot.chat(dicmd);
+          console.log('Dije: ' + dicmd);
+          break;
+        case 'hat':
+          try {
+            const bloque = mcData.blocksByName[cmd[1]];
+            console.log(bloque);
+            bot.creative.setInventorySlot(5, new Item(bloque.drops[0], 1));
+          } catch (e) {
+            bot.creative.setInventorySlot(5, new Item(cmd[1], 1));
+          }
+          break;
+        case 'spam':
           if (cmd.length <= 3) return; // !spam <cantidad / texto> <delay> <mensaje (admite %s)>
-          let cantidadspam, estexto = false, texto;
+          let cantidadspam, estexto = false,
+            texto;
 
-          const regexnumero = /^[0-9]$/g;
-          if (regexnumero.test(cmd[1])) 
-            cantidadspam = parseInt(cmd[1]); 
-            else {
-              cantidadspam = cmd[1].length;
-              estexto = true;
-              texto = cmd[1].split('');
-            }
-          
+          const regexnumero = /^[0-9]{1,3}$/g;
+          if (regexnumero.test(cmd[1]))
+            cantidadspam = parseInt(cmd[1]);
+          else {
+            cantidadspam = cmd[1].length;
+            estexto = true;
+            texto = cmd[1].split('');
+          }
+
           const delayspam = parseInt(cmd[2]);
           cmd.shift();
           cmd.shift();
@@ -203,14 +203,15 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
 
           const spam = setInterval(() => {
 
-            if (estexto) bot.chat(messagespam.replace(/%s/, texto[spameado])) 
-              else bot.chat(messagespam.replace(/%s/, spameado));
+            if (estexto) bot.chat(messagespam.replace(/%s/, texto[spameado]))
+            else bot.chat(messagespam.replace(/%s/, spameado));
             spameado++;
             if (spameado >= cantidadspam) clearInterval(spam)
           }, delayspam);
 
           spam;
-        }
+          break;
+      }
     }
   })
 

@@ -9,7 +9,7 @@ function inject(bot, lang, prefix, spamearencuesta) {
 
     bot.on('comando', function (username, message) {
         if (username === bot.username) return;
-        if (message.startsWith('vote ')) {
+        if (message.toLowerCase().startsWith('vote ')) {
             encuestas = require(encuestasdirectorio);
             const voto = message.split(' ');
             try {

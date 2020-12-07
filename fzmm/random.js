@@ -4,7 +4,7 @@ const util = require('util');
 function inject(bot, lang, prefix, spamearsplash) {
   bot.on('comando', function (username, message) {
     if (username === bot.username) return;
-    switch (message) {
+    switch (message.toLowerCase()) {
       case 'calavera':
         bot.chat(util.format(lang.wither, Math.floor((Math.random() * 20) + 1).toString()));
         break;
