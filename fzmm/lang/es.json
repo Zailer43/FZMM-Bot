@@ -15,7 +15,8 @@
         },
         "ping": {
             "ping": "El ping de %s es %s ms",
-            "error": "No encontré a ese jugador"
+            "error": "No encontré a ese jugador",
+            "recienconectado": "No puedo ver el ping de alguien que recién se ha conectado, intenta en unos segundos"
         },
         "pingserver": {
             "motd": "MOTD: %s",

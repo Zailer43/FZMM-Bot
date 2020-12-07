@@ -15,7 +15,8 @@
         },
         "ping": {
             "ping": "&aEl ping de &6%s &aes &6%s &ams",
-            "error": "&cNo encontré a ese jugador"
+            "error": "&cNo encontré a ese jugador",
+            "recienconectado": "&cNo puedo ver el ping de alguien que recién se ha conectado, intenta en unos segundos"
         },
         "pingserver": {
             "motd": "&aMOTD: &6%s",

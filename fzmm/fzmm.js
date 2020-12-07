@@ -349,8 +349,12 @@ function inject(bot, lang, prefix, antiafk) {
       Object.keys(bot.players).forEach(element => {
         if (element.toLowerCase() === username.toLowerCase()) {
           let pingms = bot.players[element].ping;
-          bot.chat(util.format(lang.ping.ping, element, pingms));
-          console.log(util.format(lang.ping.ping, element, pingms));
+          if (pingms === 0) {
+            bot.chat(lang.ping.recienconectado);
+          } else {
+            bot.chat(util.format(lang.ping.ping, element, pingms));
+            console.log(util.format(lang.ping.ping, element, pingms));
+          }
         };
       })
 
