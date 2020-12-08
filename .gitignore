@@ -1,2 +1,5 @@
 node_modules/
 fzmm/credenciales.json
+fzmm/datos/deudas.json
+fzmm/datos/tageos.json
+fzmm/datos/coords.json
