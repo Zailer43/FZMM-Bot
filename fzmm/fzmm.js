@@ -6,7 +6,7 @@ const vec3 = require('vec3');
 const axios = require('axios').default;
 const util = require('util');
 
-function inject(bot, lang, prefix, antiafk) {
+function inject(bot, lang, prefix, antiafk, subfixteams) {
 
   bot.loadPlugin(tpsPlugin)
 
@@ -24,7 +24,7 @@ function inject(bot, lang, prefix, antiafk) {
       let minutos = parseInt(segundos / 60);
       segundos = segundos % 60;
       bot.chat(util.format(lang.afk.fin, afkesta.nick, minutos, segundos));
-      bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`);
+      bot.chat(`/team modify ${username}${subfixteams} prefix ""`);
 
       delete afkesta.nick, afkesta.tiempo;
     }
@@ -70,7 +70,7 @@ function inject(bot, lang, prefix, antiafk) {
           tiempo: Date.now()
         });
         bot.chat(lang.afk.nuevo);
-        bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
+        bot.chat(`/team modify ${username}${subfixteams} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
         break;
       case 'tradeos':
         const tiempo = bot.time.timeOfDay,
@@ -149,13 +149,11 @@ function inject(bot, lang, prefix, antiafk) {
         }
         const colores = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
         if (colores.includes(cmd[1])) {
-          bot.chat(util.format(lang.color.execute, username, username, 'leave ', username));
-          sleep(100);
-          bot.chat(util.format(lang.color.execute, username, username, 'add ', username) + lang.color.subfixteam);
-          sleep(100);
-          bot.chat(util.format(lang.color.execute, username, username, 'join ', username) + lang.color.subfixteam + ' ' + username);
-          sleep(100);
-          bot.chat('/team modify ' + username + lang.color.subfixteam + ' color ' + cmd[1]);
+          const execute = `/execute if entity @a[name="${username}",team=!${username}${subfixteams}] run team `
+          bot.chat(execute + `leave ${username}`);
+          bot.chat(execute + `add ${username}${subfixteams}`);
+          bot.chat(execute + `join ${username}${subfixteams} ${username}`);
+          bot.chat(`/team modify ${username}${subfixteams} color ${cmd[1]}`)
 
           bot.chat(lang.color.nuevocolor)
         } else {
@@ -334,7 +332,7 @@ function inject(bot, lang, prefix, antiafk) {
   bot.on('leave', function (username) {
     if (afk.find(({
         nick
-      }) => nick === username)) bot.chat(`/team modify ${username}${lang.color.subfixteam} prefix ""`)
+      }) => nick === username)) bot.chat(`/team modify ${username}${subfixteams} prefix ""`)
   });
 
   if (antiafk) {

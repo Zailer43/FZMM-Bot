@@ -25,7 +25,7 @@ function uuid() {
   return uuid;
 }
 
-function inject(bot, lang, admin, prefix, seguir, lang2) {
+function inject(bot, lang, admin, prefix, seguir, lang2, subfixteams) {
 
   const Item = require('prismarine-item')(bot.version);
   const mcData = require('minecraft-data')(bot.version);
@@ -87,6 +87,26 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
         require('./minero.js')(bot, require('./lang/' + lang2 + '.json').minero, prefix, admin);
         bot.chat(lang.plugincargado)
         break;
+    }
+
+    const cmd = message.split(' ');
+    if (cmd[0].toLowerCase() === 'setup') {
+      let colorprefix = '#',
+        prefix = '[Bot]',
+        nick = bot.username;
+
+      for (var i = 0; i != 6; i++) colorprefix += Math.floor(Math.random() * 16).toString(16);
+      if (cmd[1]) nick = cmd[1];
+      if (cmd[2]) prefix = cmd[2];
+      if (cmd[3]) colorprefix = cmd[3];
+
+      bot.chat(`/execute if entity @a[name="${nick}",team=!${nick}${subfixteams}] run team leave ${nick}`);
+      bot.chat(`/team add ${nick}${subfixteams}`);
+      bot.chat(`/team join ${nick}${subfixteams} ${nick}`);
+      bot.chat(`/team modify ${nick}${subfixteams} prefix {"text":"${prefix} ","color":"${colorprefix}"}`);
+
+      bot.chat(util.format(lang.setup, nick, colorprefix));
+      console.log(util.format(lang.setup, nick, colorprefix));
     }
   })
 
@@ -204,7 +224,7 @@ function inject(bot, lang, admin, prefix, seguir, lang2) {
           const spam = setInterval(() => {
 
             if (estexto) bot.chat(messagespam.replace(/%s/, texto[spameado]))
-            else bot.chat(messagespam.replace(/%s/, spameado));
+            else bot.chat(messagespam.replace(/%s/, spameado + 1));
             spameado++;
             if (spameado >= cantidadspam) clearInterval(spam)
           }, delayspam);

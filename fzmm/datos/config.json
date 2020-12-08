@@ -17,7 +17,8 @@
 	"tageosmax": 4,
 	"longitudchat": 256,
 	"paginasporhelp": 4,
-	
+	"subfixteams": "_color",
+
 	"repetir": false,
 	"mirar": true,
 	"saltar": false,

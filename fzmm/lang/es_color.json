@@ -7,8 +7,6 @@
             "error": "&cLa sintaxis del comando es: &e%scoords &6<dimension actual> <x> <z>"
         },
         "color": {
-            "execute": "/execute if entity @a[name=\"%s\",team=!%s] run team %s %s",
-            "subfixteam": "_color",
             "nuevocolor": "&a¡Ya tienes un nuevo color!",
             "desconocido": "&cColor desconocido, intenta &e%scolores",
             "error": "&cQuizás intentabas ver los colores, es con &e%scolores"
@@ -259,6 +257,7 @@
         "nukereal": "Nuke real",
         "guardarcoords": "&aSe guardaron correctamente las coords",
         "plugincargado": "&aPlugin cargado exitosamente",
+        "setup": "&aAhora el prefix de &6%s &aes color &6%s",
         "admin": {
             "eltoken": "El token es: %s",
             "introducetoken": "&aIntroduce el token generado",
