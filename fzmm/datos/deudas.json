@@ -1,42 +1,26 @@
-[
-  {
-    "nick": "frazamame",
-    "deudatotal": -100
+{
+  "frazamame": {
+    "deuda": -100,
+    "toggle": true
   },
-  {
-    "nick": "zailer43",
-    "deudatotal": 0
+  "kkrii": {
+    "deuda": 2,
+    "toggle": false
   },
-  {
-    "nick": "kkrii",
-    "deudatotal": 2
+  "choriso": {
+    "deuda": 2,
+    "toggle": false
   },
-  {
-    "nick": "choriso",
-    "deudatotal": 0
+  "fzaidm": {
+    "deuda": 2,
+    "toggle": false
   },
-  {
-    "nick": "dirtopi",
-    "deudatotal": 2
+  "antondv": {
+    "deuda": 1,
+    "toggle": false
   },
-  {
-    "nick": "fzaidm",
-    "deudatotal": 1
-  },
-  {
-    "nick": "antondv",
-    "deudatotal": 1
-  },
-  {
-    "nick": "pakitoh",
-    "deudatotal": 0
-  },
-  {
-    "nick": "imaguss_",
-    "deudatotal": 0
-  },
-  {
-    "nick": "gamerexde",
-    "deudatotal": 2
+  "zailer43": {
+    "deuda": 0,
+    "toggle": true
   }
-]
+}

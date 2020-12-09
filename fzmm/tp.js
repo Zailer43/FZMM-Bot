@@ -8,7 +8,6 @@ const deudasdirectorio = path.join(__dirname, 'datos/deudas.json');
 let deudas = require(deudasdirectorio);
 
 function inject(bot, lang, prefix, admin, tpmaterial) {
-  const jugadoreswhitelist = ['frazamame', 'zailer43', 'kkrii', 'choriso', 'dirtopi', 'fzaidm', 'antondv', 'pakitoh', 'imaguss_', 'gamerexde']
   bot.on('comando', function (username, message) {
     if (username === bot.username) return;
 
@@ -23,95 +22,97 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
           bot.chat(lang.asimismo);
           return;
 
-        } else if (nick === 'frazamame') {
-          bot.chat(lang.albot);
-          return;
-
-        } else if (jugadoreswhitelist.includes(nick)) {
-          let jugadorencontrado = deudas.find(({
-            nick
-          }) => nick === username.toLowerCase());
-          aumentardeuda(username, nick, jugadorencontrado)
-
         } else {
-          bot.chat(lang.noesta);
-          return;
+          aumentardeuda(username.toLowerCase(), nick)
         }
         break;
       case 'restartp':
         if (username != admin) return;
+        if (!cmd[1]) return;
 
-        bajarledeuda = deudas.find(({
-          nick
-        }) => nick === cmd[1].toLowerCase());
+        deudas[cmd[1]].deuda--;
 
-        bot.chat(`/clear ${cmd[1]} ${tpmaterial} 64`);
-        bajarledeuda.deudatotal--;
+        bot.chat(util.format(lang.ladeudade, cmd[1], deudas[cmd[1]].deuda));
+        console.log(util.format(lang.ladeudade, cmd[1], deudas[cmd[1]].deuda));
 
-        bot.chat(util.format(lang.tudeuda, bajarledeuda.deudatotal));
-        console.log(util.format(lang.ladeudade, username, bajarledeuda.deudatotal));
-
-        const json_deudas = JSON.stringify(deudas, null, 2);
-        fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
+        if (deudas[cmd[1]].deuda === 0 && !deudas[cmd[1]].toggle) delete deudas[cmd[1]]
+        guardar();
         break;
       case 'deuda':
-        if (!cmd[1]) decirdeuda(username)
-        else decirdeuda(cmd[1]);
+        if (!cmd[1]) decirdeuda(username.toLowerCase())
+        else decirdeuda(cmd[1].toLowerCase());
         break;
       case 'pagartp':
-        if (!cmd[1]) pagardeuda(username)
-        else pagardeuda(cmd[1]);
+        if (!cmd[1]) pagardeuda(username, username)
+        else pagardeuda(cmd[1], username);
+      case 'tptoggle':
+        username = username.toLowerCase();
+        if (!deudas[username]) deudas[username] = {
+          deuda: 0,
+          toggle: false
+        }
+
+        if (cmd[1] === 'on') deudas[username].toggle = true;
+        else if (cmd[1] === 'off') deudas[username].toggle = false;
+        else deudas[username.toLowerCase()].toggle = !deudas[username].toggle;
+
+        let msg;
+        if (deudas[username].toggle) msg = lang.activado;
+        else msg = lang.desactivado;
+        bot.chat(util.format(lang.toggleado, msg));
+
+        if (deudas[username].deuda === 0 && !deudas[username].toggle) delete deudas[username]
+        guardar()
     }
   })
 
-  function aumentardeuda(username, nick, jugadorelegido) {
-    let estaonline = 0;
+  function aumentardeuda(username, nick) {
+    let estaonline = false;
     Object.keys(bot.players).forEach(element => {
       if (element.toLowerCase() === nick) {
-        estaonline++;
+        estaonline = true;
       }
     })
-    if (jugadorelegido.deudatotal >= 5) {
+    if (!deudas[username]) deudas[username] = {
+      deuda: 0,
+      toggle: false
+    }
+    if (deudas[username].deuda >= 5) {
       bot.chat(util.format(lang.deudaalmax, prefix));
 
     } else if (!estaonline) {
       bot.chat(lang.noestaonline);
+    } else if (deudas[nick] && deudas[nick].toggle) {
+      bot.chat(lang.tienetoggle)
     } else {
 
-      jugadorelegido.deudatotal++;
-      bot.chat('/tp ' + username + ' ' + nick);
+      deudas[username].deuda++;
+      bot.chat(`/tp ${username} ${nick}`);
 
-      bot.chat(util.format(lang.tudeuda, jugadorelegido.deudatotal));
+      bot.chat(util.format(lang.tudeuda, deudas[username].deuda));
 
-      const json_deudas = JSON.stringify(deudas, null, 2);
-      fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
+      guardar();
     }
   }
 
-  function pagardeuda(username) {
-    const pagardeudadatos = deudas.find(({
-      nick
-    }) => nick === username.toLowerCase());
-
-    if (!pagardeudadatos) {
-      bot.chat(lang.noesta)
-      return;
-    } else if (pagardeudadatos.deudatotal <= 0) {
+  function pagardeuda(username, jugadorquepaga) {
+    if (!deudas[username.toLowerCase()] || deudas[username.toLowerCase().deuda <= 0]) {
       bot.chat(lang.notienesdeuda);
+
     } else {
-      bot.chat(`/execute if entity @a[name="${username}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw ${bot.username} "<${admin}> ${prefix}restartp ${username}"`);
-      bot.chat(`/execute unless entity @a[name="${username}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw @a "${lang.notienescuarzo}"`);
+      bot.chat(`/execute unless entity @a[name="${jugadorquepaga}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw @a "${lang.notienescuarzo}"`);
+      bot.chat(`/execute if entity @a[name="${jugadorquepaga}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run tellraw ${bot.username} "<${admin}> ${prefix}restartp ${username.toLowerCase()}"`);
+      bot.chat(`/execute if entity @a[name="${jugadorquepaga}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}] run clear ${jugadorquepaga} ${tpmaterial} 64`);
     }
   }
 
   function decirdeuda(username) {
-    const jugadordatos = deudas.find(({
-      nick
-    }) => nick === username.toLowerCase());
-    if (!jugadordatos) {
-      bot.chat(lang.noesta)
-      return;
-    }
-    bot.chat(util.format(lang.ladeudade, username, jugadordatos.deudatotal));
+    if (!deudas[username]) bot.chat(util.format(lang.ladeudade, username, 0));
+    else bot.chat(util.format(lang.ladeudade, username, deudas[username.deuda]));
+  }
+
+  function guardar() {
+    const json_deudas = JSON.stringify(deudas, null, 2);
+    fs.writeFileSync(deudasdirectorio, json_deudas, 'utf-8');
   }
 }

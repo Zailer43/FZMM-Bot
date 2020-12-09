@@ -216,6 +216,11 @@
             "msg": "Ver cuanto debe alguien (el máximo es 5)"
         },
         {
+            "cmd": "tptoggle",
+            "args": "[on / off (opcional)]",
+            "msg": "Permitir o no que otros jugadores se tepeen a ti"
+        },
+        {
             "cmd": "stack",
             "args": "<tipo de stack (64 o 16)> <cantidad>",
             "msg": "Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)"
@@ -268,14 +273,16 @@
     },
     "tp": {
         "asimismo": "No puedes hacerte tp a ti mismo, sería inutil",
-        "albot": "No puedes hacerte tp a mí",
-        "noesta": "No se encontró el nombre del jugador en la whitelist",
         "noestaonline": "El jugador no se encuentra online",
         "tudeuda": "Tu deuda ahora es de %s stack(s) de bloques de cuarzo",
         "ladeudade": "La deuda de %s es %s stack(s) de bloques de cuarzo",
         "deudaalmax": "Tu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar %spagartp",
         "notienesdeuda": "No tienes deuda pendiente",
-        "notienescuarzo": "Bot: No puedes pagar el tp, no tienes un stack de bloques de cuarzo en la mano"
+        "notienescuarzo": "Bot: No puedes pagar el tp, no tienes un stack de bloques de cuarzo en la mano",
+        "activado": "activados",
+        "desactivado": "desactivados",
+        "toggleado": "Ahora tienes %s los tp hacia ti",
+        "tienetoggle": "El jugador tiene desactivado los tp"
     },
     "random": {
         "wither": "En tu proximo wither tienes %s% de probabilidades de obtener calavera",

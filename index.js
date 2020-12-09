@@ -37,9 +37,9 @@ bot.once('login', function () {
 
 
 const langrequire = './fzmm/lang/' + config.lang + '.json';
-require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.antiafk)
+require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.antiafk, config.subfixteams)
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, require(langrequire).help, config.paginasporhelp);
-require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang);
+require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang, config.subfixteams);
 require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
