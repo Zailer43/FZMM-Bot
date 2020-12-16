@@ -278,6 +278,50 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
             bot.chat(util.format(error, username, lang.armorstand.error));
             break;
         }
+        break;
+      case 'calc':
+        if (!cmd[3]) {
+          bot.chat(lang.calcfaltanargumentos);
+          return;
+        }
+        const a = +cmd[1];
+        const b = +cmd[3];
+        const op = cmd[2];
+        let resultado = 0;
+        
+        if (a === 2 && b === 2 && op === '+') {
+          bot.chat('pez');
+          return;
+        }
+
+        switch (op) {
+          case '+':
+            if (cmd.includes('-bug')) resultado = a.toString() + b.toString();
+            else resultado = a + b;
+            break;
+          case '-':
+            resultado = a - b;
+            break;
+          case '/':
+            resultado = a / b;
+            break;
+          case '%':
+            resultado = a % b;
+            break;
+          case '*':
+            resultado = a * b;
+            break;
+          case '^':
+          case '**':
+            resultado = a ** b;
+            break;
+          default:
+            bot.chat(lang.calcoperadores);
+            return;
+        }
+        if (!cmd.includes('-coma')) bot.chat(resultado.toString())
+        else bot.chat(resultado.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'));
+        console.log(resultado);
     }
   });
 
