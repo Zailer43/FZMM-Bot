@@ -140,6 +140,14 @@ function inject(bot, lang, prefix, help, cantidadporhelp) {
 
         } else if (cmd[2]) {
           if (cmd[1].toLowerCase() === 'page') {
+            if (cmd[2] === '*') {
+              let comandos = help.map(element => element.cmd);
+              
+              bot.chat(comandos.join(', '));
+              console.log(comandos);
+              return;
+            }
+
             const pagina = parseInt(cmd[2]);
             const maximopaginas = Math.round((help).length / cantidadporhelp);
 

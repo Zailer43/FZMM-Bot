@@ -254,6 +254,19 @@
             "cmd": "base64",
             "args": "[encode / decode] <mensaje>",
             "msg": "Convierte o traduce de base64"
+        },
+        {
+            "cmd": "mimir",
+            "msg": "Manda al bot a dormir (si es posible)"
+        },
+        {
+            "cmd": "entidades",
+            "msg": "Te muestra la cantidad de entidades cargadas (y dice de cual hay más)"
+        },
+        {
+            "cmd": "calc",
+            "args": "<a> <operador> <b> (-coma)",
+            "msg": "Una calculadora muy simple"
         }
     ],
     "admin": {
