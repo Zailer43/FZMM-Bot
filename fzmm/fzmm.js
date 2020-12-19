@@ -322,6 +322,68 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         if (!cmd.includes('-coma')) bot.chat(resultado.toString())
         else bot.chat(resultado.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'));
         console.log(resultado);
+        break;
+      case 'xp':
+        let nivelactual = 0,
+        niveldeseado = 0,
+        ejemplo = null,
+        falta = 0;
+
+        nivelactual = Math.round(cmd[1]);
+        if (cmd[2]) niveldeseado = Math.round(cmd[2]);
+        if (cmd[3]) ejemplo = cmd[3];
+        if (nivelactual > niveldeseado) { //intercambia los valores por si confunden la sintaxis del comando no tirar error
+          let niveldeseado2 = niveldeseado;
+          niveldeseado = nivelactual;
+          nivelactual = niveldeseado2;
+          bot.chat(lang.xp.alreves)
+        }
+
+        let niveldeseadototal = totalxpporlevel(niveldeseado),
+          nivelactualtotal = totalxpporlevel(nivelactual);
+        
+        falta = niveldeseadototal - nivelactualtotal;
+
+        if (ejemplo) {
+          let ejemplofaltan = 0,
+            ejemplocantidadxp = 0;
+          const entidadesdeejemplo = [
+            {
+              entidades: ['creeper', 'enderman', 'pillager', 'zombi'],
+              xp: 5
+            },
+            {
+              entidades: ['blaze', 'guardian'],
+              xp: 10
+            },
+            {
+              entidades: ['witherboss'],
+              xp: 50
+            }
+          ];
+
+          entidadesdeejemplo.forEach(element => {
+            if (element.entidades.includes(ejemplo)) ejemplocantidadxp = element.xp;
+          });
+          if (!ejemplocantidadxp) {
+            let entidadeslista = [];
+
+            entidadesdeejemplo.forEach(element => {
+              element.entidades.forEach(element2 => {
+                entidadeslista.push(element2);
+              })
+            });
+            entidadeslista = entidadeslista.join(', ');
+
+            bot.chat(util.format(lang.xp.errorejemplo, entidadeslista));
+            return;
+          }
+
+          ejemplofaltan = Math.round(falta / ejemplocantidadxp);
+          bot.chat(util.format(lang.xp.msgconejemplo, ejemplofaltan, ejemplo.toLowerCase(), niveldeseado))
+        } else {
+          bot.chat(util.format(lang.xp.msg, falta, nivelactual,niveldeseado));
+        }
     }
   });
 
@@ -383,6 +445,14 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     setInterval(() => {
         bot.chat(`/tell ${bot.username} ${lang.antiafk}`)
     }, 180000)
+  }
+
+  function totalxpporlevel(level) {
+    let resultado = 0;
+    if (level >= 0 && level <= 16) resultado = level ** 2 + 6 * level;
+    else if (level >= 17 && level <= 31) resultado = 2.5 * level ** 2 - 40.5 * level + 360;
+    else if (level >= 32) resultado = 4.5 * level ** 2 - 162.5 * level + 2220
+    return resultado;
   }
 
   function pingms(username) {

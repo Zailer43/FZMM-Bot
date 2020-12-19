@@ -77,7 +77,13 @@
         "nomastradeos": "Espera al siguiente día para volver a tradear",
         "illegalcharacter": "Lo siento, el mensaje tiene caracteres que no puedo decir por chat",
         "calcoperadores": "Solo admito los siguientes operadores: +, -, /, *, % y ^",
-        "calcfaltanargumentos": "Solo puedo calcular cosas simples y con espacio, por ejemplo 23 * 9999 o -300 / 8.345"
+        "calcfaltanargumentos": "Solo puedo calcular cosas simples y con espacio, por ejemplo 23 * 9999 o -300 / 8.345",
+        "xp": {
+            "alreves": "Advertencia: Pusiste al revés los valores de nivel actual y nivel que quieres saber",
+            "errorejemplo": "Error: Los mobs disponibles son: %s",
+            "msgconejemplo": "Debes matar %s %s más para alcanzar el nivel %s",
+            "msg": "Faltan %s puntos de xp para llegar desde el nivel %s al %s"
+        }
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
@@ -267,6 +273,11 @@
             "cmd": "calc",
             "args": "<a> <operador> <b> (-coma)",
             "msg": "Una calculadora muy simple"
+        },
+        {
+            "cmd": "xp",
+            "args": "<nivel actual> <nivel que quieres saber> <mob (opcional)",
+            "msg": "Calcula cuanto xp falta de un nivel a otro y puede decirte cuantos mobs matar para ello"
         }
     ],
     "admin": {
