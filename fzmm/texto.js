@@ -2,8 +2,9 @@ module.exports = inject;
 
 const colors = require('colors');
 const util = require('util');
+const help = require('./lang/help/es.json');
 
-function inject(bot, lang, prefix, help, cantidadporhelp) {
+function inject(bot, lang, prefix, cantidadporhelp) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
     console.log(username + ': ' + message);
@@ -132,6 +133,14 @@ function inject(bot, lang, prefix, help, cantidadporhelp) {
       case 'help':
         if (!cmd[1]) return;
 
+        if (cmd[1] === '*') {
+          let comandos = help.map(element => element.cmd);
+          
+          bot.chat(comandos.join(', '));
+          console.log(comandos);
+          return;
+        }
+
         const helpbuscado = help.find(comando => comando.cmd === cmd[1].toLowerCase());
         
         if (helpbuscado) {
@@ -140,18 +149,12 @@ function inject(bot, lang, prefix, help, cantidadporhelp) {
 
         } else if (cmd[2]) {
           if (cmd[1].toLowerCase() === 'page') {
-            if (cmd[2] === '*') {
-              let comandos = help.map(element => element.cmd);
-              
-              bot.chat(comandos.join(', '));
-              console.log(comandos);
-              return;
-            }
 
-            const pagina = parseInt(cmd[2]);
             const maximopaginas = Math.round((help).length / cantidadporhelp);
-
-            if (pagina > maximopaginas || pagina <= 0) {
+            const regexnumero = /^[0-9]{1,3}$/g;
+            const pagina = parseInt(cmd[2]);
+             
+            if (pagina > maximopaginas || pagina <= 0 || !regexnumero.test(cmd[2])) {
               bot.chat(util.format(lang.help.noexiste, maximopaginas));
               return;
             }
