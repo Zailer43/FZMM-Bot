@@ -17,6 +17,7 @@
 	"tageosmax": 4,
 	"longitudchat": 256,
 	"paginasporhelp": 4,
+	"encuestasporpagina": 3,
 	"subfixteams": "_color",
 
 	"repetir": false,

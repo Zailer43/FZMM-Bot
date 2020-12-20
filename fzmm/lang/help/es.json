@@ -141,5 +141,15 @@
         "cmd": "xp",
         "args": "<nivel actual> <nivel que quieres saber> <mob (opcional)",
         "msg": "Calcula cuanto xp falta de un nivel a otro y puede decirte cuantos mobs matar para ello"
+    },
+    {
+        "cmd": "vote",
+        "args": "<id> <voto>",
+        "msg": "Vota una encuesta, quiero saber tu opinión"
+    },
+    {
+        "cmd": "encuestas",
+        "args": "<página>",
+        "msg": "Mira las encuestas disponibles"
     }
 ]

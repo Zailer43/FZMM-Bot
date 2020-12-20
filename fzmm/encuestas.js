@@ -2,25 +2,30 @@ module.exports = inject;
 
 const fs = require('fs')
 const path = require('path')
+const util = require('util')
 
-function inject(bot, lang, prefix, spamearencuesta) {
+function inject(bot, lang, prefix, spamearencuesta, encuestasporpagina) {
     const encuestasdirectorio = path.join(__dirname, 'datos/encuestas.json');
-    let encuestas;
+    let encuestas = require(encuestasdirectorio);;
 
     bot.on('comando', function (username, message) {
         if (username === bot.username) return;
-        if (message.toLowerCase().startsWith('vote ')) {
+
+        const cmd = message.split(' ');
+
+        if (cmd[0] === 'vote') {
             encuestas = require(encuestasdirectorio);
-            const voto = message.split(' ');
+            if (cmd.length === 1) return;
+
             try {
                 let encuestaelegida = encuestas.find(({
                     id
-                }) => id === voto[1]);
+                }) => id === cmd[1]);
                 if (encuestaelegida.votantes.includes(username)) {
                     bot.chat(lang.yavotaste);
                     return;
-                } else if (Object.keys(encuestaelegida.votos).includes(voto[2])) {
-                    encuestaelegida.votos[voto[2]]++;
+                } else if (Object.keys(encuestaelegida.votos).includes(cmd[2])) {
+                    encuestaelegida.votos[cmd[2]]++;
                     encuestaelegida.votantes.push(username);
                     bot.chat(lang.gracias)
                 } else {
@@ -32,6 +37,27 @@ function inject(bot, lang, prefix, spamearencuesta) {
             }
             encuestas = JSON.stringify(encuestas, null, 2);
             fs.writeFileSync(encuestasdirectorio, encuestas, 'utf-8');
+        } else if (cmd[0] === 'encuestas') {
+
+            if (!cmd[1]) cmd[1] = 1;
+
+            const maximopaginas = Math.round((encuestas).length / encuestasporpagina);
+            const regexnumero = /^[0-9]{1,3}$/g;
+            const pagina = parseInt(cmd[1]);
+
+            if (pagina > maximopaginas || pagina <= 0 || !regexnumero.test(cmd[1])) {
+                bot.chat(util.format(lang.noexiste, maximopaginas));
+                return;
+            }
+
+            bot.chat(util.format(lang.top, cmd[1], maximopaginas, prefix));
+
+            for (let i = encuestasporpagina * (pagina - 1); i != encuestasporpagina * (pagina - 1) + encuestasporpagina; i++) {
+                if (!encuestas[i]) return;
+
+                bot.chat(util.format(lang.encuestascmd, encuestas[i].id, encuestas[i].texto, Object.keys(encuestas[i].votos).join(', ')));
+                sleep(250)
+            }
         }
     })
 
@@ -55,3 +81,8 @@ function inject(bot, lang, prefix, spamearencuesta) {
         }, (40 * 1000) * 60);
     }
 }
+
+function sleep(ms) {
+    var r = Date.now() + ms;
+    while (Date.now() < r) {}
+  }

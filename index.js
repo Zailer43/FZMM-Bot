@@ -42,7 +42,7 @@ require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, confi
 require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang, config.subfixteams);
 require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
-require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta)
+require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta, config.encuestasporpagina)
 require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
 if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin, config.tpmaterial);
 if (config.web) require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
