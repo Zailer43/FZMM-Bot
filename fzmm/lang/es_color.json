@@ -2,27 +2,27 @@
     "fzmm": {
         "antiafk": "Anti-AFK",
         "coords": {
-            "mensaje": "&aEsas coords en el &6%s &ason: &6%s %s",
+            "mensaje": "&aEsas coords en el &6%0$ &ason: &6%1$ %2$",
             "end": "&awtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
-            "error": "&cLa sintaxis del comando es: &e%scoords &6<dimension actual> <x> <z>"
+            "error": "&cLa sintaxis del comando es: &e%0$coords &6<dimension actual> <x> <z>"
         },
         "color": {
             "nuevocolor": "&a¡Ya tienes un nuevo color!",
-            "desconocido": "&cColor desconocido, intenta &e%scolores",
-            "error": "&cQuizás intentabas ver los colores, es con &e%scolores"
+            "desconocido": "&cColor desconocido, intenta &e%0$colores",
+            "error": "&cQuizás intentabas ver los colores, es con &e%0$colores"
         },
         "ping": {
-            "ping": "&aEl ping de &6%s &aes &6%s &ams",
+            "ping": "&aEl ping de &6%0$ &aes &6%1$ &ams",
             "error": "&cNo encontré a ese jugador",
             "recienconectado": "&cNo puedo ver el ping de alguien que recién se ha conectado, intenta en unos segundos"
         },
         "pingserver": {
-            "motd": "&aMOTD: &6%s",
-            "jugadores": "&aJugadores: &6%s&a/&6%s",
+            "motd": "&aMOTD: &6%0$",
+            "jugadores": "&aJugadores: &6%0$&a/&6%1$",
             "error": "&cNo encontré el servidor"
         },
         "tps": {
-            "mensaje": "&aEl TPS actual es &6%s &a(%s&a)",
+            "mensaje": "&aEl TPS actual es &6%0$ &a(%1$&a)",
             "terrible": "&4☠ TERRIBLE ☠",
             "injugable": "&c⚠ Hay un poco de server en tu lag ⚠",
             "muylageado": "Muy Lageado",
@@ -37,8 +37,8 @@
             "longitud": "&cEl nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
             "noespremium": "&cEse jugador no es premium :(",
             "noerespremium": "&cNo eres premium, lo siento :(",
-            "es": "&aLa UUID de &6%s &aes &6%s",
-            "nicks": "&aNicks: &6%s"
+            "es": "&aLa UUID de &6%0$ &aes &6%1$",
+            "nicks": "&aNicks: &6%0$"
         },
         "mimir": {
             "error": "&cNo puedo dormir: ",
@@ -50,10 +50,10 @@
             "muygrande": "Cantidad muy grande",
             "negativo": "No entiendo como chucha vas a tener items negativos",
             "falta": "Faltan/sobran argumentos",
-            "sintaxisstack": "La sintaxis es &e%sstack [64 / 16] <cantidad>",
-            "sintaxiscantidad": "La sintaxis es &e%scantidad [64 / 16] <stacks> <sobra (menos de 64)>",
-            "stack": "&aSon &6%s &astacks (%s) y sobran &6%s &aitems",
-            "cantidad": "&aSon &6%s &aitems"
+            "sintaxisstack": "La sintaxis es &e%0$stack [64 / 16] <cantidad>",
+            "sintaxiscantidad": "La sintaxis es &e%0$cantidad [64 / 16] <stacks> <sobra (menos de 64)>",
+            "stack": "&aSon &6%0$ &astacks (%1$) y sobran &6%2$ &aitems",
+            "cantidad": "&aSon &6%0$ &aitems"
         },
         "armorstand": {
             "funciono": "Bot: &aSe han cambiado correctamente las propiedades del armor stand",
@@ -64,44 +64,44 @@
             "notienes": "Bot: &cNo tienes la cantidad de item frames que especificaste en la mano",
             "funciono": "Bot: &aAhora tus itemframes son invisibles"
         },
-        "entidadescount": "&aHay un total de &6%s &aentidades cargadas, de esos lo que mayor hay es &6%s (%s)",
+        "entidadescount": "&aHay un total de &6%0$ &aentidades cargadas, de esos lo que mayor hay es &6%1$ (%2$)",
         "hi": "&3(^Ｕ^)ノ ~Hi",
         "movistardetect": "&3Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
-        "longitud": "&aLa longitud del mensaje es: &6%s",
+        "longitud": "&aLa longitud del mensaje es: &6%0$",
         "afk": {
-            "fin": "&a%s, estuviste AFK durante &6%s &aminuto(s) y &6%s &asegundos",
+            "fin": "&a%0$, estuviste AFK durante &6%1$ &aminuto(s) y &6%2$ &asegundos",
             "nuevo": "&aAhora estás afk",
             "prefix": "[AFK] "
         },
-        "tradeos": "&aPara el proximo minuto de tradeo faltan &6%s &aminuto(s) y &6%s &asegundos",
+        "tradeos": "&aPara el proximo minuto de tradeo faltan &6%0$ &aminuto(s) y &6%1$ &asegundos",
         "nomastradeos": "&aEspera al siguiente día para volver a tradear",
         "illegalcharacter": "&cLo siento, el mensaje tiene caracteres que no puedo decir por chat",
         "calcoperadores": "&cSolo admito los siguientes operadores: +, -, /, *, % y ^",
         "calcfaltanargumentos": "&cSolo puedo calcular cosas simples y con espacio, &apor ejemplo 23 * 9999 o -300 / 8.345",
         "xp": {
             "alreves": "&cAdvertencia: &6Pusiste al revés los valores de nivel actual y nivel que quieres saber",
-            "errorejemplo": "&cError: Los mobs disponibles son: %s",
-            "msgconejemplo": "&aDebes matar &6%s &a%s más para alcanzar el &6nivel %s",
-            "msg": "&aFaltan &6%s &apuntos de xp para llegar desde el nivel &6%s &aal &6%s"
+            "errorejemplo": "&cError: Los mobs disponibles son: %0$",
+            "msgconejemplo": "&aDebes matar &6%0$ &a%1$ más para alcanzar el &6nivel %2$",
+            "msg": "&aFaltan &6%0$ &apuntos de xp para llegar desde el nivel &6%1$ &aal &6%2$"
         }
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
         "conectado": "~~---- <][> Conectado <][> ----~~",
-        "kick": "Fui kickeado por %s",
-        "tell": "%s me susurró: %s",
+        "kick": "Fui kickeado por %0$",
+        "tell": "%0$ me susurró: %1$",
         "help": {
-            "noexiste": "&cPágina inexistente, &ael mínimo es 1 y el máximo es &6%s",
+            "noexiste": "&cPágina inexistente, &ael mínimo es 1 y el máximo es &6%0$",
             "comandoinexistente": "No tengo información sobre ese comando",
-            "help": "&e%shelp <comando> &ao &e%shelp page <Numero de pagina>",
-            "top": "&e« &6Help [%s/%s] &e»",
-            "cmd": "&e%s%s %s&a: %s",
-            "cmdsinargs": "&e%s%s&a: %s",
+            "help": "&e%0$help <comando> &ao &e%1$help page <Numero de pagina>",
+            "top": "&e« &6Help [%0$/%1$] &e»",
+            "cmd": "&e%0$%1$ %2$&a: %3$",
+            "cmdsinargs": "&e%0$%1$&a: %2$",
             "textinfo": "&aEstos son comandos que únicamente muestran un texto",
             "tpinfo": "&aEn \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
             "coordsinfo": "&aRecuerda que las coords &6del overworld al nether se multiplican por 8 (en caso contrario se dividen)&a, este comando es una herramienta para eso",
             "itemframeinfo": "&cDebes especificar la cantidad de item frames que tienes en la mano para que esto funcione",
-            "tag": "&aPuedes tagear gente usando &e@<nick> &aen un mensaje y cambiar tu configuración de sonido con &e%stag [sonido / volumen]"
+            "tag": "&aPuedes tagear gente usando &e@<nick> &aen un mensaje y cambiar tu configuración de sonido con &e%0$tag [sonido / volumen]"
         },
         "bot": "&aVersión del bot: &6veintiquince &a- Texture pack que recomiendo: &6&nhttps://www.planetminecraft.com/texture-pack/fzmm/",
         "colores": "&baqua, &0black, &9blue, &3dark_aqua, &1dark_blue, &8dark_gray, &2dark_green, &5dark_purple, &4dark_red, &6gold, &7gray, &agreen, &dlight_purple, &cred, &fwhite, &eyellow",
@@ -125,8 +125,8 @@
         "simbolosmsg": "&aClick acá y luego &6ctrl+v &aen el chat",
         "simbolos": "™ ★ ✪ √ ✜ ❤ ♀ ♂ ⚥ ۩ ∆ ♪ ∞ ⌂ ♯ ✸ ✿ ✮ ❁ ❀ • ☘ ✺ ♫ ♬ ☠ ☢ ☣ ✖ ✔ ✘ ✌ ➤ ⚠ ❂ ✠ ✦ ⓵ ⓶ ⓷ ﴾ ﴿ ◇ 【 】 ☯ 《 》 ☬ ¹ ² ³ 卐 ⚙ ✉ ✂ ✎ ♻ ⟲ ⚔ ⋯ ☰ ✙ ❃『 』 ⩶ ⫽ ⫻ Ξ",
         "bruh": "bruh",
-        "entro": "%s se conectó",
-        "salio": "%s se fue",
+        "entro": "%0$ se conectó",
+        "salio": "%0$ se fue",
         "r1p": [
             "──▄────▄▄▄▄▄▄▄────▄───",
             "─▀▀▄─▄█████████▄─▄▀▀──",
@@ -143,11 +143,11 @@
         "nukereal": "Nuke real",
         "guardarcoords": "&aSe guardaron correctamente las coords",
         "plugincargado": "&aPlugin cargado exitosamente",
-        "setup": "&aAhora el prefix de &6%s &aes color &6%s",
+        "setup": "&aAhora el prefix de &6%0$ &aes color &6%1$",
         "admin": {
-            "eltoken": "El token es: %s",
+            "eltoken": "El token es: %0$",
             "introducetoken": "&aIntroduce el token generado",
-            "nohaytoken": "&cError: Genera un token con &e%sadmin",
+            "nohaytoken": "&cError: Genera un token con &e%0$admin",
             "tokeninvalido": "&aError: token invalido",
             "eresadmin": "&aAhora tienes permisos de admin hasta que me reinicie"
         }
@@ -155,18 +155,18 @@
     "tp": {
         "asimismo": "&cNo puedes hacerte tp a ti mismo, sería inutil",
         "noestaonline": "&cEl jugador no se encuentra online",
-        "tudeuda": "&aTu deuda ahora es de &6%s &astack(s) de bloques de cuarzo",
-        "ladeudade": "&aLa deuda de &6%s &aes &6%s &astack(s) de bloques de cuarzo",
-        "deudaalmax": "&cTu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar &e%spagartp",
+        "tudeuda": "&aTu deuda ahora es de &6%0$ &astack(s) de bloques de cuarzo",
+        "ladeudade": "&aLa deuda de &6%0$ &aes &6%1$ &astack(s) de bloques de cuarzo",
+        "deudaalmax": "&cTu deuda está a su máximo (5), no puedes hacer tp, te recomiendo usar &e%0$pagartp",
         "notienesdeuda": "&aNo tienes deuda pendiente",
         "notienescuarzo": "Bot: &cNo puedes pagar el tp, no tienes &nun stack de bloques de cuarzo&c en la mano",
         "activado": "&aactivados",
         "desactivado": "&cdesactivados",
-        "toggleado": "&6Ahora tienes %s &6los tp hacia ti",
+        "toggleado": "&6Ahora tienes %0$ &6los tp hacia ti",
         "tienetoggle": "&cEl jugador tiene desactivado los tp"
     },
     "random": {
-        "wither": "&aEn tu proximo wither tienes &6%s% &ade probabilidades de obtener calavera",
+        "wither": "&aEn tu proximo wither tienes &6%0$% &ade probabilidades de obtener calavera",
         "perdonado": "&ateperd0no",
         "noperdono": "&cpecador, no eres perdonado",
         "cara": "&ecara",
@@ -176,7 +176,10 @@
         "yavotaste": "&cLo siento, ya votaste anteriormente en esta encuesta",
         "gracias": "&aGracias por tu voto",
         "idincorrecta": "&cDebiste poner la ID de la encuesta mal",
-        "respuestainvalida": "&cSolo puedes responder con una de las siguientes palabras: "
+        "respuestainvalida": "&cSolo puedes responder con una de las siguientes palabras: ",
+        "noexiste": "&cPágina inexistente, el mínimo es 1 y el máximo es %0$",
+        "top": "&e« &6Encuestas [%0$/%1$] &e» &aVota con %2$vote <id> <respuesta>",
+        "encuestascmd": "&e%0$: &a%1$ (%2$)"
     },
     "pvp": {
         "noteveo": "&cNo puedo verte",
@@ -194,6 +197,6 @@
         "sonidocambiado": "&aSe ha cambiado el sonido correctamente",
         "sonidosdisponibles": "&aLos sonidos disponbles son: &6",
         "sonidoinexistente": "&cEse sonido no existe, pero si hablas con Zailer puede agregarlo",
-        "errorsintaxis": "&cError de sintaxis, intenta &e%stag [sonido / volumen]"
+        "errorsintaxis": "&cError de sintaxis, intenta &e%0$tag [sonido / volumen]"
     }
 }

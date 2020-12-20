@@ -9,7 +9,7 @@ const {
   GoalFollow
 } = require('mineflayer-pathfinder').goals
 const fs = require('fs');
-const util = require('util');
+const langformat = require('./utils/main.js').langformat;
 
 function uuid() {
   var uuid = "",
@@ -41,12 +41,12 @@ function inject(bot, lang, admin, prefix, seguir, lang2, subfixteams) {
   bot.on('comando', function (username, message) {
     if (message.toLowerCase() === 'admin') {
       token = uuid();
-      console.log(util.format(lang.admin.eltoken, token));
+      console.log(langformat(lang.admin.eltoken, [token]));
       bot.chat(lang.admin.introducetoken)
     } else if (message.toLowerCase().startsWith('admin ')) {
       const admincmd = message.split(' ');
       if (!token) {
-        bot.chat(util.format(lang.admin.nohaytoken, prefix));
+        bot.chat(langformat(lang.admin.nohaytoken, [prefix]));
       } else if (admincmd[1] === token) {
         admintemporal.push(username);
         bot.chat(lang.admin.eresadmin);
@@ -105,8 +105,8 @@ function inject(bot, lang, admin, prefix, seguir, lang2, subfixteams) {
       bot.chat(`/team join ${nick}${subfixteams} ${nick}`);
       bot.chat(`/team modify ${nick}${subfixteams} prefix {"text":"${prefix} ","color":"${colorprefix}"}`);
 
-      bot.chat(util.format(lang.setup, nick, colorprefix));
-      console.log(util.format(lang.setup, nick, colorprefix));
+      bot.chat(langformat(lang.setup, [nick, colorprefix]));
+      console.log(langformat(lang.setup, [nick, colorprefix]));
     }
   })
 

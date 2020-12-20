@@ -1,8 +1,9 @@
 module.exports = inject;
 
 const colors = require('colors');
-const util = require('util');
 const help = require('./lang/help/es.json');
+const sleep = require('./utils/main.js').sleep;
+const langformat = require('./utils/main.js').langformat;
 
 function inject(bot, lang, prefix, cantidadporhelp) {
   bot.on('chat2', function (username, message) {
@@ -18,7 +19,7 @@ function inject(bot, lang, prefix, cantidadporhelp) {
         break;
         //startwith help
       case 'help':
-        bot.chat(util.format(lang.help.help, prefix, prefix));
+        bot.chat(langformat(lang.help.help, [prefix, prefix]));
         break;
       case 'help text':
         bot.chat(lang.help.textinfo)
@@ -34,7 +35,7 @@ function inject(bot, lang, prefix, cantidadporhelp) {
         bot.chat(lang.help.itemframeinfo);
         break;
       case 'tag':
-        bot.chat(util.format(lang.help.tag, prefix));
+        bot.chat(langformat(lang.help.tag, [prefix]));
         break;
       case 'coords':
         bot.chat(lang.help.coordsinfo);
@@ -144,8 +145,8 @@ function inject(bot, lang, prefix, cantidadporhelp) {
         const helpbuscado = help.find(comando => comando.cmd === cmd[1].toLowerCase());
         
         if (helpbuscado) {
-          if (helpbuscado.args) bot.chat(util.format(lang.help.cmd, prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg));
-          else bot.chat(util.format(lang.help.cmdsinargs, prefix, helpbuscado.cmd, helpbuscado.msg));
+          if (helpbuscado.args) bot.chat(langformat(lang.help.cmd, [prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg]));
+          else bot.chat(langformat(lang.help.cmdsinargs, [prefix, helpbuscado.cmd, helpbuscado.msg]));
 
         } else if (cmd[2]) {
           if (cmd[1].toLowerCase() === 'page') {
@@ -155,17 +156,17 @@ function inject(bot, lang, prefix, cantidadporhelp) {
             const pagina = parseInt(cmd[2]);
              
             if (pagina > maximopaginas || pagina <= 0 || !regexnumero.test(cmd[2])) {
-              bot.chat(util.format(lang.help.noexiste, maximopaginas));
+              bot.chat(langformat(lang.help.noexiste, [maximopaginas]));
               return;
             }
 
-            bot.chat(util.format(lang.help.top, cmd[2], maximopaginas));
+            bot.chat(langformat(lang.help.top, [cmd[2], maximopaginas]));
 
             for (let i = cantidadporhelp * (pagina - 1); i != cantidadporhelp * (pagina - 1) + cantidadporhelp; i++) {
               if (!help[i]) return;
 
-              if (help[i].args) bot.chat(util.format(lang.help.cmd, prefix, help[i].cmd, help[i].args, help[i].msg));
-              else bot.chat(util.format(lang.help.cmdsinargs, prefix, help[i].cmd, help[i].msg));
+              if (help[i].args) bot.chat(langformat(lang.help.cmd, [prefix, help[i].cmd, help[i].args, help[i].msg]));
+              else bot.chat(langformat(lang.help.cmdsinargs, [prefix, help[i].cmd, help[i].msg]));
               sleep(250)
             }
           }
@@ -174,11 +175,11 @@ function inject(bot, lang, prefix, cantidadporhelp) {
   });
 
   bot.on('join', function (player) {
-    console.log('+ '.green + util.format(lang.entro, player));
+    console.log('+ '.green + langformat(lang.entro, [player]));
   })
 
   bot.on('leave', function (player) {
-    console.log('- ' + util.format(lang.salio, player))
+    console.log('- ' + langformat(lang.salio, [player]))
   })
 
   bot.on('connect', function () {
@@ -187,12 +188,12 @@ function inject(bot, lang, prefix, cantidadporhelp) {
   });
 
   bot.on('kicked', (reason) => {
-    console.log(util.format(lang.kick, reason).red);
+    console.log(langformat(lang.kick, [reason]).red);
   })
 
   bot.on('whisper', function (username, message) {
     if (username === bot.username) return;
-    console.log(util.format(lang.tell, username, message));
+    console.log(langformat(lang.tell, [username, message]));
   })
 
   function efe(f) {
@@ -226,8 +227,3 @@ function inject(bot, lang, prefix, cantidadporhelp) {
 ─▄██▀───▄██▀───▄██▀
 ─███────███────███
 */
-
-function sleep(ms) {
-  var r = Date.now() + ms;
-  while (Date.now() < r) {}
-}

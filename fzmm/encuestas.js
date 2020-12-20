@@ -2,7 +2,8 @@ module.exports = inject;
 
 const fs = require('fs')
 const path = require('path')
-const util = require('util')
+const sleep = require('./utils/main.js').sleep;
+const langformat = require('./utils/main.js').langformat;
 
 function inject(bot, lang, prefix, spamearencuesta, encuestasporpagina) {
     const encuestasdirectorio = path.join(__dirname, 'datos/encuestas.json');
@@ -46,16 +47,16 @@ function inject(bot, lang, prefix, spamearencuesta, encuestasporpagina) {
             const pagina = parseInt(cmd[1]);
 
             if (pagina > maximopaginas || pagina <= 0 || !regexnumero.test(cmd[1])) {
-                bot.chat(util.format(lang.noexiste, maximopaginas));
+                bot.chat(langformat(lang.noexiste, [maximopaginas]));
                 return;
             }
 
-            bot.chat(util.format(lang.top, cmd[1], maximopaginas, prefix));
+            bot.chat(langformat(lang.top, [cmd[1], maximopaginas, prefix]));
 
             for (let i = encuestasporpagina * (pagina - 1); i != encuestasporpagina * (pagina - 1) + encuestasporpagina; i++) {
                 if (!encuestas[i]) return;
 
-                bot.chat(util.format(lang.encuestascmd, encuestas[i].id, encuestas[i].texto, Object.keys(encuestas[i].votos).join(', ')));
+                bot.chat(langformat(lang.encuestascmd, [encuestas[i].id, encuestas[i].texto, Object.keys(encuestas[i].votos).join(', ')]));
                 sleep(250)
             }
         }
@@ -81,8 +82,3 @@ function inject(bot, lang, prefix, spamearencuesta, encuestasporpagina) {
         }, (40 * 1000) * 60);
     }
 }
-
-function sleep(ms) {
-    var r = Date.now() + ms;
-    while (Date.now() < r) {}
-  }

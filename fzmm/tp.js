@@ -2,7 +2,7 @@ module.exports = inject;
 
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+const langformat = require('./utils/main.js').langformat;
 
 const deudasdirectorio = path.join(__dirname, 'datos/deudas.json');
 let deudas = require(deudasdirectorio);
@@ -32,8 +32,8 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
 
         deudas[cmd[1]].deuda--;
 
-        bot.chat(util.format(lang.ladeudade, cmd[1], deudas[cmd[1]].deuda));
-        console.log(util.format(lang.ladeudade, cmd[1], deudas[cmd[1]].deuda));
+        bot.chat(langformat(lang.ladeudade, [cmd[1], deudas[cmd[1]].deuda]));
+        console.log(langformat(lang.ladeudade, [cmd[1], deudas[cmd[1]].deuda]));
 
         if (deudas[cmd[1]].deuda === 0 && !deudas[cmd[1]].toggle) delete deudas[cmd[1]]
         guardar();
@@ -59,7 +59,7 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
         let msg;
         if (deudas[username].toggle) msg = lang.activado;
         else msg = lang.desactivado;
-        bot.chat(util.format(lang.toggleado, msg));
+        bot.chat(langformat(lang.toggleado, [msg]));
 
         if (deudas[username].deuda === 0 && !deudas[username].toggle) delete deudas[username]
         guardar()
@@ -78,7 +78,7 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
       toggle: false
     }
     if (deudas[username].deuda >= 5) {
-      bot.chat(util.format(lang.deudaalmax, prefix));
+      bot.chat(langformat(lang.deudaalmax, [prefix]));
 
     } else if (!estaonline) {
       bot.chat(lang.noestaonline);
@@ -89,7 +89,7 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
       deudas[username].deuda++;
       bot.chat(`/tp ${username} ${nick}`);
 
-      bot.chat(util.format(lang.tudeuda, deudas[username].deuda));
+      bot.chat(langformat(lang.tudeuda, [deudas[username].deuda]));
 
       guardar();
     }
@@ -107,8 +107,8 @@ function inject(bot, lang, prefix, admin, tpmaterial) {
   }
 
   function decirdeuda(username) {
-    if (!deudas[username]) bot.chat(util.format(lang.ladeudade, username, 0));
-    else bot.chat(util.format(lang.ladeudade, username, deudas[username.deuda]));
+    if (!deudas[username]) bot.chat(langformatt(lang.ladeudade, [username, 0]));
+    else bot.chat(langformat(lang.ladeudade, [username, deudas[username.deuda]]));
   }
 
   function guardar() {

@@ -1,12 +1,12 @@
 module.exports = inject;
-const util = require('util');
+const langformat = require('./utils/main.js').langformat;
 
 function inject(bot, lang, prefix, spamearsplash) {
   bot.on('comando', function (username, message) {
     if (username === bot.username) return;
     switch (message.toLowerCase()) {
       case 'calavera':
-        bot.chat(util.format(lang.wither, Math.floor((Math.random() * 20) + 1).toString()));
+        bot.chat(langformat(lang.wither, [Math.floor((Math.random() * 20) + 1).toString()]));
         break;
       case 'perdoname diosito':
         perdonado = Math.floor(Math.random() * 2).toString();

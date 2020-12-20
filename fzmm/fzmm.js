@@ -2,9 +2,11 @@ module.exports = inject;
 
 const mineflayer = require('mineflayer');
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
-const vec3 = require('vec3');
+//const vec3 = require('vec3');
 const axios = require('axios').default;
-const util = require('util');
+const sleep = require('./utils/main.js').sleep;
+const langformat = require('./utils/main.js').langformat;
+
 
 function inject(bot, lang, prefix, antiafk, subfixteams) {
 
@@ -23,7 +25,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
       let segundos = parseInt((Date.now() - afkesta.tiempo) / 1000);
       let minutos = parseInt(segundos / 60);
       segundos = segundos % 60;
-      bot.chat(util.format(lang.afk.fin, afkesta.nick, minutos, segundos));
+      bot.chat(langformat(lang.afk.fin, [afkesta.nick, minutos, segundos]));
       bot.chat(`/team modify ${username}${subfixteams} prefix ""`);
 
       delete afkesta.nick, afkesta.tiempo;
@@ -103,7 +105,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           faltasegundo = faltasegundo % 60;
         }
 
-        bot.chat(util.format(lang.tradeos, faltaminuto, parseInt(faltasegundo)));
+        bot.chat(langformat(lang.tradeos, [faltaminuto, parseInt(faltasegundo)]));
     }
 
     const cmd = message.split(' ');
@@ -129,22 +131,22 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           const z = parseInt(cmd[3], 10);
           switch (cmd[1]) {
             case 'overworld':
-              bot.chat(util.format(lang.coords.mensaje, 'nether', Math.round(x / 8), Math.round(z / 8)));
+              bot.chat(langformat(lang.coords.mensaje, ['nether', Math.round(x / 8), Math.round(z / 8)]));
               break;
             case 'nether':
-              bot.chat(util.format(lang.coords.mensaje, 'overworld', x * 8, z * 8));
+              bot.chat(langformat(lang.coords.mensaje, ['overworld', x * 8, z * 8]));
               break;
             case 'end':
               bot.chat(lang.coords.end);
               break;
           }
         } else {
-          bot.chat(util.format(lang.coords.error, prefix));
+          bot.chat(langformat(lang.coords.error, [prefix]));
         }
         break;
       case 'color':
         if (!cmd.length === 2) {
-          bot.chat(util.format(lang.color.error, prefix))
+          bot.chat(langformat(lang.color.error, [prefix]))
           return;
         }
         const colores = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
@@ -157,7 +159,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
 
           bot.chat(lang.color.nuevocolor)
         } else {
-          bot.chat(util.format(lang.color.desconocido, prefix));
+          bot.chat(langformat(lang.color.desconocido, [prefix]));
         }
         break;
       case 'stack':
@@ -175,9 +177,9 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           }
 
           if (tipo === 64 || tipo === 16) {
-            bot.chat(util.format(lang.conversor.stack, Math.trunc(cantidad / tipo), tipo, cantidad % tipo))
+            bot.chat(langformat(lang.conversor.stack, [Math.trunc(cantidad / tipo), tipo, cantidad % tipo]))
           } else {
-            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxisstack, prefix));
+            bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxisstack, [prefix]));
           }
         }
         break;
@@ -196,21 +198,21 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
             return;
           }
           if (tipo === 64 || tipo === 16) {
-            bot.chat(util.format(lang.conversor.cantidad, (cantidadStacks * tipo) + sobra))
+            bot.chat(langformat(lang.conversor.cantidad, [(cantidadStacks * tipo) + sobra]))
           } else {
-            bot.chat(lang.conversor.error + util.format(lang.conversor.sintaxis1, prefix));
+            bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxis1, [prefix]));
           }
         } else {
           bot.chat(lang.conversor.error + lang.conversor.falta);
         }
         break;
       case 'itemframe':
-        const cmditemframe = '/execute %s entity @a[name="%s",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%sb}}] run ';
-        bot.chat(util.format(cmditemframe, 'unless', username, cmd[1]) + `tellraw @a "${lang.itemframe.notienes}"`);
-        bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) + `tellraw @a "${lang.itemframe.funciono}"`);
-        bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) + `give ${username} item_frame{display:{Name:'{"text":"${lang.itemframe.nombre}","color":"#36CC57"}'},EntityTag:{Invisible:1b}} ${cmd[1]}`);
+        const cmditemframe = '/execute %0$ entity @a[name="%1$",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%2$b}}] run ';
+        bot.chat(langformat(cmditemframe, ['unless', username, cmd[1]]) + `tellraw @a "${lang.itemframe.notienes}"`);
+        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `tellraw @a "${lang.itemframe.funciono}"`);
+        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `give ${username} item_frame{display:{Name:'{"text":"${lang.itemframe.nombre}","color":"#36CC57"}'},EntityTag:{Invisible:1b}} ${cmd[1]}`);
         sleep(150);
-        bot.chat(util.format(cmditemframe, 'if', username, cmd[1]) + `replaceitem entity ${username} weapon.mainhand air`);
+        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `replaceitem entity ${username} weapon.mainhand air`);
         break;
       case 'ping':
         pingms(cmd[1])
@@ -220,7 +222,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         longitudcmd.shift();
         longitudcmd = longitudcmd.join(' ');
         longitudcmd = longitudcmd.length;
-        bot.chat(util.format(lang.longitud, longitudcmd));
+        bot.chat(langformat(lang.longitud, [longitudcmd]));
         break;
       case 'reverse':
         var reverse = cmd;
@@ -258,26 +260,20 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         break;
       case 'armorstand':
         if (!cmd[1]) return;
-        const cmdarmorstand = '/execute at %s run data merge entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] {%s:1b}',
-          funciono = '/execute at %s if entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "%s"',
-          error = '/execute at %s unless entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "%s"';
+        const cmdarmorstand = '/execute at %0$ run data merge entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] {%1$:1b}';
         switch (cmd[1].toLowerCase()) {
           case 'arms':
-            bot.chat(util.format(cmdarmorstand, username, 'ShowArms'));
-            bot.chat(util.format(funciono, username, lang.armorstand.funciono));
-            bot.chat(util.format(error, username, lang.armorstand.error));
+            bot.chat(langformat(cmdarmorstand, [username, 'ShowArms']));
             break;
           case 'base':
-            bot.chat(util.format(cmdarmorstand, username, 'NoBasePlate'));
-            bot.chat(util.format(funciono, username, lang.armorstand.funciono));
-            bot.chat(util.format(error, username, lang.armorstand.error));
+            bot.chat(langformat(cmdarmorstand, [username, 'NoBasePlate']));
             break;
           case 'small':
-            bot.chat(util.format(cmdarmorstand, username, 'Small'));
-            bot.chat(util.format(funciono, username, lang.armorstand.funciono));
-            bot.chat(util.format(error, username, lang.armorstand.error));
+            bot.chat(langformat(cmdarmorstand, [username, 'Small']));
             break;
         }
+        bot.chat(`/execute at ${username} if entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.funciono}"`);
+        bot.chat(`/execute at ${username} unless entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.error}"`)
         break;
       case 'calc':
         if (!cmd[3]) {
@@ -375,14 +371,14 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
             });
             entidadeslista = entidadeslista.join(', ');
 
-            bot.chat(util.format(lang.xp.errorejemplo, entidadeslista));
+            bot.chat(langformat(lang.xp.errorejemplo, [entidadeslista]));
             return;
           }
 
           ejemplofaltan = Math.round(falta / ejemplocantidadxp);
-          bot.chat(util.format(lang.xp.msgconejemplo, ejemplofaltan, ejemplo.toLowerCase(), niveldeseado))
+          bot.chat(langformat(lang.xp.msgconejemplo, [ejemplofaltan, ejemplo.toLowerCase(), niveldeseado]))
         } else {
-          bot.chat(util.format(lang.xp.msg, falta, nivelactual,niveldeseado));
+          bot.chat(langformat(lang.xp.msg, [falta, nivelactual,niveldeseado]));
         }
     }
   });
@@ -406,14 +402,14 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     console.log(cantidadentidades)
 
     for (x in cantidadentidades) {
-      if (cantidadentidades[x] > mayor) {
+      if (cantidadentidades[x] >= mayor) {
         mayor = cantidadentidades[x];
         mayormob = listaentidades[i];
       }
       i++;
     };
-    bot.chat(util.format(lang.entidadescount, entidades.length, mayormob, mayor));
-    console.log(util.format(lang.entidadescount, entidades.length, mayormob, mayor));
+    bot.chat(langformat(lang.entidadescount, [entidades.length, mayormob, mayor]));
+    console.log(langformat(lang.entidadescount, [entidades.length, mayormob, mayor]));
   })
 
   let jugadormovistar, movistardetect = 0;
@@ -464,8 +460,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           if (pingms === 0) {
             bot.chat(lang.ping.recienconectado);
           } else {
-            bot.chat(util.format(lang.ping.ping, element, pingms));
-            console.log(util.format(lang.ping.ping, element, pingms));
+            bot.chat(langformat(lang.ping.ping, [element, pingms]));
+            console.log(langformat(lang.ping.ping, [element, pingms]));
           }
         };
       })
@@ -479,10 +475,10 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
   function pingsv(ip) {
     axios.get('https://api.mcsrvstat.us/2/' + ip)
       .then(serverdatos => {
-        console.log(util.format(lang.pingserver.motd, serverdatos.data.motd.clean));
-        bot.chat(util.format(lang.pingserver.motd, serverdatos.data.motd.clean));
-        console.log(util.format(lang.pingserver.jugadores, serverdatos.data.players.online, serverdatos.data.players.max));
-        bot.chat(util.format(lang.pingserver.jugadores, serverdatos.data.players.online, serverdatos.data.players.max));
+        console.log(langformat(lang.pingserver.motd, [serverdatos.data.motd.clean]));
+        bot.chat(langformat(lang.pingserver.motd, [serverdatos.data.motd.clean]));
+        console.log(langformat(lang.pingserver.jugadores, [serverdatos.data.players.online, serverdatos.data.players.max]));
+        bot.chat(langformat(lang.pingserver.jugadores, [serverdatos.data.players.online, serverdatos.data.players.max]));
       })
       .catch(error => {
         bot.chat(lang.pingserver.error)
@@ -520,8 +516,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     } else if (tps >= 0 && tps <= 1) {
       estado = lang.tps.terrible
     }
-    bot.chat(util.format(lang.tps.mensaje, tps, estado))
-    console.log(util.format(lang.tps.mensaje, tps, estado))
+    bot.chat(langformat(lang.tps.mensaje, [tps, estado]))
+    console.log(langformat(lang.tps.mensaje, [tps, estado]))
   }
 
   function obteneruuidynicks(nick, asimismo) {
@@ -533,8 +529,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
 
           return;
         }
-        console.log(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
-        bot.chat(util.format(lang.uuid.es, uuid.data.name, uuid.data.id));
+        console.log(langformat(lang.uuid.es, [uuid.data.name, uuid.data.id]));
+        bot.chat(langformat(lang.uuid.es, [uuid.data.name, uuid.data.id]));
 
         axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
           .then(function (historial) {
@@ -547,8 +543,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
                 historialdenicks = historialdenicks + ', ';
             }
 
-            bot.chat(util.format(lang.uuid.nicks, historialdenicks));
-            console.log(util.format(lang.uuid.nicks, historialdenicks));
+            bot.chat(langformat(lang.uuid.nicks, [historialdenicks]));
+            console.log(langformat(lang.uuid.nicks, [historialdenicks]));
           })
           .catch(error => {
             console.log(error);

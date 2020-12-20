@@ -1,4 +1,5 @@
 module.exports = inject;
+const sleep = require('./utils/main.js').sleep;
 
 const {
     pathfinder,
@@ -81,10 +82,5 @@ function inject(bot, lang, prefix, admin) {
         if (bot.canDigBlock(target) && target.name !== 'air') {
             bot.dig(target, complete);
         } else complete();
-    }
-
-    function sleep(ms) {
-        var r = Date.now() + ms;
-        while (Date.now() < r) {}
     }
 }
