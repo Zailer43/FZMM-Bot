@@ -52,7 +52,7 @@
             "falta": "Faltan/sobran argumentos",
             "sintaxisstack": "La sintaxis es %0$stack [64 / 16] <cantidad>",
             "sintaxiscantidad": "La sintaxis es %0$cantidad [64 / 16] <stacks> <sobra (menos de 64)>",
-            "stack": "Son %0$ stacks (%1$) y sobran %2$ items",
+            "stack": "Son %0$ stacks (de %1$) y sobran %2$ items",
             "cantidad": "Son %0$ items"
         },
         "armorstand": {

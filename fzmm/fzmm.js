@@ -164,32 +164,32 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         break;
       case 'stack':
         // fz!stack 64 <cantidad> -> Son ?? stacks y sobra ??
-        if (cmd.length === 3) {
-          const tipo = parseInt(cmd[1]);
-          const cantidad = parseInt(cmd[2]);
-          if (cantidad > 250000) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
+        if (!cmd[2]) cmd[2] = 64;
+        const cantidad = Math.round(cmd[1]);
+        const tipo = Math.round(cmd[2]);
+        if (cantidad > 250000) {
+          bot.chat(lang.conversor.error + lang.conversor.muygrande);
+          return;
 
-          } else if (cantidad < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
+        } else if (cantidad < 0) {
+          bot.chat(lang.conversor.error + lang.conversor.negativo);
+          return;
+        }
 
-          if (tipo === 64 || tipo === 16) {
-            bot.chat(langformat(lang.conversor.stack, [Math.trunc(cantidad / tipo), tipo, cantidad % tipo]))
-          } else {
-            bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxisstack, [prefix]));
-          }
+        if (tipo === 64 || tipo === 16) {
+          bot.chat(langformat(lang.conversor.stack, [Math.trunc(cantidad / tipo), tipo, cantidad % tipo]))
+        } else {
+          bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxisstack, [prefix]));
         }
         break;
       case 'cantidad':
         // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
-        if (!cmd[3]) cmd[3] = 0;
+        if (!cmd[2]) cmd[2] = 0;
+        if (!cmd[3]) cmd[3] = 64;
         if (cmd.length === 4) {
-          const tipo = parseInt(cmd[1]);
-          const cantidadStacks = parseInt(cmd[2]);
-          const sobra = parseInt(cmd[3]);
+          const cantidadStacks = Math.round(cmd[1]);
+          const sobra = Math.round(cmd[2]);
+          const tipo = Math.round(cmd[3]);
           if (cantidadStacks > 25000 || sobra > 64) {
             bot.chat(lang.conversor.error + lang.conversor.muygrande);
             return;
@@ -271,6 +271,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           case 'small':
             bot.chat(langformat(cmdarmorstand, [username, 'Small']));
             break;
+          default:
+            return;
         }
         bot.chat(`/execute at ${username} if entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.funciono}"`);
         bot.chat(`/execute at ${username} unless entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.error}"`)
@@ -284,7 +286,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         const b = +cmd[3];
         const op = cmd[2];
         let resultado = 0;
-        
+
         if (a === 2 && b === 2 && op === '+') {
           bot.chat('pez');
           return;
@@ -321,9 +323,9 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         break;
       case 'xp':
         let nivelactual = 0,
-        niveldeseado = 0,
-        ejemplo = null,
-        falta = 0;
+          niveldeseado = 0,
+          ejemplo = null,
+          falta = 0;
 
         nivelactual = Math.round(cmd[1]);
         if (cmd[2]) niveldeseado = Math.round(cmd[2]);
@@ -337,14 +339,13 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
 
         let niveldeseadototal = totalxpporlevel(niveldeseado),
           nivelactualtotal = totalxpporlevel(nivelactual);
-        
+
         falta = niveldeseadototal - nivelactualtotal;
 
         if (ejemplo) {
           let ejemplofaltan = 0,
             ejemplocantidadxp = 0;
-          const entidadesdeejemplo = [
-            {
+          const entidadesdeejemplo = [{
               entidades: ['creeper', 'enderman', 'pillager', 'zombi'],
               xp: 5
             },
@@ -378,7 +379,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
           ejemplofaltan = Math.round(falta / ejemplocantidadxp);
           bot.chat(langformat(lang.xp.msgconejemplo, [ejemplofaltan, ejemplo.toLowerCase(), niveldeseado]))
         } else {
-          bot.chat(langformat(lang.xp.msg, [falta, nivelactual,niveldeseado]));
+          bot.chat(langformat(lang.xp.msg, [falta, nivelactual, niveldeseado]));
         }
     }
   });
@@ -439,7 +440,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
 
   if (antiafk) {
     setInterval(() => {
-        bot.chat(`/tell ${bot.username} ${lang.antiafk}`)
+      bot.chat(`/tell ${bot.username} ${lang.antiafk}`)
     }, 180000)
   }
 
@@ -581,7 +582,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     return out;
   }*/
 
-  
+
 
   bot.on('death', () => {
     bot.chat('/tp @r[name=!' + bot.username + ']');

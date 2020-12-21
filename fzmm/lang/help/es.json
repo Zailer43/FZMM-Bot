@@ -93,13 +93,13 @@
     },
     {
         "cmd": "stack",
-        "args": "<tipo de stack (64 o 16)> <cantidad>",
+        "args": "<cantidad>",
         "msg": "Conviertes cantidad de items (ej 999) a cantidad de stacks (ej 15 stacks y 39)"
     },
     {
         "cmd": "cantidad",
-        "args": "[tipo de stack (64 o 16)] <stacks> <cantidad restante del stack (opcional)>",
-        "msg": "Es una calculadora que se mide en stacks, 1 seria 64 y poniendo tal cantidad podras nombrar la cantidad de items total"
+        "args": "<stacks> <cantidad restante del stack (opcional)>",
+        "msg": "Es una calculadora que se mide en stacks, 1 seria 64 poniendo tal cantidad podra nombrar la cantidad de items total"
     },
     {
         "cmd": "afk",
