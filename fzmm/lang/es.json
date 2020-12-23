@@ -1,89 +1,106 @@
 {
     "fzmm": {
         "antiafk": "Anti-AFK",
-        "coords": {
-            "mensaje": "Esas coords en el %0$ son: %1$ %2$",
-            "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
-            "error": "La sintaxis del comando es: %0$coords <dimension actual> <x> <z>"
-        },
-        "color": {
-            "nuevocolor": "¡Ya tienes un nuevo color!",
-            "desconocido": "Color desconocido, intenta %0$colores",
-            "error": "Quizás intentabas ver los colores, es con %0$colores"
-        },
-        "ping": {
-            "ping": "El ping de %0$ es %1$ ms",
-            "error": "No encontré a ese jugador",
-            "recienconectado": "No puedo ver el ping de alguien que recién se ha conectado, intenta en unos segundos"
-        },
-        "pingserver": {
-            "motd": "MOTD: %0$",
-            "jugadores": "Jugadores: %0$/%1$",
-            "error": "No encontré el servidor"
-        },
-        "tps": {
-            "mensaje": "El TPS actual es %0$ (%1$)",
-            "terrible": "☠ TERRIBLE ☠",
-            "injugable": "⚠ Hay un poco de server en tu lag ⚠",
-            "muylageado": "Muy Lageado",
-            "lageado": "Mucho lag",
-            "lag": "Lag",
-            "unpocolag": "Un poco de lag",
-            "casisinlag": "Practicamente sin lag",
-            "perfecto": "Sin lag :D"
-        },
-        "uuid": {
-            "alfanumerico": "El nick debe ser alfanumerico",
-            "longitud": "El nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
-            "noespremium": "Ese jugador no es premium :(",
-            "noerespremium": "No eres premium, lo siento :(",
-            "es": "La UUID de %0$ es %1$",
-            "nicks": "Nicks: %0$"
-        },
-        "mimir": {
-            "error": "No puedo dormir: ",
-            "zzz": "(￣o￣) . z Z",
-            "nocamas": "No hay camas y no planeo dormir en el piso de nuevo"
-        },
-        "conversor": {
-            "error": "Error: ",
-            "muygrande": "Cantidad muy grande",
-            "negativo": "No entiendo como chucha vas a tener items negativos",
-            "falta": "Faltan/sobran argumentos",
-            "sintaxisstack": "La sintaxis es %0$stack [64 / 16] <cantidad>",
-            "sintaxiscantidad": "La sintaxis es %0$cantidad [64 / 16] <stacks> <sobra (menos de 64)>",
-            "stack": "Son %0$ stacks (de %1$) y sobran %2$ items",
-            "cantidad": "Son %0$ items"
-        },
-        "armorstand": {
-            "funciono": "Bot: Se han cambiado correctamente las propiedades del armor stand",
-            "error": "Bot: No tienes un armorstand cerca"
-        },
-        "itemframe": {
-            "nombre": "Item frame invisible",
-            "notienes": "Bot: No tienes la cantidad de item frames que especificaste en la mano",
-            "funciono": "Bot: Ahora tus itemframes son invisibles"
-        },
-        "entidadescount": "Hay un total de %0$ entidades cargadas, de esos lo que mayor hay es %1$ (%2$)",
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
-        "longitud": "La longitud del mensaje es: %0$",
-        "afk": {
-            "fin": "%0$, estuviste AFK durante %1$ minutos y %2$ segundos",
-            "nuevo": "Ahora estás afk",
-            "prefix": "[AFK] "
-        },
-        "tradeos": "Para el proximo minuto de tradeo faltan %0$ minuto(s) y %1$ segundos",
-        "nomastradeos": "Espera al siguiente día para volver a tradear",
-        "illegalcharacter": "Lo siento, el mensaje tiene caracteres que no puedo decir por chat",
-        "calcoperadores": "Solo admito los siguientes operadores: +, -, /, *, % y ^",
-        "calcfaltanargumentos": "Solo puedo calcular cosas simples y con espacio, por ejemplo 23 * 9999 o -300 / 8.345",
-        "xp": {
-            "alreves": "Advertencia: Pusiste al revés los valores de nivel actual y nivel que quieres saber",
-            "errorejemplo": "Error: Los mobs disponibles son: %0$",
-            "msgconejemplo": "Debes matar %0$ %1$ más para alcanzar el nivel %2$",
-            "msg": "Faltan %0$ puntos de xp para llegar desde el nivel %1$ al %2$"
-        }
+        "longitud": "La longitud del mensaje es: %0$"
+    },
+    "coords": {
+        "mensaje": "Esas coords en el %0$ son: %1$ %2$",
+        "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
+        "error": "La sintaxis del comando es: %0$coords <dimension actual> <x> <z>"
+    },
+    "color": {
+        "nuevocolor": "¡Ya tienes un nuevo color!",
+        "desconocido": "Color desconocido, intenta %0$colores",
+        "error": "Quizás intentabas ver los colores, es con %0$colores"
+    },
+    "ping": {
+        "msg": "El ping de %0$ es %1$ ms",
+        "error": "No encontré a ese jugador",
+        "recienconectado": "No puedo ver el ping de alguien que recién se ha conectado, intenta en unos segundos"
+    },
+    "pingserver": {
+        "motd": "MOTD: %0$",
+        "jugadores": "Jugadores: %0$/%1$",
+        "error": "No encontré el servidor"
+    },
+    "tps": {
+        "mensaje": "El TPS actual es %0$ (%1$)",
+        "terrible": "☠ TERRIBLE ☠",
+        "injugable": "⚠ Hay un poco de server en tu lag ⚠",
+        "muylageado": "Muy Lageado",
+        "lageado": "Mucho lag",
+        "lag": "Lag",
+        "unpocolag": "Un poco de lag",
+        "casisinlag": "Practicamente sin lag",
+        "perfecto": "Sin lag :D"
+    },
+    "uuid": {
+        "alfanumerico": "El nick debe ser alfanumerico",
+        "longitud": "El nick debe ser de un máximo de 16 caracteres y un mínimo de 3",
+        "noespremium": "El jugador %0$ no es premium :(",
+        "es": "La UUID de %0$ es %1$",
+        "nicks": "Nicks: %0$"
+    },
+    "mimir": {
+        "error": "No puedo dormir: ",
+        "zzz": "(￣o￣) . z Z",
+        "nocamas": "No hay camas y no planeo dormir en el piso de nuevo"
+    },
+    "stack": {
+        "muygrande": "Error: Cantidad muy grande",
+        "negativo": "Error: No entiendo como chucha vas a tener items negativos",
+        "sintaxis": "La sintaxis es %0$stack <cantidad> [64 / 16]",
+        "msg": "Son %0$ stacks (de %1$) y sobran %2$ items"
+    },
+    "cantidad": {
+        "muygrande": "Error: Cantidad muy grande",
+        "negativo": "Error: No entiendo como chucha vas a tener items negativos",
+        "sintaxis": "La sintaxis es %0$cantidad <stacks> <sobra (menos de 64)> [64 / 16]",
+        "msg": "Son %0$ items"
+
+    },
+    "armorstand": {
+        "funciono": "Bot: Se han cambiado correctamente las propiedades del armor stand",
+        "error": "Bot: No tienes un armorstand cerca"
+    },
+    "itemframe": {
+        "nombre": "Item frame invisible",
+        "notienes": "Bot: No tienes la cantidad de item frames que especificaste en la mano",
+        "funciono": "Bot: Ahora tus itemframes son invisibles"
+    },
+    "entidadescount": {
+        "msg": "Hay un total de %0$ entidades cargadas, de esos lo que mayor hay es %1$ (%2$)"
+    },
+    "afk": {
+        "fin": "%0$, estuviste AFK durante %1$ minutos y %2$ segundos",
+        "nuevo": "Ahora estás afk",
+        "prefix": "[AFK] "
+    },
+    "tradeos": {
+        "msg": "Para el proximo minuto de tradeo faltan %0$ minuto(s) y %1$ segundos",
+        "nomastradeos": "Espera al siguiente día para volver a tradear"
+    },
+    "base64": {
+        "illegalcharacter": "Lo siento, el mensaje tiene caracteres que no puedo decir por chat"
+    },
+    "calc": {
+        "faltanargumentos": "Solo puedo calcular cosas simples y con espacio, por ejemplo 23 * 9999 o -300 / 8.345",
+        "operadores": "Solo admito los siguientes operadores: +, -, /, *, % y ^"
+    },
+    "xp": {
+        "alreves": "Advertencia: Pusiste al revés los valores de nivel actual y nivel que quieres saber",
+        "errorejemplo": "Error: Los mobs disponibles son: %0$",
+        "msgconejemplo": "Debes matar %0$ %1$ más para alcanzar el nivel %2$",
+        "msg": "Faltan %0$ puntos de xp para llegar desde el nivel %1$ al %2$"
+    },
+    "helpmsg": {
+        "noexiste": "Página inexistente, el mínimo es 1 y el máximo es %0$",
+        "comandoinexistente": "No tengo información sobre ese comando",
+        "top": "« Help [%0$/%1$] »",
+        "cmd": "%0$%1$ %2$: %3$",
+        "cmdsinargs": "%0$%1$: %2$"
     },
     "texto": {
         "test": "01110100 01100101 01110011 01110100",
@@ -91,12 +108,7 @@
         "kick": "Fui kickeado por %0$",
         "tell": "%0$ me susurró: %1$",
         "help": {
-            "noexiste": "Página inexistente, el mínimo es 1 y el máximo es %0$",
-            "comandoinexistente": "No tengo información sobre ese comando",
             "help": "%0$help <comando> o %1$help page <Numero de pagina>",
-            "top": "« Help [%0$/%1$] »",
-            "cmd": "%0$%1$ %2$: %3$",
-            "cmdsinargs": "%0$%1$: %2$",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
             "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
             "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
@@ -168,7 +180,7 @@
     "random": {
         "wither": "En tu proximo wither tienes %0$% de probabilidades de obtener calavera",
         "perdonado": "teperd0no",
-        "noperdono": "pecador, no eres perdonado",
+        "noperdono": "Eri' gei como dir, no te perdono",
         "cara": "cara",
         "cruz": "cruz"
     },

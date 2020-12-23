@@ -1,11 +1,10 @@
 module.exports = inject;
 
 const colors = require('colors');
-const help = require('./lang/help/es.json');
 const sleep = require('./utils/main.js').sleep;
 const langformat = require('./utils/main.js').langformat;
 
-function inject(bot, lang, prefix, cantidadporhelp) {
+function inject(bot, lang, prefix) {
   bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
     console.log(username + ': ' + message);
@@ -124,53 +123,11 @@ function inject(bot, lang, prefix, cantidadporhelp) {
     }
     const cmd = message.split(' ');
 
-    switch (cmd[0].toLowerCase()) {
-      case 'f':
-        if (cmd.length === 1) return
-        if (cmd[1].length > 8) {
-          bot.chat(lang.errorf);
-        } else efe(cmd[1])
-        break;
-      case 'help':
-        if (!cmd[1]) return;
-
-        if (cmd[1] === '*') {
-          let comandos = help.map(element => element.cmd);
-          
-          bot.chat(comandos.join(', '));
-          console.log(comandos);
-          return;
-        }
-
-        const helpbuscado = help.find(comando => comando.cmd === cmd[1].toLowerCase());
-        
-        if (helpbuscado) {
-          if (helpbuscado.args) bot.chat(langformat(lang.help.cmd, [prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg]));
-          else bot.chat(langformat(lang.help.cmdsinargs, [prefix, helpbuscado.cmd, helpbuscado.msg]));
-
-        } else if (cmd[2]) {
-          if (cmd[1].toLowerCase() === 'page') {
-
-            const maximopaginas = Math.round((help).length / cantidadporhelp);
-            const regexnumero = /^[0-9]{1,3}$/g;
-            const pagina = parseInt(cmd[2]);
-             
-            if (pagina > maximopaginas || pagina <= 0 || !regexnumero.test(cmd[2])) {
-              bot.chat(langformat(lang.help.noexiste, [maximopaginas]));
-              return;
-            }
-
-            bot.chat(langformat(lang.help.top, [cmd[2], maximopaginas]));
-
-            for (let i = cantidadporhelp * (pagina - 1); i != cantidadporhelp * (pagina - 1) + cantidadporhelp; i++) {
-              if (!help[i]) return;
-
-              if (help[i].args) bot.chat(langformat(lang.help.cmd, [prefix, help[i].cmd, help[i].args, help[i].msg]));
-              else bot.chat(langformat(lang.help.cmdsinargs, [prefix, help[i].cmd, help[i].msg]));
-              sleep(250)
-            }
-          }
-        } else bot.chat(lang.help.comandoinexistente);
+    if (cmd[0].toLowerCase() === 'f') {
+      if (cmd.length === 1) return
+      if (cmd[1].length > 8) {
+        bot.chat(lang.errorf);
+      } else efe(cmd[1])
     }
   });
 

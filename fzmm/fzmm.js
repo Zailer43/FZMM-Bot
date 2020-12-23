@@ -7,8 +7,24 @@ const axios = require('axios').default;
 const sleep = require('./utils/main.js').sleep;
 const langformat = require('./utils/main.js').langformat;
 
+const color = require('./cmds/color.js').colorcmd;
+const calc = require('./cmds/calc.js').calccmd;
+const xp = require('./cmds/xp.js').xpcmd;
+const tradeos = require('./cmds/tradeos.js').tradeoscmd;
+const tps = require('./cmds/tps.js').tpscmd;
+const base64 = require('./cmds/base64.js').base64cmd;
+const pingserver = require('./cmds/pingserver.js').pingservercmd;
+const pingms = require('./cmds/pingms.js').pingcmd;
+const jokes = require('./cmds/jokes.js').jokescmd;
+const uuid = require('./cmds/uuid.js').uuidcmd;
+const entidades = require('./cmds/entidades.js').entidadescmd;
+const armorstand = require('./cmds/armorstand.js').armorstandcmd;
+const stack = require('./cmds/stack.js').stackcmd;
+const cantidad = require('./cmds/cantidad.js').cantidadcmd;
+const {calavera, perdoanme, caraocruz} = require('./cmds/random.js');
+const help = require('./cmds/help.js').helpcmd;
 
-function inject(bot, lang, prefix, antiafk, subfixteams) {
+function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidadporhelp) {
 
   bot.loadPlugin(tpsPlugin)
 
@@ -36,17 +52,17 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     if (username === bot.username) return;
     switch (message.toLowerCase()) {
       case 'ping':
-        pingms(username);
+        pingms(bot, username);
         break;
       case 'tps':
-        obtenertps();
+        tps(bot);
         bot.chat('/tellraw ' + bot.username + ' [{"text":"' + prefix + 'entidadescount "},{"selector":"@e"}]');
         break;
       case 'entidades':
         bot.chat('/tellraw ' + bot.username + ' [{"text":"' + prefix + 'entidadescount "},{"selector":"@e"}]');
         break;
       case 'uuid':
-        obteneruuidynicks(username, true);
+        uuid(bot, username);
         break;
       case 'mimir':
         goToSleep();
@@ -61,7 +77,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         if (vehiculo) bot.mount(vehiculo)
         break;
       case 'jokes':
-        jokes();
+        jokes(bot);
         break;
       case 'inv':
         console.log(bot.inventory)
@@ -75,37 +91,17 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         bot.chat(`/team modify ${username}${subfixteams} prefix {"text":"${lang.afk.prefix}","color":"#aeee00"}`);
         break;
       case 'tradeos':
-        const tiempo = bot.time.timeOfDay,
-          ticksporsegundo = 20,
-          tradeo1 = 2000,
-          tradeo2 = 3000,
-          tradeo3 = 5000,
-          tradeo4 = 6000;
-        let faltaminuto = 0,
-          faltasegundo;
-        if (tiempo < tradeo1) {
-          faltasegundo = (tradeo1 - tiempo) / ticksporsegundo;
-
-        } else if (tiempo < tradeo2) {
-          faltasegundo = (tradeo2 - tiempo) / ticksporsegundo;
-
-        } else if (tiempo < tradeo3) {
-          faltasegundo = (tradeo3 - tiempo) / ticksporsegundo;
-
-        } else if (tiempo < tradeo4) {
-          faltasegundo = (tradeo4 - tiempo) / ticksporsegundo;
-
-        } else if (tiempo > tradeo1) {
-          bot.chat(lang.nomastradeos);
-          return;
-        }
-
-        if (faltasegundo > 60) {
-          faltaminuto = parseInt(faltasegundo / 60)
-          faltasegundo = faltasegundo % 60;
-        }
-
-        bot.chat(langformat(lang.tradeos, [faltaminuto, parseInt(faltasegundo)]));
+        tradeos(bot)
+        break;
+      case 'calavera':
+        calavera(bot);
+        break;
+      case 'perdoname':
+        perdoanme(bot);
+        break;
+      case 'caraocruz':
+        caraocruz(bot);
+        break;
     }
 
     const cmd = message.split(' ');
@@ -113,17 +109,10 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
 
     switch (cmd[0].toLowerCase()) {
       case 'server':
-        pingsv(cmd[1]);
+        pingserver(bot, cmd[1]);
         break;
       case 'uuid':
-        const regexnick = /^(\w+)$/
-        if (!regexnick.test(cmd[1])) {
-          bot.chat(lang.uuid.alfanumerico);
-
-        } else if (cmd[1].length > 16 || cmd[1].length < 3) {
-          bot.chat(lang.uuid.longitud);
-
-        } else obteneruuidynicks(cmd[1], false);
+        uuid(bot, cmd[1]);
         break;
       case 'coords':
         if (cmd.length === 4) {
@@ -145,66 +134,13 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         }
         break;
       case 'color':
-        if (!cmd.length === 2) {
-          bot.chat(langformat(lang.color.error, [prefix]))
-          return;
-        }
-        const colores = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
-        if (colores.includes(cmd[1])) {
-          const execute = `/execute if entity @a[name="${username}",team=!${username}${subfixteams}] run team `
-          bot.chat(execute + `leave ${username}`);
-          bot.chat(execute + `add ${username}${subfixteams}`);
-          bot.chat(execute + `join ${username}${subfixteams} ${username}`);
-          bot.chat(`/team modify ${username}${subfixteams} color ${cmd[1]}`)
-
-          bot.chat(lang.color.nuevocolor)
-        } else {
-          bot.chat(langformat(lang.color.desconocido, [prefix]));
-        }
+        color(bot, username, cmd[1])
         break;
       case 'stack':
-        // fz!stack 64 <cantidad> -> Son ?? stacks y sobra ??
-        if (!cmd[2]) cmd[2] = 64;
-        const cantidad = Math.round(cmd[1]);
-        const tipo = Math.round(cmd[2]);
-        if (cantidad > 250000) {
-          bot.chat(lang.conversor.error + lang.conversor.muygrande);
-          return;
-
-        } else if (cantidad < 0) {
-          bot.chat(lang.conversor.error + lang.conversor.negativo);
-          return;
-        }
-
-        if (tipo === 64 || tipo === 16) {
-          bot.chat(langformat(lang.conversor.stack, [Math.trunc(cantidad / tipo), tipo, cantidad % tipo]))
-        } else {
-          bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxisstack, [prefix]));
-        }
+        stack(bot, Math.round(cmd[1]), Math.round(cmd[2]));
         break;
       case 'cantidad':
-        // fz!cantidad 64 <cantidad (stacks)> <sobra> -> Son ?? Items
-        if (!cmd[2]) cmd[2] = 0;
-        if (!cmd[3]) cmd[3] = 64;
-        if (cmd.length === 4) {
-          const cantidadStacks = Math.round(cmd[1]);
-          const sobra = Math.round(cmd[2]);
-          const tipo = Math.round(cmd[3]);
-          if (cantidadStacks > 25000 || sobra > 64) {
-            bot.chat(lang.conversor.error + lang.conversor.muygrande);
-            return;
-          } else if (cantidadStacks < 0 || sobra < 0) {
-            bot.chat(lang.conversor.error + lang.conversor.negativo);
-            return;
-          }
-          if (tipo === 64 || tipo === 16) {
-            bot.chat(langformat(lang.conversor.cantidad, [(cantidadStacks * tipo) + sobra]))
-          } else {
-            bot.chat(lang.conversor.error + langformat(lang.conversor.sintaxis1, [prefix]));
-          }
-        } else {
-          bot.chat(lang.conversor.error + lang.conversor.falta);
-        }
+        cantidad(bot, Math.round(cmd[1]), Math.round(cmd[2]), Math.round(cmd[3]));
         break;
       case 'itemframe':
         const cmditemframe = '/execute %0$ entity @a[name="%1$",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%2$b}}] run ';
@@ -215,7 +151,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `replaceitem entity ${username} weapon.mainhand air`);
         break;
       case 'ping':
-        pingms(cmd[1])
+        pingms(bot, cmd[1])
         break;
       case 'length':
         var longitudcmd = cmd;
@@ -232,185 +168,27 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
         console.log(reverse);
         break;
       case 'base64':
-        if (!cmd[2]) return;
-
         const elegido = cmd[1];
         cmd.shift();
         cmd.shift();
-        const texto = cmd.join(' ');
-
-        if (elegido === 'decode') {
-          const decode = Buffer.from(texto, 'base64').toString('binary');
-
-          const asciiregex = /^[\x00-\x7FáéíóúýÁÉÍÓÚçÇ·¨´ºª¿¡]*$/;
-          if (!asciiregex.test(decode)) {
-            bot.chat(lang.illegalcharacter);
-            return;
-          }
-
-          bot.chat(decode);
-          console.log(decode);
-
-        } else if (elegido === 'encode') {
-          const encode = Buffer.from(texto, 'binary').toString('base64');
-
-          bot.chat(encode);
-          console.log(encode);
-        }
+        base64(bot, elegido, cmd.join(' '));
         break;
       case 'armorstand':
-        if (!cmd[1]) return;
-        const cmdarmorstand = '/execute at %0$ run data merge entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] {%1$:1b}';
-        switch (cmd[1].toLowerCase()) {
-          case 'arms':
-            bot.chat(langformat(cmdarmorstand, [username, 'ShowArms']));
-            break;
-          case 'base':
-            bot.chat(langformat(cmdarmorstand, [username, 'NoBasePlate']));
-            break;
-          case 'small':
-            bot.chat(langformat(cmdarmorstand, [username, 'Small']));
-            break;
-          default:
-            return;
-        }
-        bot.chat(`/execute at ${username} if entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.funciono}"`);
-        bot.chat(`/execute at ${username} unless entity @e[type=armor_stand,limit=1,sort=nearest,distance=..5] run tellraw @a "${lang.armorstand.error}"`)
+        armorstand(bot, username, cmd[1])
         break;
       case 'calc':
-        if (!cmd[3]) {
-          bot.chat(lang.calcfaltanargumentos);
-          return;
-        }
-        const a = +cmd[1];
-        const b = +cmd[3];
-        const op = cmd[2];
-        let resultado = 0;
-
-        if (a === 2 && b === 2 && op === '+') {
-          bot.chat('pez');
-          return;
-        }
-
-        switch (op) {
-          case '+':
-            if (cmd.includes('-bug')) resultado = a.toString() + b.toString();
-            else resultado = a + b;
-            break;
-          case '-':
-            resultado = a - b;
-            break;
-          case '/':
-            resultado = a / b;
-            break;
-          case '%':
-            resultado = a % b;
-            break;
-          case '*':
-            resultado = a * b;
-            break;
-          case '^':
-          case '**':
-            resultado = a ** b;
-            break;
-          default:
-            bot.chat(lang.calcoperadores);
-            return;
-        }
-        if (!cmd.includes('-coma')) bot.chat(resultado.toString())
-        else bot.chat(resultado.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'));
-        console.log(resultado);
+        calc(bot, +cmd[1], cmd[2], +cmd[3], cmd[4])
         break;
       case 'xp':
-        let nivelactual = 0,
-          niveldeseado = 0,
-          ejemplo = null,
-          falta = 0;
-
-        nivelactual = Math.round(cmd[1]);
-        if (cmd[2]) niveldeseado = Math.round(cmd[2]);
-        if (cmd[3]) ejemplo = cmd[3];
-        if (nivelactual > niveldeseado) { //intercambia los valores por si confunden la sintaxis del comando no tirar error
-          let niveldeseado2 = niveldeseado;
-          niveldeseado = nivelactual;
-          nivelactual = niveldeseado2;
-          bot.chat(lang.xp.alreves)
-        }
-
-        let niveldeseadototal = totalxpporlevel(niveldeseado),
-          nivelactualtotal = totalxpporlevel(nivelactual);
-
-        falta = niveldeseadototal - nivelactualtotal;
-
-        if (ejemplo) {
-          let ejemplofaltan = 0,
-            ejemplocantidadxp = 0;
-          const entidadesdeejemplo = [{
-              entidades: ['creeper', 'enderman', 'pillager', 'zombi'],
-              xp: 5
-            },
-            {
-              entidades: ['blaze', 'guardian'],
-              xp: 10
-            },
-            {
-              entidades: ['witherboss'],
-              xp: 50
-            }
-          ];
-
-          entidadesdeejemplo.forEach(element => {
-            if (element.entidades.includes(ejemplo)) ejemplocantidadxp = element.xp;
-          });
-          if (!ejemplocantidadxp) {
-            let entidadeslista = [];
-
-            entidadesdeejemplo.forEach(element => {
-              element.entidades.forEach(element2 => {
-                entidadeslista.push(element2);
-              })
-            });
-            entidadeslista = entidadeslista.join(', ');
-
-            bot.chat(langformat(lang.xp.errorejemplo, [entidadeslista]));
-            return;
-          }
-
-          ejemplofaltan = Math.round(falta / ejemplocantidadxp);
-          bot.chat(langformat(lang.xp.msgconejemplo, [ejemplofaltan, ejemplo.toLowerCase(), niveldeseado]))
-        } else {
-          bot.chat(langformat(lang.xp.msg, [falta, nivelactual, niveldeseado]));
-        }
+        xp(bot, +cmd[1], +cmd[2], cmd[3]);
+        break;
+      case 'help':
+        help(bot, cmd[1], cmd[2])
     }
   });
 
   bot.on('entidadescount', function (message) {
-    const entidades = (message.split(', '));
-    let listaentidades = Array.from(new Set(entidades));
-    let cantidadentidades = {},
-      mayor = 1,
-      mayormob,
-      i = 0;
-
-    listaentidades.forEach(element => {
-      cantidadentidades[element] = 0;
-    });
-
-    entidades.forEach(element => {
-      cantidadentidades[element]++;
-    });
-
-    console.log(cantidadentidades)
-
-    for (x in cantidadentidades) {
-      if (cantidadentidades[x] >= mayor) {
-        mayor = cantidadentidades[x];
-        mayormob = listaentidades[i];
-      }
-      i++;
-    };
-    bot.chat(langformat(lang.entidadescount, [entidades.length, mayormob, mayor]));
-    console.log(langformat(lang.entidadescount, [entidades.length, mayormob, mayor]));
+    entidades(bot, message)
   })
 
   let jugadormovistar, movistardetect = 0;
@@ -444,116 +222,11 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
     }, 180000)
   }
 
-  function totalxpporlevel(level) {
-    let resultado = 0;
-    if (level >= 0 && level <= 16) resultado = level ** 2 + 6 * level;
-    else if (level >= 17 && level <= 31) resultado = 2.5 * level ** 2 - 40.5 * level + 360;
-    else if (level >= 32) resultado = 4.5 * level ** 2 - 162.5 * level + 2220
-    return resultado;
-  }
-
-  function pingms(username) {
-    try {
-      //console.log(bot.players);
-      Object.keys(bot.players).forEach(element => {
-        if (element.toLowerCase() === username.toLowerCase()) {
-          let pingms = bot.players[element].ping;
-          if (pingms === 0) {
-            bot.chat(lang.ping.recienconectado);
-          } else {
-            bot.chat(langformat(lang.ping.ping, [element, pingms]));
-            console.log(langformat(lang.ping.ping, [element, pingms]));
-          }
-        };
-      })
-
-    } catch (e) {
-      bot.chat(lang.ping.error);
-    }
-
-  }
-
-  function pingsv(ip) {
-    axios.get('https://api.mcsrvstat.us/2/' + ip)
-      .then(serverdatos => {
-        console.log(langformat(lang.pingserver.motd, [serverdatos.data.motd.clean]));
-        bot.chat(langformat(lang.pingserver.motd, [serverdatos.data.motd.clean]));
-        console.log(langformat(lang.pingserver.jugadores, [serverdatos.data.players.online, serverdatos.data.players.max]));
-        bot.chat(langformat(lang.pingserver.jugadores, [serverdatos.data.players.online, serverdatos.data.players.max]));
-      })
-      .catch(error => {
-        bot.chat(lang.pingserver.error)
-      });
-  }
-
-  function jokes() {
-    axios.get('https://icanhazdadjoke.com/slack')
-      .then(jokesdatos => {
-        console.log(jokesdatos.data.attachments[0].text);
-        bot.chat(jokesdatos.data.attachments[0].text);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  function obtenertps() {
-    let tps = bot.getTps(),
-      estado;
-    if (tps === 20) {
-      estado = lang.tps.perfecto
-    } else if (tps === 19) {
-      estado = lang.tps.casisinlag
-    } else if (tps >= 16 && tps <= 18) {
-      estado = lang.tps.unpocolag
-    } else if (tps >= 14 && tps <= 15) {
-      estado = lang.tps.lag
-    } else if (tps >= 11 && tps <= 13) {
-      estado = lang.tps.lageado
-    } else if (tps >= 6 && tps <= 10) {
-      estado = lang.tps.muylageado
-    } else if (tps >= 2 && tps <= 5) {
-      estado = lang.tps.injugable
-    } else if (tps >= 0 && tps <= 1) {
-      estado = lang.tps.terrible
-    }
-    bot.chat(langformat(lang.tps.mensaje, [tps, estado]))
-    console.log(langformat(lang.tps.mensaje, [tps, estado]))
-  }
-
-  function obteneruuidynicks(nick, asimismo) {
-    axios.get('https://api.mojang.com/users/profiles/minecraft/' + nick)
-      .then(function (uuid) {
-        if (!uuid.data.name) {
-          if (asimismo) bot.chat(lang.uuid.noerespremium)
-          else bot.chat(lang.uuid.noespremium);
-
-          return;
-        }
-        console.log(langformat(lang.uuid.es, [uuid.data.name, uuid.data.id]));
-        bot.chat(langformat(lang.uuid.es, [uuid.data.name, uuid.data.id]));
-
-        axios.get('https://api.mojang.com/user/profiles/' + uuid.data.id + '/names')
-          .then(function (historial) {
-            var longinicks = Object.keys(historial.data).length;
-            var historialdenicks = '';
-
-            for (var i = 0; i != longinicks; i++) {
-              historialdenicks = historialdenicks + historial.data[i].name;
-              if (i != (longinicks - 1))
-                historialdenicks = historialdenicks + ', ';
-            }
-
-            bot.chat(langformat(lang.uuid.nicks, [historialdenicks]));
-            console.log(langformat(lang.uuid.nicks, [historialdenicks]));
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  if (spamearsplash) {
+    setInterval(() => {
+      const splash = require('./datos/splash.json');
+      bot.chat(splash[parseInt(Math.random() * splash.length)])
+    }, (25 * 1000) * 60)
   }
 
   function goToSleep() {
@@ -573,24 +246,10 @@ function inject(bot, lang, prefix, antiafk, subfixteams) {
       bot.chat(lang.mimir.nocamas)
     }
   }
-  /*function split(str, sep, n) {
-    var out = [];
-
-    while (n--) out.push(str.slice(sep.lastIndex, sep.exec(str).index));
-
-    out.push(str.slice(sep.lastIndex));
-    return out;
-  }*/
 
 
 
   bot.on('death', () => {
     bot.chat('/tp @r[name=!' + bot.username + ']');
   });
-
-  /*
-  bot.on('message', function (message) {
-    console.log(message)
-  })
-  */
 }

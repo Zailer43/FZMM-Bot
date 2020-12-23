@@ -36,11 +36,10 @@ bot.once('login', function () {
 
 
 
-const langrequire = './fzmm/lang/' + config.lang + '.json';
-require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.antiafk, config.subfixteams)
+const langrequire = './fzmm/lang/' + config.langelegido + '.json';
+require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.antiafk, config.subfixteams, config.spamearsplash)
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, config.paginasporhelp);
-require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.lang, config.subfixteams);
-require('./fzmm/random.js')(bot, require(langrequire).random, config.prefix, config.spamearsplash);
+require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.langelegido, config.subfixteams);
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
 require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta, config.encuestasporpagina)
 require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
