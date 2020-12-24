@@ -188,7 +188,7 @@
         "yavotaste": "Lo siento, ya votaste anteriormente en esta encuesta",
         "gracias": "Gracias por tu voto",
         "idincorrecta": "Debiste poner la ID de la encuesta mal",
-        "respuestainvalida": "Solo puedes responder con una de las siguientes palabras: ",
+        "respuestainvalida": "Solo puedes responder con una de las siguientes palabras: %0$",
         "noexiste": "Página inexistente, el mínimo es 1 y el máximo es %0$",
         "top": "« Encuestas [%0$/%1$] » Vota con %2$vote <id> <respuesta>",
         "encuestascmd": "%0$: %1$ (%2$)"
@@ -207,8 +207,7 @@
         "volumencambiado": "Se ha cambiado el volumen correctamente",
         "volumenesnumero": "Solo puede ser un número entre 0 y 9",
         "sonidocambiado": "Se ha cambiado el sonido correctamente",
-        "sonidosdisponibles": "Los sonidos disponbles son: ",
-        "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo",
-        "errorsintaxis": "Error de sintaxis, intenta %0$tag [sonido / volumen]"
+        "sonidosdisponibles": "Los sonidos disponbles son: %0$",
+        "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo"
     }
 }

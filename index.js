@@ -23,7 +23,8 @@ const bot = mineflayer.createBot({
     version: config.version,
     chatLengthLimit: config.longitudchat,
     viewDistance: config.chunkrender,
-    checkTimeoutInterval: (60 * 1000)
+    checkTimeoutInterval: (60 * 1000),
+    hideErrors: false
 });
 
 bot.once('login', function () {
@@ -41,8 +42,7 @@ require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, config.paginasporhelp);
 require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.langelegido, config.subfixteams);
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
-require('./fzmm/encuestas.js')(bot, require(langrequire).encuestas, config.prefix, config.spamearencuesta, config.encuestasporpagina)
-require('./fzmm/tageos.js')(bot, require(langrequire).tageos, config.prefix, config.tageosmax)
 if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin, config.tpmaterial);
 if (config.web) require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
 if (config.discordrichpresence) require('./fzmm/discord.js')(config.discordappid, config.discordtiempo);
+if (config.spamearencuesta) require('./fzmm/cmds/encuestas.js').spamencuestas;

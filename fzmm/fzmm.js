@@ -21,8 +21,10 @@ const entidades = require('./cmds/entidades.js').entidadescmd;
 const armorstand = require('./cmds/armorstand.js').armorstandcmd;
 const stack = require('./cmds/stack.js').stackcmd;
 const cantidad = require('./cmds/cantidad.js').cantidadcmd;
-const {calavera, perdoanme, caraocruz} = require('./cmds/random.js');
+const { calavera, perdoanme, caraocruz } = require('./cmds/random.js');
 const help = require('./cmds/help.js').helpcmd;
+const { volumencmd, sonidocmd, tageo } = require('./cmds/tag.js');
+const { encuestascmd, votecmd } = require('./cmds/encuestas.js');
 
 function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidadporhelp) {
 
@@ -31,7 +33,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
   let afk = [];
 
 
-  bot.on('chat2', function (username) {
+  bot.on('chat2', function (username, message) {
     if (username === bot.username) return;
 
     let afkesta = afk.find(({
@@ -46,6 +48,7 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
 
       delete afkesta.nick, afkesta.tiempo;
     }
+    tageo(bot, username, message);
   })
 
   bot.on('comando', function (username, message) {
@@ -183,7 +186,23 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
         xp(bot, +cmd[1], +cmd[2], cmd[3]);
         break;
       case 'help':
-        help(bot, cmd[1], cmd[2])
+        help(bot, cmd[1], cmd[2]);
+        break;
+      case 'tag':
+        switch (cmd[1].toLowerCase()) {
+          case 'volumen':
+            volumencmd(bot, username, parseInt(cmd[2]));
+            break;
+          case 'sonido':
+            sonidocmd(bot, username, cmd[2]);
+        }
+        break;
+      case 'vote':
+        votecmd(bot, username, cmd[1], cmd[2]);
+        break;
+      case 'encuestas':
+        encuestascmd(bot, parseInt(cmd[1]));
+        break;
     }
   });
 
