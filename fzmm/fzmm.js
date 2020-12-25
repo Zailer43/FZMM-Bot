@@ -25,6 +25,7 @@ const { calavera, perdoanme, caraocruz } = require('./cmds/random.js');
 const { helpcmd, helpcomando } = require('./cmds/help.js');
 const { volumencmd, sonidocmd, tageo } = require('./cmds/tag.js');
 const { encuestascmd, votecmd } = require('./cmds/encuestas.js');
+const { tpcmd, deudacmd, pagartpcmd, tptogglecmd } = require('./cmds/tp.js')
 
 function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash) {
 
@@ -104,6 +105,15 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash) {
         break;
       case 'caraocruz':
         caraocruz(bot);
+        break;
+      case 'pagartp':
+        pagartpcmd(bot, username, username);
+        break;
+      case 'deuda':
+        deudacmd(bot, username);
+        break;
+      case 'tptoggle':
+        tptogglecmd(bot, username, false);
         break;
     }
 
@@ -223,6 +233,19 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash) {
         break;
       case 'encuestas':
         encuestascmd(bot, parseInt(cmd[1]));
+        break;
+      case 'tp':
+        if (!cmd[1]) helpcomando(bot, tp)
+        else tpcmd(bot, username, cmd[1]);
+        break;
+      case 'pagartp':
+        pagartpcmd(bot, cmd[1], username);
+        break;
+      case 'deuda':
+        deudacmd(bot, cmd[1]);
+        break;
+      case 'tptoggle':
+        if (cmd[1]) tptogglecmd(bot, username, cmd[1].toLowerCase())
         break;
     }
   });

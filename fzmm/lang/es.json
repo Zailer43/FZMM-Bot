@@ -110,10 +110,7 @@
         "help": {
             "help": "%0$help <comando> o %1$help page <Numero de pagina>",
             "textinfo": "Estos son comandos que únicamente muestran un texto",
-            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp",
-            "coordsinfo": "Recuerda que las coords del overworld al nether se multiplican por 8 (en caso contrario se dividen), este comando es una herramienta para eso",
-            "itemframeinfo": "Debes especificar la cantidad de item frames que tienes en la mano para que esto funcione",
-            "tag": "Puedes tagear gente usando @<nick> en un mensaje y cambiar tu configuración de sonido con %0$tag [sonido / volumen]"
+            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp"
         },
         "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/",
         "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
@@ -175,7 +172,8 @@
         "activado": "activados",
         "desactivado": "desactivados",
         "toggleado": "Ahora tienes %0$ los tp hacia ti",
-        "tienetoggle": "El jugador tiene desactivado los tp"
+        "tienetoggle": "El jugador tiene desactivado los tp",
+        "deshabilitados": "Todos los comandos relacionados con tp estan desactivados"
     },
     "random": {
         "wither": "En tu proximo wither tienes %0$% de probabilidades de obtener calavera",
