@@ -12,16 +12,11 @@ export function helpcmd(bot: any, comandoelegido: string, pagina: string) {
         return;
     }
 
-    const helpbuscado: helpinterface | undefined = help.find(comando => comando.cmd === comandoelegido.toLowerCase());
-
-    if (helpbuscado) {
-        if (helpbuscado.args) bot.chat(langformat(helpmsg.cmd, [prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg]));
-        else bot.chat(langformat(helpmsg.cmdsinargs, [prefix, helpbuscado.cmd, helpbuscado.msg]));
-
-    } else if (pagina) {
+    helpcomando(bot, comandoelegido);
+    if (pagina) {
         if (comandoelegido.toLowerCase() === 'page') {
 
-            let paginanumero = parseInt(pagina); 
+            let paginanumero = parseInt(pagina);
             const maximopaginas = Math.ceil((help).length / paginasporhelp);
             const regexnumero = /^[0-9]{1,3}$/g;
 
@@ -41,6 +36,16 @@ export function helpcmd(bot: any, comandoelegido: string, pagina: string) {
             }
         }
     } else bot.chat(helpmsg.comandoinexistente);
+}
+
+export function helpcomando(bot: any, comandoelegido: string) {
+    const helpbuscado: helpinterface | undefined = help.find(comando => comando.cmd === comandoelegido.toLowerCase());
+
+    if (helpbuscado) {
+        if (helpbuscado.args) bot.chat(langformat(helpmsg.cmd, [prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg]));
+        else return bot.chat(langformat(helpmsg.cmdsinargs, [prefix, helpbuscado.cmd, helpbuscado.msg]));
+
+    }
 }
 
 interface helpinterface {

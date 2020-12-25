@@ -22,11 +22,11 @@ const armorstand = require('./cmds/armorstand.js').armorstandcmd;
 const stack = require('./cmds/stack.js').stackcmd;
 const cantidad = require('./cmds/cantidad.js').cantidadcmd;
 const { calavera, perdoanme, caraocruz } = require('./cmds/random.js');
-const help = require('./cmds/help.js').helpcmd;
+const { helpcmd, helpcomando } = require('./cmds/help.js');
 const { volumencmd, sonidocmd, tageo } = require('./cmds/tag.js');
 const { encuestascmd, votecmd } = require('./cmds/encuestas.js');
 
-function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidadporhelp) {
+function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash) {
 
   bot.loadPlugin(tpsPlugin)
 
@@ -108,17 +108,19 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
     }
 
     const cmd = message.split(' ');
-    if (cmd.length === 1) return;
 
     switch (cmd[0].toLowerCase()) {
       case 'server':
-        pingserver(bot, cmd[1]);
+        if (!cmd[1]) helpcomando(bot, 'server');
+        else pingserver(bot, cmd[1]);
         break;
       case 'uuid':
+        if (!cmd[1]) return;
         uuid(bot, cmd[1]);
         break;
       case 'coords':
-        if (cmd.length === 4) {
+        if (!cmd[3]) helpcomando(bot, 'coords');
+        else {
           const x = parseInt(cmd[2], 10);
           const z = parseInt(cmd[3], 10);
           switch (cmd[1]) {
@@ -132,64 +134,82 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
               bot.chat(lang.coords.end);
               break;
           }
-        } else {
-          bot.chat(langformat(lang.coords.error, [prefix]));
         }
         break;
       case 'color':
-        color(bot, username, cmd[1])
+        if (!cmd[1]) helpcomando(bot, 'color');
+        else color(bot, username, cmd[1], cmd[2])
         break;
       case 'stack':
-        stack(bot, Math.round(cmd[1]), Math.round(cmd[2]));
+        if (!cmd[1]) helpcomando(bot, 'stack');
+        else stack(bot, Math.round(cmd[1]), Math.round(cmd[2]));
         break;
       case 'cantidad':
-        cantidad(bot, Math.round(cmd[1]), Math.round(cmd[2]), Math.round(cmd[3]));
+        if (!cmd[1]) helpcomando(bot, 'cantidad');
+        else cantidad(bot, Math.round(cmd[1]), Math.round(cmd[2]), Math.round(cmd[3]));
         break;
       case 'itemframe':
-        const cmditemframe = '/execute %0$ entity @a[name="%1$",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%2$b}}] run ';
-        bot.chat(langformat(cmditemframe, ['unless', username, cmd[1]]) + `tellraw @a "${lang.itemframe.notienes}"`);
-        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `tellraw @a "${lang.itemframe.funciono}"`);
-        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `give ${username} item_frame{display:{Name:'{"text":"${lang.itemframe.nombre}","color":"#36CC57"}'},EntityTag:{Invisible:1b}} ${cmd[1]}`);
-        sleep(150);
-        bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `replaceitem entity ${username} weapon.mainhand air`);
+        if (!cmd[1]) helpcomando(bot, 'itemframe');
+        else {
+          const cmditemframe = '/execute %0$ entity @a[name="%1$",nbt={SelectedItem:{id:"minecraft:item_frame",Count:%2$b}}] run ';
+          bot.chat(langformat(cmditemframe, ['unless', username, cmd[1]]) + `tellraw @a "${lang.itemframe.notienes}"`);
+          bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `tellraw @a "${lang.itemframe.funciono}"`);
+          bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `give ${username} item_frame{display:{Name:'{"text":"${lang.itemframe.nombre}","color":"#36CC57"}'},EntityTag:{Invisible:1b}} ${cmd[1]}`);
+          sleep(150);
+          bot.chat(langformat(cmditemframe, ['if', username, cmd[1]]) + `replaceitem entity ${username} weapon.mainhand air`);
+        }
         break;
       case 'ping':
+        if (!cmd[1]) return;
         pingms(bot, cmd[1])
         break;
       case 'length':
-        var longitudcmd = cmd;
-        longitudcmd.shift();
-        longitudcmd = longitudcmd.join(' ');
-        longitudcmd = longitudcmd.length;
-        bot.chat(langformat(lang.longitud, [longitudcmd]));
+        if (!cmd[1]) helpcomando(bot, 'length');
+        else {
+          var longitudcmd = cmd;
+          longitudcmd.shift();
+          longitudcmd = longitudcmd.join(' ');
+          longitudcmd = longitudcmd.length;
+          bot.chat(langformat(lang.longitud, [longitudcmd]));
+        }
         break;
       case 'reverse':
-        var reverse = cmd;
-        reverse.shift();
-        reverse = reverse.join(' ').split('').reverse().join('');
-        bot.chat(reverse);
-        console.log(reverse);
+        if (!cmd[1]) helpcomando(bot, 'reverse');
+        else {
+          var reverse = cmd;
+          reverse.shift();
+          reverse = reverse.join(' ').split('').reverse().join('');
+          bot.chat(reverse);
+          console.log(reverse);
+        }
         break;
       case 'base64':
-        const elegido = cmd[1];
-        cmd.shift();
-        cmd.shift();
-        base64(bot, elegido, cmd.join(' '));
+        if (!cmd[2]) helpcomando(bot, 'base64');
+        else {
+          const elegido = cmd[1];
+          cmd.shift();
+          cmd.shift();
+          base64(bot, elegido, cmd.join(' '));
+        }
         break;
       case 'armorstand':
-        armorstand(bot, username, cmd[1])
+        if (!cmd[1]) helpcomando(bot, 'armorstand');
+        else armorstand(bot, username, cmd[1]);
         break;
       case 'calc':
-        calc(bot, +cmd[1], cmd[2], +cmd[3], cmd[4])
+        if (!cmd[3]) helpcomando(bot, 'calc');
+        else calc(bot, +cmd[1], cmd[2], +cmd[3], cmd[4])
         break;
       case 'xp':
-        xp(bot, +cmd[1], +cmd[2], cmd[3]);
+        if (!cmd[2]) helpcomando(bot, 'xp');
+        else xp(bot, +cmd[1], +cmd[2], cmd[3]);
         break;
       case 'help':
-        help(bot, cmd[1], cmd[2]);
+        helpcmd(bot, cmd[1], cmd[2]);
         break;
       case 'tag':
-        switch (cmd[1].toLowerCase()) {
+        if (!cmd[1]) helpcomando(bot, 'tag');
+        else switch (cmd[1].toLowerCase()) {
           case 'volumen':
             volumencmd(bot, username, parseInt(cmd[2]));
             break;
@@ -198,7 +218,8 @@ function inject(bot, lang, prefix, antiafk, subfixteams, spamearsplash, cantidad
         }
         break;
       case 'vote':
-        votecmd(bot, username, cmd[1], cmd[2]);
+        if (!cmd[2]) helpcomando(bot, 'vote');
+        else votecmd(bot, username, cmd[1], cmd[2]);
         break;
       case 'encuestas':
         encuestascmd(bot, parseInt(cmd[1]));
