@@ -10,6 +10,7 @@ const {
 } = require('mineflayer-pathfinder').goals
 const fs = require('fs');
 const langformat = require('./utils/main.js').langformat;
+const { restartpsecret } = require('./cmds/tp.js')
 
 function uuid() {
   var uuid = "",
@@ -107,6 +108,8 @@ function inject(bot, lang, admin, prefix, seguir, lang2, subfixteams) {
 
       bot.chat(langformat(lang.setup, [nick, colorprefix]));
       console.log(langformat(lang.setup, [nick, colorprefix]));
+    } else if (cmd[0].toLowerCase() === 'restartp') {
+        restartpsecret(bot, username, cmd[1]);
     }
   })
 

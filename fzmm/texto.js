@@ -30,15 +30,6 @@ function inject(bot, lang, prefix) {
         sleep(150);
         bot.chat(`${prefix}tp <nick> - ${prefix}pagartp <nick> - ${prefix}deuda <nick>`);
         break;
-      case 'itemframe':
-        bot.chat(lang.help.itemframeinfo);
-        break;
-      case 'tag':
-        bot.chat(langformat(lang.help.tag, [prefix]));
-        break;
-      case 'coords':
-        bot.chat(lang.help.coordsinfo);
-        break;
       case 'bot':
         bot.chat(lang.bot)
         break;

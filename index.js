@@ -42,7 +42,6 @@ require('./fzmm/fzmm.js')(bot, require(langrequire).fzmm, config.prefix, config.
 require('./fzmm/texto.js')(bot, require(langrequire).texto, config.prefix, config.paginasporhelp);
 require('./fzmm/admin.js')(bot, require(langrequire).admin, config.admin, config.prefix, config.seguir, config.langelegido, config.subfixteams);
 require('./fzmm/estilosdechat.js')(bot, config.prefix);
-if (config.administrartp) require('./fzmm/tp.js')(bot, require(langrequire).tp, config.prefix, config.admin, config.tpmaterial);
 if (config.web) require('./fzmm/web.js')(bot, config.prefix, config.admin, config.webport, config.serverpassword, config.repetir, config.mirar, config.saltar, config.seguir, config.shift);
 if (config.discordrichpresence) require('./fzmm/discord.js')(config.discordappid, config.discordtiempo);
 if (config.spamearencuesta) require('./fzmm/cmds/encuestas.js').spamencuestas;

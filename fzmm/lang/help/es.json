@@ -18,7 +18,7 @@
     },
     {
         "cmd": "color",
-        "args": "<color>",
+        "args": "<color / clear>",
         "msg": "Te cambia el nick a un color a tu elección"
     },
     {
