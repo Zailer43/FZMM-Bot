@@ -1,12 +1,19 @@
 module.exports = inject;
 
-function inject(bot, prefix, admin, webport, password, repetirestado, mirarestado, saltoestado, 
-                seguirestado, shiftestado) {
+import { prefix, botadmin, webport, serverpassword, repetir, mirar, saltar, seguir, shift } from '../datos/config.json'
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import colors from 'colors';
 
-  const express = require('express');
-  const path = require('path');
-  const bodyParser = require('body-parser');
-  const colors = require('colors');
+let repetirestado: boolean = repetir,
+  mirarestado: boolean = mirar,
+  saltoestado: boolean = saltar,
+  seguirestado: boolean = seguir,
+  shiftestado: boolean = shift;
+
+function inject(bot: any) {
+
   var app = express();
   app.use(bodyParser.urlencoded({
     extended: true
@@ -15,7 +22,7 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
   const fs = require("fs");
   const mineflayer = require('mineflayer');
   const encontradodirectorio = path.join(__dirname, 'datos/encontrado.json');
-  let logs = [];
+  let logs: Array<string> = [];
 
   app.set('views', path.join(__dirname, 'view'))
   app.set('view engine', 'hbs')
@@ -23,57 +30,20 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
   app.use(express.static(__dirname + '/public'));
 
   app.get('/', function (req, res) {
-    var data = {};
-    data.logs = logs;
+    var data: { logs: Array<string> } = { logs: logs };
     res.render('consola', data)
   });
 
   app.post('/', (req, res) => {
     console.log('Consola:'.yellow, req.body.texto);
     bot.chat(req.body.texto)
-    res.redirect(req.get('referer'));
-  });
-
-  app.get('/buscar', function (req, res) {
-    const buscarhtml = fs.readFileSync(path.join(__dirname, 'view/buscar.html'), {
-      encoding: 'utf8',
-      flag: 'r'
-    });
-    res.send(buscarhtml);
-  });
-
-  app.post('/buscar', (req, res) => {
-    const mcData = require('minecraft-data')(bot.version);
-    const searchBlock = req.body.block;
-
-    if (mcData.blocksByName[searchBlock] === undefined) return;
-    const ids = [mcData.blocksByName[searchBlock].id];
-    const encontrado = bot.findBlocks({
-      matching: ids,
-      maxDistance: 256,
-      count: 128
-    });
-
-    const json_encontrado = JSON.stringify(encontrado, null, 2);
-    fs.writeFileSync(encontradodirectorio, json_encontrado, 'utf-8');
-
-    console.log('Revisa encontrado.json, encontré ' + encontrado.length);
-    res.redirect(req.get('referer'));
-  });
-
-  app.get('/encontrado', function (req, res) {
-    const json_encontrado = fs.readFileSync(encontradodirectorio, 'utf-8');
-    const encontrado = JSON.parse(json_encontrado);
-    var data = {};
-    data.encontrado = encontrado;
-    res.render('encontrado', data)
+    req.get('referer');
   });
 
   app.get('/coords', (req, res) => {
     const json_coords = fs.readFileSync(path.join(__dirname, 'datos/coords.json'), 'utf-8');
     const coordenadas = JSON.parse(json_coords);
-    var data = {};
-    data.coords = coordenadas;
+    var data: { coords: coordenadainterface } = { coords: coordenadas };
     res.render('coords', data)
   });
 
@@ -111,7 +81,7 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
       GoalFollow
     } = require('mineflayer-pathfinder').goals;
     const mcData = require('minecraft-data')(bot.version);
-    target = bot.players[admin].entity;
+    let target = bot.players[botadmin].entity;
     seguirestado = !seguirestado
     if (seguirestado) {
       const defaultmove = new Movements(bot, mcData);
@@ -129,12 +99,12 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
   });
 
   app.get('/botones/login', function (req, res) {
-    bot.chat('/login ' + password);
+    bot.chat('/login ' + serverpassword);
     res.redirect('/');
   });
 
   app.get('/botones/register', function (req, res) {
-    bot.chat('/register ' + password + ' ' + password);
+    bot.chat('/register ' + serverpassword + ' ' + serverpassword);
     res.redirect('/');
   });
 
@@ -145,7 +115,7 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
 
   app.get('/botones/splash', function (req, res) {
     const splash = require('./datos/splash.json');
-    bot.chat(splash[parseInt(Math.random() * splash.length)])
+    bot.chat(splash[Math.round(Math.random() * splash.length)])
     res.redirect('/');
   });
 
@@ -166,7 +136,7 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
     console.log('Servidor abierto en http://localhost:'.yellow + webport + '/'.yellow);
   });
 
-  bot.on('messagesinjson', function (message) {
+  bot.on('messagesinjson', function (message: string) {
     //if (message.includes('Anti-AFK')) return;
     if (message === '[Bot] FraZaMaMe whispers to you: Anti-AFK' ||
       message === 'You whisper to [Bot] FraZaMaMe: Anti-AFK' ||
@@ -175,14 +145,14 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
     if (logs.length > 20) logs.shift();
   })
 
-  bot.on('chat2', function (username, message) {
+  bot.on('chat2', function (username: string, message: string) {
     if (username === bot.username) return;
     else if (repetirestado === true) bot.chat(message)
   })
 
   function mirarJugadorCercano() {
     if (mirarestado) {
-      const playerFilter = (entity) => entity.type === 'player';
+      const playerFilter = (entity: { type: string }) => entity.type === 'player';
       const playerEntity = bot.nearestEntity(playerFilter);
 
       if (!playerEntity || bot.pathfinder.isMoving()) return;
@@ -198,4 +168,14 @@ function inject(bot, prefix, admin, webport, password, repetirestado, mirarestad
   }
 
   bot.on('physicTick', mirarJugadorCercano);
+}
+
+interface coordenadainterface {
+  id: string;
+  fecha: string;
+  server: string;
+  lugar: string;
+  x: number;
+  y: number;
+  z: number;
 }

@@ -2,7 +2,7 @@
 	"langelegido": "es",
 	"version": "1.16.4",
 	"botnick": "FraZaMaMe",
-	"admin": "Zailer43",
+	"botadmin": "Zailer43",
 	"prefix": "!",
 	
 	"port": false,

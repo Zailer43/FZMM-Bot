@@ -5,7 +5,7 @@ export function calavera(bot: any) {
     bot.chat(langformat(random.wither, [Math.floor((Math.random() * 20) + 1).toString()]));
 }
 
-export function perdoanme(bot: any) {
+export function perdoname(bot: any) {
     let perdonado: number = Math.round(Math.random() * 2);
     if (perdonado) bot.chat(random.perdonado)
     else if (!perdonado) bot.chat(random.noperdono);

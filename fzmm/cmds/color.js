@@ -5,7 +5,7 @@ var main_js_1 = require("../utils/main.js");
 var config_json_1 = require("../datos/config.json");
 var es_json_1 = require("../lang/es.json");
 function colorcmd(bot, username, colorelegido, username2) {
-    if (username === config_json_1.admin && username2)
+    if (username === config_json_1.botadmin && username2)
         username = username2;
     var colores = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
     if (colores.includes(colorelegido)) {

@@ -17,7 +17,7 @@ function helpcmd(bot, comandoelegido, pagina) {
     }
     helpcomando(bot, comandoelegido);
     if (pagina) {
-        if (comandoelegido.toLowerCase() === 'page') {
+        if (comandoelegido && comandoelegido.toLowerCase() === 'page') {
             var paginanumero = parseInt(pagina);
             var maximopaginas = Math.ceil((es_json_1.default).length / config_json_1.paginasporhelp);
             var regexnumero = /^[0-9]{1,3}$/g;
@@ -37,11 +37,13 @@ function helpcmd(bot, comandoelegido, pagina) {
             }
         }
     }
-    else
+    else if (comandoelegido)
         bot.chat(es_json_2.helpmsg.comandoinexistente);
 }
 exports.helpcmd = helpcmd;
 function helpcomando(bot, comandoelegido) {
+    if (!comandoelegido)
+        return;
     var helpbuscado = es_json_1.default.find(function (comando) { return comando.cmd === comandoelegido.toLowerCase(); });
     if (helpbuscado) {
         if (helpbuscado.args)

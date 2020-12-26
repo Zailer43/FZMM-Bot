@@ -3,7 +3,7 @@ import { prefix, paginasporhelp } from '../datos/config.json'
 import help from '../lang/help/es.json';
 import { helpmsg } from '../lang/es.json';
 
-export function helpcmd(bot: any, comandoelegido: string, pagina: string) {
+export function helpcmd(bot: any, comandoelegido: string | undefined, pagina: string | undefined) {
     if (comandoelegido === '*') {
         let comandos: Array<string> = help.map(element => element.cmd);
 
@@ -14,7 +14,7 @@ export function helpcmd(bot: any, comandoelegido: string, pagina: string) {
 
     helpcomando(bot, comandoelegido);
     if (pagina) {
-        if (comandoelegido.toLowerCase() === 'page') {
+        if (comandoelegido && comandoelegido.toLowerCase() === 'page') {
 
             let paginanumero = parseInt(pagina);
             const maximopaginas = Math.ceil((help).length / paginasporhelp);
@@ -35,10 +35,11 @@ export function helpcmd(bot: any, comandoelegido: string, pagina: string) {
                 sleep(250)
             }
         }
-    } else bot.chat(helpmsg.comandoinexistente);
+    } else if (comandoelegido) bot.chat(helpmsg.comandoinexistente);
 }
 
-export function helpcomando(bot: any, comandoelegido: string) {
+export function helpcomando(bot: any, comandoelegido: string | undefined) {
+    if (!comandoelegido) return;
     const helpbuscado: helpinterface | undefined = help.find(comando => comando.cmd === comandoelegido.toLowerCase());
 
     if (helpbuscado) {

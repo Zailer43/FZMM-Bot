@@ -1,5 +1,5 @@
 import { langformat } from '../utils/main.js';
-import { prefix, admin, tpmaterial, administrartp } from '../datos/config.json';
+import { prefix, botadmin, tpmaterial, administrartp } from '../datos/config.json';
 import fs from 'fs';
 import path from 'path';
 import { tp } from '../lang/es.json';
@@ -65,7 +65,7 @@ export function pagartpcmd(bot: any, username: string, jugadorquepaga: string) {
     } else {
         let select = `@a[name="${jugadorquepaga}",nbt={SelectedItem:{id:"${tpmaterial}",Count:64b}}]`
         bot.chat(`/execute unless entity ${select} run tellraw @a "${tp.notienescuarzo}"`);
-        bot.chat(`/execute if entity ${select} run tellraw ${bot.username} "<${admin}> ${prefix}restartp ${username}"`);
+        bot.chat(`/execute if entity ${select} run tellraw ${bot.username} "<${botadmin}> ${prefix}restartp ${username}"`);
         bot.chat(`/execute if entity ${select} run clear ${jugadorquepaga} ${tpmaterial} 64`);
     }
 }
@@ -74,7 +74,7 @@ export function restartpsecret(bot: any, username: string, restarletp: string) {
     if (!administrartp) {
         bot.chat(tp.deshabilitados)
         return;
-    } else if (username != admin && !restarletp) return;
+    } else if (username != botadmin && !restarletp) return;
 
     let deudas: tpinterface = cargardatos();
     deudas[restarletp].deuda--;

@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.caraocruz = exports.perdoanme = exports.calavera = void 0;
+exports.caraocruz = exports.perdoname = exports.calavera = void 0;
 var main_js_1 = require("../utils/main.js");
 var es_json_1 = require("../lang/es.json");
 function calavera(bot) {
     bot.chat(main_js_1.langformat(es_json_1.random.wither, [Math.floor((Math.random() * 20) + 1).toString()]));
 }
 exports.calavera = calavera;
-function perdoanme(bot) {
+function perdoname(bot) {
     var perdonado = Math.round(Math.random() * 2);
     if (perdonado)
         bot.chat(es_json_1.random.perdonado);
     else if (!perdonado)
         bot.chat(es_json_1.random.noperdono);
 }
-exports.perdoanme = perdoanme;
+exports.perdoname = perdoname;
 function caraocruz(bot) {
     var caraocruz = Math.floor(Math.random() * 2);
     if (caraocruz <= 0.5)

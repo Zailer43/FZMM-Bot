@@ -65,7 +65,7 @@ function pagartpcmd(bot, username, jugadorquepaga) {
     else {
         var select = "@a[name=\"" + jugadorquepaga + "\",nbt={SelectedItem:{id:\"" + config_json_1.tpmaterial + "\",Count:64b}}]";
         bot.chat("/execute unless entity " + select + " run tellraw @a \"" + es_json_1.tp.notienescuarzo + "\"");
-        bot.chat("/execute if entity " + select + " run tellraw " + bot.username + " \"<" + config_json_1.admin + "> " + config_json_1.prefix + "restartp " + username + "\"");
+        bot.chat("/execute if entity " + select + " run tellraw " + bot.username + " \"<" + config_json_1.botadmin + "> " + config_json_1.prefix + "restartp " + username + "\"");
         bot.chat("/execute if entity " + select + " run clear " + jugadorquepaga + " " + config_json_1.tpmaterial + " 64");
     }
 }
@@ -75,7 +75,7 @@ function restartpsecret(bot, username, restarletp) {
         bot.chat(es_json_1.tp.deshabilitados);
         return;
     }
-    else if (username != config_json_1.admin && !restarletp)
+    else if (username != config_json_1.botadmin && !restarletp)
         return;
     var deudas = cargardatos();
     deudas[restarletp].deuda--;

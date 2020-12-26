@@ -1,9 +1,9 @@
 import { langformat} from '../utils/main.js'
-import { prefix, subfixteams, admin } from '../datos/config.json'
+import { prefix, subfixteams, botadmin } from '../datos/config.json'
 import { color } from '../lang/es.json';
 
 export function colorcmd(bot: any, username: string, colorelegido: string, username2: string | undefined) {
-    if (username === admin && username2) username = username2
+    if (username === botadmin && username2) username = username2
 
     const colores: Array<string> = ['aqua', 'black', 'blue', 'dark_aqua', 'dark_blue', 'dark_gray', 'dark_green', 'dark_purple', 'dark_red', 'gold', 'gray', 'green', 'light_purple', 'red', 'white', 'yellow'];
     if (colores.includes(colorelegido)) {
@@ -16,7 +16,7 @@ export function colorcmd(bot: any, username: string, colorelegido: string, usern
         bot.chat(color.nuevocolor);
     } else if (colorelegido === 'clear') {
         bot.chat(`/team modify ${username}${subfixteams} color reset`);
-        bot.chat(color.reseteado)
+        bot.chat(color.reseteado);
     } else {
         bot.chat(langformat(color.desconocido, [prefix]));
     }

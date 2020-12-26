@@ -3,17 +3,32 @@
         "antiafk": "Anti-AFK",
         "hi": "(^Ｕ^)ノ ~Hi",
         "movistardetect": "Hola, te recomiendo cambiar de compañia de internet, movistar no es muy bueno",
-        "longitud": "La longitud del mensaje es: %0$"
-    },
-    "coords": {
-        "mensaje": "Esas coords en el %0$ son: %1$ %2$",
-        "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
-        "error": "La sintaxis del comando es: %0$coords <dimension actual> <x> <z>"
+        "longitud": "La longitud del mensaje es: %0$",
+        "afk": {
+            "fin": "%0$, estuviste AFK durante %1$ minutos y %2$ segundos",
+            "nuevo": "Ahora estás afk",
+            "prefix": "[AFK] "
+        },
+        "coords": {
+            "mensaje": "Esas coords en el %0$ son: %1$ %2$",
+            "end": "wtf tas re loco mano esperate a la 1.23 cuando se pueda enlazar en el end",
+            "error": "La sintaxis del comando es: %0$coords <dimension actual> <x> <z>"
+        },
+        "itemframe": {
+            "nombre": "Item frame invisible",
+            "notienes": "Bot: No tienes la cantidad de item frames que especificaste en la mano",
+            "funciono": "Bot: Ahora tus itemframes son invisibles"
+        },
+        "mimir": {
+            "error": "No puedo dormir: ",
+            "zzz": "(￣o￣) . z Z",
+            "nocamas": "No hay camas y no planeo dormir en el piso de nuevo"
+        }
     },
     "color": {
         "nuevocolor": "¡Ya tienes un nuevo color!",
         "desconocido": "Color desconocido, intenta %0$colores",
-        "error": "Quizás intentabas ver los colores, es con %0$colores"
+        "reseteado": "Ya no tienes un color"
     },
     "ping": {
         "msg": "El ping de %0$ es %1$ ms",
@@ -43,11 +58,6 @@
         "es": "La UUID de %0$ es %1$",
         "nicks": "Nicks: %0$"
     },
-    "mimir": {
-        "error": "No puedo dormir: ",
-        "zzz": "(￣o￣) . z Z",
-        "nocamas": "No hay camas y no planeo dormir en el piso de nuevo"
-    },
     "stack": {
         "muygrande": "Error: Cantidad muy grande",
         "negativo": "Error: No entiendo como chucha vas a tener items negativos",
@@ -65,18 +75,8 @@
         "funciono": "Bot: Se han cambiado correctamente las propiedades del armor stand",
         "error": "Bot: No tienes un armorstand cerca"
     },
-    "itemframe": {
-        "nombre": "Item frame invisible",
-        "notienes": "Bot: No tienes la cantidad de item frames que especificaste en la mano",
-        "funciono": "Bot: Ahora tus itemframes son invisibles"
-    },
     "entidadescount": {
         "msg": "Hay un total de %0$ entidades cargadas, de esos lo que mayor hay es %1$ (%2$)"
-    },
-    "afk": {
-        "fin": "%0$, estuviste AFK durante %1$ minutos y %2$ segundos",
-        "nuevo": "Ahora estás afk",
-        "prefix": "[AFK] "
     },
     "tradeos": {
         "msg": "Para el proximo minuto de tradeo faltan %0$ minuto(s) y %1$ segundos",
@@ -102,18 +102,7 @@
         "cmd": "%0$%1$ %2$: %3$",
         "cmdsinargs": "%0$%1$: %2$"
     },
-    "texto": {
-        "test": "01110100 01100101 01110011 01110100",
-        "conectado": "~~---- <][> Conectado <][> ----~~",
-        "kick": "Fui kickeado por %0$",
-        "tell": "%0$ me susurró: %1$",
-        "help": {
-            "help": "%0$help <comando> o %1$help page <Numero de pagina>",
-            "textinfo": "Estos son comandos que únicamente muestran un texto",
-            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp"
-        },
-        "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/",
-        "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
+    "emotes": {
         "nuke": "Ｂ Ｏ Ｏ Ｏ Ｍ ！ ＼（〇_ｏ）／",
         "ak47": "(ﾒ￣▽￣)︻┳═一",
         "que": "(⊙_⊙)？",
@@ -126,7 +115,20 @@
         "magic": "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
         "calmate": "┳━┳ ノ( ゜-゜ノ)",
         "patas": "( ͡° ͜ʖ ͡°) hmm",
-        "zzz": "(￣o￣) . z Z",
+        "zzz": "(￣o￣) . z Z"
+    },
+    "texto": {
+        "test": "01110100 01100101 01110011 01110100",
+        "conectado": "~~---- <][> Conectado <][> ----~~",
+        "kick": "Fui kickeado por %0$",
+        "tell": "%0$ me susurró: %1$",
+        "help": {
+            "help": "%0$help <comando> o %1$help page <Numero de pagina>",
+            "textinfo": "Estos son comandos que únicamente muestran un texto",
+            "tpinfo": "En \"survi\" es legal hacerse tp a otro jugador aunque no es \"legit\", para compensar esto se cobra un stack de bloques de cuarzo por tp"
+        },
+        "bot": "Versión del bot: veintiquince - Texture pack que recomiendo: https://www.planetminecraft.com/texture-pack/fzmm/",
+        "colores": "aqua, black, blue, dark_aqua, dark_blue, dark_gray, dark_green, dark_purple, dark_red, gold, gray, green, light_purple, red, white, yellow",
         "defaultf": "▉",
         "errorf": "El mensaje puede ser de un máximo de 8 caracteres",
         "conteoinicio": "Preparados...",
