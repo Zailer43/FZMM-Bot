@@ -16,7 +16,6 @@ function inject(bot) {
     }));
     var fs = require("fs");
     var mineflayer = require('mineflayer');
-    var encontradodirectorio = path_1.default.join(__dirname, 'datos/encontrado.json');
     var logs = [];
     app.set('views', path_1.default.join(__dirname, 'view'));
     app.set('view engine', 'hbs');
@@ -26,7 +25,7 @@ function inject(bot) {
         res.render('consola', data);
     });
     app.post('/', function (req, res) {
-        console.log('Consola:'.yellow, req.body.texto);
+        console.log('Consola:', req.body.texto);
         bot.chat(req.body.texto);
         req.get('referer');
     });
@@ -109,7 +108,7 @@ function inject(bot) {
         res.redirect('/');
     });
     app.listen(config_json_1.webport, function () {
-        console.log('Servidor abierto en http://localhost:'.yellow + config_json_1.webport + '/'.yellow);
+        console.log('Servidor abierto en http://localhost:' + config_json_1.webport + '/');
     });
     bot.on('messagesinjson', function (message) {
         //if (message.includes('Anti-AFK')) return;

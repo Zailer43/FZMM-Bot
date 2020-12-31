@@ -1,6 +1,5 @@
 module.exports = inject;
 
-import colors from 'colors';
 import { sleep, langformat } from './utils/main.js';
 import { emotes, texto } from './lang/es.json';
 import { prefix } from './datos/config.json'
@@ -124,7 +123,7 @@ function inject(bot: any) {
   });
 
   bot.on('join', function (player: string) {
-    console.log('+ '.green + langformat(texto.entro, [player]));
+    console.log('+ ' + langformat(texto.entro, [player]));
   })
 
   bot.on('leave', function (player: string) {
@@ -132,12 +131,12 @@ function inject(bot: any) {
   })
 
   bot.on('connect', function () {
-    console.info((texto.conectado).green);
+    console.info((texto.conectado));
     //console.log(mcData.blocksByName.tnt)
   });
 
   bot.on('kicked', (reason: string) => {
-    console.log(langformat(texto.kick, [reason]).red);
+    console.log(langformat(texto.kick, [reason]));
   })
 
   bot.on('whisper', function (username: string, message: string) {

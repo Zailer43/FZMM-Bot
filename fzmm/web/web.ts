@@ -4,7 +4,6 @@ import { prefix, botadmin, webport, serverpassword, repetir, mirar, saltar, segu
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import colors from 'colors';
 
 let repetirestado: boolean = repetir,
   mirarestado: boolean = mirar,
@@ -21,7 +20,6 @@ function inject(bot: any) {
 
   const fs = require("fs");
   const mineflayer = require('mineflayer');
-  const encontradodirectorio = path.join(__dirname, 'datos/encontrado.json');
   let logs: Array<string> = [];
 
   app.set('views', path.join(__dirname, 'view'))
@@ -35,7 +33,7 @@ function inject(bot: any) {
   });
 
   app.post('/', (req, res) => {
-    console.log('Consola:'.yellow, req.body.texto);
+    console.log('Consola:', req.body.texto);
     bot.chat(req.body.texto)
     req.get('referer');
   });
@@ -133,7 +131,7 @@ function inject(bot: any) {
   });
 
   app.listen(webport, function () {
-    console.log('Servidor abierto en http://localhost:'.yellow + webport + '/'.yellow);
+    console.log('Servidor abierto en http://localhost:' + webport + '/');
   });
 
   bot.on('messagesinjson', function (message: string) {

@@ -124,17 +124,17 @@ function inject(bot) {
         }
     });
     bot.on('join', function (player) {
-        console.log('+ '.green + main_js_1.langformat(es_json_1.texto.entro, [player]));
+        console.log('+ ' + main_js_1.langformat(es_json_1.texto.entro, [player]));
     });
     bot.on('leave', function (player) {
         console.log('- ' + main_js_1.langformat(es_json_1.texto.salio, [player]));
     });
     bot.on('connect', function () {
-        console.info((es_json_1.texto.conectado).green);
+        console.info((es_json_1.texto.conectado));
         //console.log(mcData.blocksByName.tnt)
     });
     bot.on('kicked', function (reason) {
-        console.log(main_js_1.langformat(es_json_1.texto.kick, [reason]).red);
+        console.log(main_js_1.langformat(es_json_1.texto.kick, [reason]));
     });
     bot.on('whisper', function (username, message) {
         if (username === bot.username)
