@@ -23,6 +23,7 @@ import { helpcmd, helpcomando } from './cmds/help.js';
 import { volumencmd, sonidocmd, tageo } from './cmds/tag.js';
 import { encuestascmd, votecmd } from './cmds/encuestas.js';
 import { tpcmd, deudacmd, pagartpcmd, tptogglecmd } from './cmds/tp.js';
+import { prefixcmd } from './cmds/prefix.js';
 
 import { fzmm } from './lang/es.json';
 import { prefix, antiafk, subfixteams, spamearsplash } from './datos/config.json'
@@ -58,10 +59,10 @@ function inject(bot: any) {
         break;
       case 'tps':
         tpscmd(bot);
-        bot.chat('/tellraw ' + bot.username + ' [{"text":"' + prefix + 'entidadescount "},{"selector":"@e"}]');
+        bot.chat(`/tellraw ${bot.username} [{"text":"${prefix}entidadescount "},{"selector":"@e"}]`);
         break;
       case 'entidades':
-        bot.chat('/tellraw ' + bot.username + ' [{"text":"' + prefix + 'entidadescount "},{"selector":"@e"}]');
+        bot.chat(`/tellraw ${bot.username} [{"text":"${prefix}entidadescount "},{"selector":"@e"}]`);
         break;
       case 'uuid':
         uuidcmd(bot, username);
@@ -115,7 +116,7 @@ function inject(bot: any) {
         break;
     }
 
-    const cmd = message.split(' ');
+    const cmd: Array<string> = message.split(' ');
 
     switch (cmd[0].toLowerCase()) {
       case 'server':
@@ -245,6 +246,30 @@ function inject(bot: any) {
       case 'tptoggle':
         if (cmd[1]) tptogglecmd(bot, username, cmd[1].toLowerCase())
         break;
+      case 'prefix':
+        if (!cmd[1]) helpcomando(bot, 'prefix')
+        else switch (cmd[1].toLowerCase()) {
+          case 'estilos':
+            if (cmd[2]) prefixcmd.estilos(bot, username, parseInt(cmd[2]));
+            else prefixcmd.estilos(bot, username, undefined);
+            break;
+          case 'texto':
+            prefixcmd.texto(bot, username, cmd[2])
+            break;
+          case 'color':
+            if (cmd[2]) cmd[2] = cmd[2].toLowerCase();
+            prefixcmd.color(bot, username, cmd[3], cmd[2])
+            break;
+          case 'clear':
+            prefixcmd.clear(bot, username);
+            break;
+          case 'espacio':
+            prefixcmd.espaciado(bot, username);
+            break;
+          case 'galeria':
+            prefixcmd.galeria(bot, username, parseInt(cmd[2]));
+            break;
+        }
     }
   });
 

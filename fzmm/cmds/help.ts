@@ -11,7 +11,7 @@ export function helpcmd(bot: any, comandoelegido: string | undefined, pagina: st
         console.log(comandos);
         return;
     }
-
+    
     helpcomando(bot, comandoelegido);
     if (pagina) {
         if (comandoelegido && comandoelegido.toLowerCase() === 'page') {
@@ -35,7 +35,7 @@ export function helpcmd(bot: any, comandoelegido: string | undefined, pagina: st
                 sleep(250)
             }
         }
-    } else if (comandoelegido) bot.chat(helpmsg.comandoinexistente);
+    }
 }
 
 export function helpcomando(bot: any, comandoelegido: string | undefined) {
@@ -46,7 +46,7 @@ export function helpcomando(bot: any, comandoelegido: string | undefined) {
         if (helpbuscado.args) bot.chat(langformat(helpmsg.cmd, [prefix, helpbuscado.cmd, helpbuscado.args, helpbuscado.msg]));
         else return bot.chat(langformat(helpmsg.cmdsinargs, [prefix, helpbuscado.cmd, helpbuscado.msg]));
 
-    }
+    } else bot.chat(helpmsg.comandoinexistente);
 }
 
 interface helpinterface {

@@ -5,8 +5,9 @@ const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 import { pathfinder, Movements } from 'mineflayer-pathfinder'
 import { goals } from 'mineflayer-pathfinder';
 import fs from 'fs';
-import { langformat } from './utils/main.js';
+import { langformat, RGBrandom } from './utils/main.js';
 import { restartpsecret } from './cmds/tp.js';
+import { prefixcmd } from './cmds/prefix.js';
 import { admin } from './lang/es.json';
 import { botadmin, prefix, seguir, langelegido, subfixteams } from './datos/config.json';
 
@@ -89,25 +90,31 @@ function inject(bot: any) {
     }
 
     const cmd = message.split(' ');
-    if (cmd[0].toLowerCase() === 'setup') {
-      let color: string = '#',
-        prefix: string = '[Bot]',
-        nick: string = bot.username;
+    switch (cmd[0].toLowerCase()) {
+      case 'setup':
+        let color: string = RGBrandom(),
+          prefix: string = '[Bot]',
+          nick: string = bot.username;
 
-      for (var i = 0; i != 6; i++) color += Math.floor(Math.random() * 16).toString(16);
-      if (cmd[1]) nick = cmd[1];
-      if (cmd[2]) prefix = cmd[2];
-      if (cmd[3]) color = cmd[3];
+        if (cmd[1]) nick = cmd[1];
+        if (cmd[2]) prefix = cmd[2];
+        if (cmd[3]) color = cmd[3];
 
-      bot.chat(`/execute if entity @a[name="${nick}",team=!${nick}${subfixteams}] run team leave ${nick}`);
-      bot.chat(`/team add ${nick}${subfixteams}`);
-      bot.chat(`/team join ${nick}${subfixteams} ${nick}`);
-      bot.chat(`/team modify ${nick}${subfixteams} prefix {"text":"${prefix} ","color":"${color}"}`);
+        bot.chat(`/execute if entity @a[name="${nick}",team=!${nick}${subfixteams}] run team leave ${nick}`);
+        bot.chat(`/team add ${nick}${subfixteams}`);
+        bot.chat(`/team join ${nick}${subfixteams} ${nick}`);
+        bot.chat(`/team modify ${nick}${subfixteams} prefix {"text":"${prefix} ","color":"${color}"}`);
 
-      bot.chat(langformat(admin.setup, [nick, color]));
-      console.log(langformat(admin.setup, [nick, color]));
-    } else if (cmd[0].toLowerCase() === 'restartp') {
-      restartpsecret(bot, username, cmd[1]);
+        bot.chat(langformat(admin.setup, [nick, color]));
+        console.log(langformat(admin.setup, [nick, color]));
+        break;
+      case 'restartp':
+        restartpsecret(bot, username, cmd[1]);
+        break;
+      case 'prefix':
+        if (!cmd[1] || !cmd[2]) return;
+        if (cmd[1].toLowerCase() === 'addgaleria') prefixcmd.addgaleria(bot, cmd[2]);
+        break;
     }
   })
 

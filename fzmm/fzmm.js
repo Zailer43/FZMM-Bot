@@ -26,6 +26,7 @@ var help_js_1 = require("./cmds/help.js");
 var tag_js_1 = require("./cmds/tag.js");
 var encuestas_js_1 = require("./cmds/encuestas.js");
 var tp_js_1 = require("./cmds/tp.js");
+var prefix_js_1 = require("./cmds/prefix.js");
 var es_json_1 = require("./lang/es.json");
 var config_json_1 = require("./datos/config.json");
 function inject(bot) {
@@ -56,10 +57,10 @@ function inject(bot) {
                 break;
             case 'tps':
                 tps_js_1.tpscmd(bot);
-                bot.chat('/tellraw ' + bot.username + ' [{"text":"' + config_json_1.prefix + 'entidadescount "},{"selector":"@e"}]');
+                bot.chat("/tellraw " + bot.username + " [{\"text\":\"" + config_json_1.prefix + "entidadescount \"},{\"selector\":\"@e\"}]");
                 break;
             case 'entidades':
-                bot.chat('/tellraw ' + bot.username + ' [{"text":"' + config_json_1.prefix + 'entidadescount "},{"selector":"@e"}]');
+                bot.chat("/tellraw " + bot.username + " [{\"text\":\"" + config_json_1.prefix + "entidadescount \"},{\"selector\":\"@e\"}]");
                 break;
             case 'uuid':
                 uuid_js_1.uuidcmd(bot, username);
@@ -270,6 +271,35 @@ function inject(bot) {
                 if (cmd[1])
                     tp_js_1.tptogglecmd(bot, username, cmd[1].toLowerCase());
                 break;
+            case 'prefix':
+                if (!cmd[1])
+                    help_js_1.helpcomando(bot, 'prefix');
+                else
+                    switch (cmd[1].toLowerCase()) {
+                        case 'estilos':
+                            if (cmd[2])
+                                prefix_js_1.prefixcmd.estilos(bot, username, parseInt(cmd[2]));
+                            else
+                                prefix_js_1.prefixcmd.estilos(bot, username, undefined);
+                            break;
+                        case 'texto':
+                            prefix_js_1.prefixcmd.texto(bot, username, cmd[2]);
+                            break;
+                        case 'color':
+                            if (cmd[2])
+                                cmd[2] = cmd[2].toLowerCase();
+                            prefix_js_1.prefixcmd.color(bot, username, cmd[3], cmd[2]);
+                            break;
+                        case 'clear':
+                            prefix_js_1.prefixcmd.clear(bot, username);
+                            break;
+                        case 'espacio':
+                            prefix_js_1.prefixcmd.espaciado(bot, username);
+                            break;
+                        case 'galeria':
+                            prefix_js_1.prefixcmd.galeria(bot, username, parseInt(cmd[2]));
+                            break;
+                    }
         }
     });
     bot.on('entidadescount', function (message) {

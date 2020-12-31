@@ -19,6 +19,7 @@
 	"paginasporhelp": 4,
 	"encuestasporpagina": 3,
 	"subfixteams": "_color",
+	"usarcommandblock": true,
 
 	"repetir": false,
 	"mirar": true,

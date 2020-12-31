@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.botcmdblock = exports.langformat = exports.sleep = void 0;
+exports.RGBrandom = exports.botcmdblock = exports.langformat = exports.sleep = void 0;
 var config_json_1 = require("../datos/config.json");
 var vec3_1 = require("vec3");
 function sleep(ms) {
@@ -39,3 +39,10 @@ function botcmdblock(bot, message) {
     }
 }
 exports.botcmdblock = botcmdblock;
+function RGBrandom() {
+    var color = '#';
+    for (var i = 0; i != 6; i++)
+        color += Math.floor(Math.random() * 16).toString(16);
+    return color;
+}
+exports.RGBrandom = RGBrandom;

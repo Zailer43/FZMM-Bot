@@ -37,8 +37,6 @@ function helpcmd(bot, comandoelegido, pagina) {
             }
         }
     }
-    else if (comandoelegido)
-        bot.chat(es_json_2.helpmsg.comandoinexistente);
 }
 exports.helpcmd = helpcmd;
 function helpcomando(bot, comandoelegido) {
@@ -51,5 +49,7 @@ function helpcomando(bot, comandoelegido) {
         else
             return bot.chat(main_js_1.langformat(es_json_2.helpmsg.cmdsinargs, [config_json_1.prefix, helpbuscado.cmd, helpbuscado.msg]));
     }
+    else
+        bot.chat(es_json_2.helpmsg.comandoinexistente);
 }
 exports.helpcomando = helpcomando;

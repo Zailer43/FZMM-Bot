@@ -151,5 +151,10 @@
         "cmd": "encuestas",
         "args": "<página>",
         "msg": "Mira las encuestas disponibles"
+    },
+    {
+        "cmd": "prefix",
+        "args": "[estilos / color / texto / espacio / clear / galeria]",
+        "msg": "Crea tu propio prefix o usa uno de la galeria"
     }
 ]

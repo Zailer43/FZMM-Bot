@@ -209,5 +209,17 @@
         "sonidocambiado": "Se ha cambiado el sonido correctamente",
         "sonidosdisponibles": "Los sonidos disponbles son: %0$",
         "sonidoinexistente": "Ese sonido no existe, pero si hablas con Zailer puede agregarlo"
+    },
+    "prefixlang": {
+        "estilos": "Puedes cambiar el estilo de los lados de tu prefix colocando %0$prefix estilos <número>",
+        "texto": "Para cambiar el texto usa %0$prefix texto <texto> (PD: para poner espacio pon /e/)",
+        "color": "Uso: %0$prefix color [texto / lados] <color (Opcional, admite RGB)>",
+        "prefixremovido": "Ya no tienes prefix",
+        "espaciosestado": "Ahora tienes los espacios en: %0$",
+        "addgaleria": "Se ha añadido el prefix a nuestra galeria para que más gente pueda usarlo!",
+        "colorcambiado": "Se ha cambiado el color a: ",
+        "textomuylargo": "El tamaño máximo de prefix es 12",
+        "estiloinvalido": "El estilo que elegiste no existe",
+        "cambiado": "Cambiaste tu prefix, puedes verlo por tab o chat"
     }
 }

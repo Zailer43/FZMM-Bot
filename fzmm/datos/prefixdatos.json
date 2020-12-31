@@ -1,0 +1,194 @@
+{
+  "estilos": [
+    [
+      "",
+      ""
+    ],
+    [
+      "[",
+      "]"
+    ],
+    [
+      "{",
+      "}"
+    ],
+    [
+      "(",
+      ")"
+    ],
+    [
+      "/",
+      "\\"
+    ],
+    [
+      "«",
+      "»"
+    ],
+    [
+      "『",
+      "』"
+    ],
+    [
+      "﴾",
+      "﴿"
+    ],
+    [
+      "《",
+      "》"
+    ],
+    [
+      "→",
+      "←"
+    ],
+    [
+      "⁅",
+      "⁆"
+    ],
+    [
+      "⋮",
+      "⋮"
+    ],
+    [
+      "⊏",
+      "⊐"
+    ],
+    [
+      "≺",
+      "≻"
+    ],
+    [
+      "＜",
+      "＞"
+    ],
+    [
+      "⟨",
+      "⟩"
+    ],
+    [
+      "¡",
+      "!"
+    ],
+    [
+      "¿",
+      "?"
+    ],
+    [
+      "✖",
+      "✖"
+    ],
+    [
+      "♪",
+      "♪"
+    ],
+    [
+      "⨇",
+      "⨈"
+    ],
+    [
+      "⫷",
+      "⫸"
+    ]
+  ],
+  "galeria": [
+    {
+      "lados": {
+        "estilo": [
+          "«",
+          "»"
+        ],
+        "color": "#c31c58",
+        "espacios": true
+      },
+      "mensaje": {
+        "texto": "❀",
+        "color": "#d3d300"
+      }
+    },
+    {
+      "lados": {
+        "estilo": [
+          "『",
+          "』"
+        ],
+        "color": "#efa725",
+        "espacios": false
+      },
+      "mensaje": {
+        "texto": "⚔",
+        "color": "red"
+      }
+    },
+    {
+      "lados": {
+        "estilo": [
+          "→",
+          "←"
+        ],
+        "color": "#a520a5",
+        "espacios": true
+      },
+      "mensaje": {
+        "texto": "Dir es gei",
+        "color": "#b83535"
+      }
+    },
+    {
+      "lados": {
+        "estilo": [
+          "[",
+          "]"
+        ],
+        "color": "#ee9a20",
+        "espacios": false
+      },
+      "mensaje": {
+        "texto": "1",
+        "color": "#eeee20"
+      }
+    },
+    {
+      "lados": {
+        "estilo": [
+          "✖",
+          "✖"
+        ],
+        "color": "#4bccee",
+        "espacios": false
+      },
+      "mensaje": {
+        "texto": "TheGame",
+        "color": "#6e9eba"
+      }
+    },
+    {
+      "lados": {
+        "estilo": [
+          "﴾",
+          "﴿"
+        ],
+        "color": "#a6cbd2",
+        "espacios": true
+      },
+      "mensaje": {
+        "texto": "Bokkita",
+        "color": "yellow"
+      }
+    }
+  ],
+  "usuarios": {
+    "Zailer43": {
+      "lados": {
+        "estilo": [
+          "♪",
+          "♪"
+        ],
+        "color": "#a520a5",
+        "espacios": true
+      },
+      "mensaje": {
+        "texto": "asd",
+        "color": "#79fc84"
+      }
+    }
+  }
+}

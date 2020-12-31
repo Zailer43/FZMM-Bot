@@ -11,6 +11,7 @@ var mineflayer_pathfinder_2 = require("mineflayer-pathfinder");
 var fs_1 = __importDefault(require("fs"));
 var main_js_1 = require("./utils/main.js");
 var tp_js_1 = require("./cmds/tp.js");
+var prefix_js_1 = require("./cmds/prefix.js");
 var es_json_1 = require("./lang/es.json");
 var config_json_1 = require("./datos/config.json");
 function uuid() {
@@ -82,25 +83,31 @@ function inject(bot) {
                 break;
         }
         var cmd = message.split(' ');
-        if (cmd[0].toLowerCase() === 'setup') {
-            var color = '#', prefix_1 = '[Bot]', nick = bot.username;
-            for (var i = 0; i != 6; i++)
-                color += Math.floor(Math.random() * 16).toString(16);
-            if (cmd[1])
-                nick = cmd[1];
-            if (cmd[2])
-                prefix_1 = cmd[2];
-            if (cmd[3])
-                color = cmd[3];
-            bot.chat("/execute if entity @a[name=\"" + nick + "\",team=!" + nick + config_json_1.subfixteams + "] run team leave " + nick);
-            bot.chat("/team add " + nick + config_json_1.subfixteams);
-            bot.chat("/team join " + nick + config_json_1.subfixteams + " " + nick);
-            bot.chat("/team modify " + nick + config_json_1.subfixteams + " prefix {\"text\":\"" + prefix_1 + " \",\"color\":\"" + color + "\"}");
-            bot.chat(main_js_1.langformat(es_json_1.admin.setup, [nick, color]));
-            console.log(main_js_1.langformat(es_json_1.admin.setup, [nick, color]));
-        }
-        else if (cmd[0].toLowerCase() === 'restartp') {
-            tp_js_1.restartpsecret(bot, username, cmd[1]);
+        switch (cmd[0].toLowerCase()) {
+            case 'setup':
+                var color = main_js_1.RGBrandom(), prefix_1 = '[Bot]', nick = bot.username;
+                if (cmd[1])
+                    nick = cmd[1];
+                if (cmd[2])
+                    prefix_1 = cmd[2];
+                if (cmd[3])
+                    color = cmd[3];
+                bot.chat("/execute if entity @a[name=\"" + nick + "\",team=!" + nick + config_json_1.subfixteams + "] run team leave " + nick);
+                bot.chat("/team add " + nick + config_json_1.subfixteams);
+                bot.chat("/team join " + nick + config_json_1.subfixteams + " " + nick);
+                bot.chat("/team modify " + nick + config_json_1.subfixteams + " prefix {\"text\":\"" + prefix_1 + " \",\"color\":\"" + color + "\"}");
+                bot.chat(main_js_1.langformat(es_json_1.admin.setup, [nick, color]));
+                console.log(main_js_1.langformat(es_json_1.admin.setup, [nick, color]));
+                break;
+            case 'restartp':
+                tp_js_1.restartpsecret(bot, username, cmd[1]);
+                break;
+            case 'prefix':
+                if (!cmd[1] || !cmd[2])
+                    return;
+                if (cmd[1].toLowerCase() === 'addgaleria')
+                    prefix_js_1.prefixcmd.addgaleria(bot, cmd[2]);
+                break;
         }
     });
     bot.on('guardarcoord', function (username, x, y, z, lugar) {
